@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/img/colega.png">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styleCertificaciones.css">
+    <title>Administra Tus certificaciones</title>
+    <script type="module" src="/js/certificaciones.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card mb-4 mt-4 bg-transparent text-white border-white">
+            <div class="card-header border-white">Registrar nueva certificación </div>
+            <div class="card-body">
+                <form id="form-registrar-curso">
+                    <div class="form-group">
+                        <label for="titulo-certificacion">Titulo de certificación</label>
+                        <input type="text" id="titulo-certificacion" class="form-control bg-transparent text-white border-white custom-placeholder" placeholder="Ejemplo: ASO 912:09" required>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="des-certificacion">Descripción de certificación</label>
+                        <textarea id="des-certificacion" class="form-control bg-transparent text-white border-white custom-placeholder"></textarea>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="precio-certificacion">Precio</label>
+                        <input type="number" step="0.01" min="0.1" id="precio-certificacion" class="form-control bg-transparent text-white border-white custom-placeholder" placeholder="$19.99" required>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="curso-certificacion">Curso para certificar</label>
+                        <select id="curso-certificacion" class="form-select bg-transparent text-white border-white" required>
+                            <option value="">Seleciona</option>
+                            <option value="Curso Prueba">curso11</option>
+                            <option value="Curso Prueba">Curso12</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3 d-flex justify-content-end">
+                        <button class="btn btn-outline-secondary" id="bnt-add-certificacion">Add</button>
+                    </div> 
+                </form>
+            </div>
+        </div>
+        <div id="courses"></div>
+    </div>
+</body>
+
+</html>
