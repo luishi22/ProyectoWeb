@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, getDocs, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDocs, onSnapshot, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -42,22 +42,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     onSnapshot(collectionCertification, (sn) => {
         div.innerHTML = ``
         const row = document.createElement("div");
-        row.className = "row";
+        row.className = "row g-3";
         sn.forEach((doc) => {
             const certification = doc.data()
             const cert = doc.id;
             const col = document.createElement("div")
-            col.className = "col-md-3"
+            col.className = "col-12 col-md-6 col-lg-4"
             col.innerHTML = `
-            <div class="card mb-4" ">
-  <img src="/assets/img/certificate.png"  class="card-img-top" alt="...">
-  <div class="card-body">
+            <div class="card">
+  <img src="/assets/img/certi.png"  class="card-img-top" alt="...">
+  <div class="card-body ">
     <h5 class="card-title">${certification.title}</h5>
     <p class="card-text">Para el curso: ${certification.curso}</p>
     <p class="card-text">${certification.description}</p>
     <p class="card-text bold"> $${certification.precio} </p>
     <button class="btn btn-primary btn-delete" data-id="${cert}"><i class="fa-solid fa-trash"></i></button>
-    <button class="btn btn-primary btn-edit" data-id="${cert} "><i class="fa-regular fa-pen-to-square"></i></button>
+    <button class="btn btn-primary btn-edit" data-id="${cert}"><i class="fa-regular fa-pen-to-square"></i></button>
   </div>
 </div> `
             console.log(cert)
@@ -68,7 +68,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         btnsDelete.forEach(btn => {
             console.log("entro btns")
             btn.addEventListener("click", (e) => {
-                console.log(e.currentTarget.getAttribute("data-id"))
+                const id = e.currentTarget.getAttribute("data-id")
+                deleteDoc(doc(db, "certifications", id));
+                console.log("se elimino correctamente")
+            })
+        })
+        const btnsEdit = div.querySelectorAll(".btn-edit");
+        btnsEdit.forEach(btn => {
+            console.log("edit btns")
+            btn.addEventListener("click", async (e) => {
+                const id = (e.currentTarget.getAttribute("data-id"))
+                console.log(id)
+                const docSnap = await getDoc(doc(db, "certifications", id));
+                if (docSnap.exists()) {
+                    const task = docSnap.data()
+                    const certificacionForm = document.getElementById("form-registrar-curso")
+                    certificacionForm["titulo-certificacion"].value = task.title
+                    certificacionForm["precio-certificacion"].value = task.precio
+                    certificacionForm["curso-certificacion"].value = task.curso
+                    certificacionForm["des-certificacion"].value = task.description
+                } else {
+                    // docSnap.data() will be undefined in this case
+                    console.log("No such document!");
+                }
             })
         })
     })
