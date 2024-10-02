@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, getDocs, onSnapshot, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -31,7 +31,8 @@ const saveCertification = async (title, precio, curso, description) => {
         description,
     })
 }
-// trae los datos de la bd nosql
+// para editar ocupo el id
+let idMarcador
 
 //cargar las certificaciones guardadas
 document.addEventListener("DOMContentLoaded", async () => {
@@ -64,6 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             row.appendChild(col)
         })
         div.appendChild(row)
+        cargarCursos()
         const btnsDelete = div.querySelectorAll(".btn-delete");
         btnsDelete.forEach(btn => {
             console.log("entro btns")
@@ -87,8 +89,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     certificacionForm["precio-certificacion"].value = task.precio
                     certificacionForm["curso-certificacion"].value = task.curso
                     certificacionForm["des-certificacion"].value = task.description
+                    document.getElementById("bnt-add-certificacion").textContent = "Editar"
+                    idMarcador = id;
                 } else {
-                    // docSnap.data() will be undefined in this case
                     console.log("No such document!");
                 }
             })
@@ -96,15 +99,69 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
 });
 
+async function editarCertificacion(data) {
+    try {
+        // Referencia al documento con el ID dado
 
+        // Actualiza los campos que desees en el documento
+        await updateDoc(doc(db, "certifications", idMarcador), {
+            title: data.title,
+            precio: data.precio,
+            curso: data.curso,
+            description: data.description
+        });
+
+        console.log("Documento actualizado exitosamente");
+        document.getElementById("bnt-add-certificacion").textContent = "Agregar"
+    } catch (error) {
+        console.error("Error al actualizar el documento: ", error);
+    }
+}
+async function cargarCursos() {
+    const collectionCourses = collection(db, "courses")
+    const selectCourses = document.getElementById("curso-certificacion")
+
+    onSnapshot(collectionCourses, (sn) => {
+        const optionCourses1 = document.createElement("option")
+            optionCourses1.value = "";
+            optionCourses1.textContent = "-- Elige un curso --";
+            selectCourses.appendChild(optionCourses1)
+        sn.forEach((doc) => {
+            const courses = doc.data()
+            console.log(courses.title)
+            const optionCourses = document.createElement("option")
+            optionCourses.value = courses.title;
+            optionCourses.textContent = courses.title;
+            selectCourses.appendChild(optionCourses)
+        })
+    })
+}
 
 certificacionForm.addEventListener("submit", async (e) => {
+
     e.preventDefault()
     const title = certificacionForm["titulo-certificacion"]
     const precio = certificacionForm["precio-certificacion"]
     const curso = certificacionForm["curso-certificacion"]
     const description = certificacionForm["des-certificacion"]
-    await saveCertification(title.value, precio.value, curso.value, description.value)
+    if (document.getElementById("bnt-add-certificacion").textContent == "Editar") {
+        const data = {
+            title: title.value,
+            precio: precio.value,
+            curso: curso.value,
+            description: description.value
+        }
+        editarCertificacion(data)
+
+
+    } else {
+
+        await saveCertification(title.value, precio.value, curso.value, description.value)
+    }
+    title.value = ""
+    precio.value = ""
+    curso.value = ""
+    description.value = ""
 
 })
 
