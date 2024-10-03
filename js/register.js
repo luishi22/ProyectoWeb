@@ -1,3 +1,5 @@
+// ESTE ARCHIVO QUEDA EN DESHUSO PERO LO DEJO POR SI ACASO SE UTILIZA Att: Bryan Padilla
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
