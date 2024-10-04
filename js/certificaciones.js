@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
 import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
+import { showToast } from "../js/showToast.js "
 
 const firebaseConfig = {
     apiKey: "AIzaSyDzIK9G9v1NalhLyQZW83z2IG3Qi8vDuxs",
@@ -30,13 +30,13 @@ const saveCertification = async (title, precio, curso, description) => {
         curso,
         description,
     })
+    showToast("Curso creado exitosamente")
 }
 // para editar ocupo el id
 let idMarcador
 
 //cargar las certificaciones guardadas
 document.addEventListener("DOMContentLoaded", async () => {
-    console.log("entro")
     const div = document.getElementById("courses")
     const collectionCertification = collection(db, "certifications")
 
@@ -68,11 +68,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         cargarCursos()
         const btnsDelete = div.querySelectorAll(".btn-delete");
         btnsDelete.forEach(btn => {
-            console.log("entro btns")
             btn.addEventListener("click", (e) => {
                 const id = e.currentTarget.getAttribute("data-id")
                 deleteDoc(doc(db, "certifications", id));
-                console.log("se elimino correctamente")
+                showToast(`Curso eliminado`,"error")
+
             })
         })
         const btnsEdit = div.querySelectorAll(".btn-edit");
@@ -111,16 +111,16 @@ async function editarCertificacion(data) {
             description: data.description
         });
 
-        console.log("Documento actualizado exitosamente");
+        showToast("Curso editado correctamente")
         document.getElementById("bnt-add-certificacion").textContent = "Agregar"
     } catch (error) {
-        console.error("Error al actualizar el documento: ", error);
+        showToast("Error al editar el curso", "error")
     }
 }
 async function cargarCursos() {
     const collectionCourses = collection(db, "courses")
     const selectCourses = document.getElementById("curso-certificacion")
-
+    selectCourses.innerHTML=""
     onSnapshot(collectionCourses, (sn) => {
         const optionCourses1 = document.createElement("option")
             optionCourses1.value = "";
@@ -152,11 +152,12 @@ certificacionForm.addEventListener("submit", async (e) => {
             description: description.value
         }
         editarCertificacion(data)
-
+        
 
     } else {
 
         await saveCertification(title.value, precio.value, curso.value, description.value)
+        
     }
     title.value = ""
     precio.value = ""
