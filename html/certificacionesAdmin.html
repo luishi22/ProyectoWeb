@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/img/colega.png">
+    <title>Administra Tus certificaciones</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/css/styleCertificaciones.css">
+    <script src="../js/certificaciones.js" type="module" ></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card mb-4 mt-4">
+            <div class="card-header ">Registrar nueva certificación </div>
+            <div class="card-body">
+                <form id="form-registrar-curso">
+                    <div class="form-group">
+                        <label for="titulo-certificacion">Titulo de certificación</label>
+                        <input type="text" id="titulo-certificacion" class="form-control" placeholder="Ejemplo: ASO 912:09" required>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="des-certificacion">Descripción de certificación</label>
+                        <textarea id="des-certificacion" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="precio-certificacion">Precio</label>
+                        <input type="number" step="0.01" min="0.1" id="precio-certificacion" class="form-control" placeholder="$19.99" required>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="curso-certificacion">Curso para certificar</label>
+                        <select id="curso-certificacion" class="form-select" required>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3 d-flex justify-content-end">
+                        <button class="btn btn-outline-secondary" id="bnt-add-certificacion">Agregar</button>
+                    </div> 
+                </form>
+            </div>
+        </div>
+        <div id="courses"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+
+</html>

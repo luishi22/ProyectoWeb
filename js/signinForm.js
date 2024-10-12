@@ -1,4 +1,5 @@
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js"
+import { getFirestore, getDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 import { auth } from "./firebase.js"
 import { showToast } from "./showToast.js"
 
@@ -9,10 +10,13 @@ signingForm.addEventListener('submit', async e => {
 
     const email = signingForm['signin-email'].value
     const password = signingForm['signin-password'].value
+    
+    const db = getFirestore();
 
     try {
         const userCredentials = await signInWithEmailAndPassword(auth, email, password)
         console.log(userCredentials)
+        const user = userCredentials.user;
 
         const signinModal = document.querySelector('#signinModal')
         const modal = bootstrap.Modal.getInstance(signinModal)
@@ -20,6 +24,17 @@ signingForm.addEventListener('submit', async e => {
         modal.hide()
         
         showToast("Haz iniciado sesion con "+userCredentials.user.email)
+
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+        } else {
+            // docSnap.data() will be undefined in this case
+            console.log("No such document!");
+        }
+
     } catch (error) {
         if(error.code === "auth/wrong-password"){
             showToast("Contraseña incorrecta", "error")
