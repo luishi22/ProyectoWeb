@@ -36,6 +36,16 @@ btnFacebook.addEventListener('click', async () => {
         const modal = bootstrap.Modal.getInstance(signinModal)
         modal.hide()
 
+        const docRef1 = doc(db, "users", user.uid);
+        const docSnap1 = await getDoc(docRef1);
+
+        if (docSnap1.exists()) {
+            console.log("Document data:", docSnap1.data());
+        } else {
+            // docSnap.data() will be undefined in this case
+            console.log("No such document!");
+        }
+
         //showToast("Bienvenido "+userCredentials.user.displayName)
     } catch (error) {
         console.log(error.code);
