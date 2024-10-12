@@ -18,7 +18,16 @@ const app = initializeApp(firebaseConfig);
 
 // traer la base de datos
 const db = getFirestore(app);
-
+const saveCompra = async (title, precio, curso, description) => {
+    const certificationRef = doc(collection(db, "certifications"))
+    await setDoc(certificationRef, {
+        title,
+        precio,
+        curso,
+        description,
+    })
+    showToast("Curso creado exitosamente")
+}
 document.addEventListener("DOMContentLoaded", async () => {
     const div = document.getElementById("courses")
     const collectionCertification = collection(db, "certifications")
@@ -40,12 +49,52 @@ document.addEventListener("DOMContentLoaded", async () => {
     <p class="card-text">Para el curso: ${certification.curso}</p>
     <p class="card-text">${certification.description}</p>
     <p class="card-text bold"> $${certification.precio} </p>
-    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalPago">Obtener curso</button>
+    <button class="btn btn-outline-success btn-comprar" data-bs-toggle="modal" data-bs-target="#modalPago" data-id="${cert}" id="${cert}">Obtener curso</button>
   </div>
 </div> `
             row.appendChild(col)
         })
         div.appendChild(row)
-        
+        const btnsDelete = div.querySelectorAll(".btn-comprar");
+        btnsDelete.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const id = e.currentTarget.getAttribute("data-id")
+                console.log(id)
+                SimularPago(id)
+            })
+        })
     })
 });
+function SimularPago(id) {
+    const btnComprar = document.getElementById("modalComprar")
+    btnComprar.addEventListener("click", function (e) {
+        e.preventDefault()
+        const formPasarelaPago = document.getElementById("form-pasarela-pago")
+        const email = formPasarelaPago["email-pago"].value
+        const dueño = formPasarelaPago["nombreTarjeta-pago"].value
+        const numTar = formPasarelaPago["numero-pago"].value
+        const mes = formPasarelaPago["mes-pago"].value
+        const anho = formPasarelaPago["año-pago"].value
+        const cvv = formPasarelaPago["cvv-pago"].value
+        if (email !== "" && dueño !== "" && numTar !== "" && mes !== "" && anho !== "") {
+            if (cvv.length == 3) {
+                if (numTar.length == 19) {
+                    showToast("Compra realizada con éxito")
+                    const btnChange = document.getElementById(id)
+                    console.log(btnChange.textContent)
+                    btnChange.textContent = "Realizar Test"
+                    btnChange.setAttribute('data-bs-target', '#modalTest');
+                } else {
+                    showToast("Número de tarjeta, es incorrecto", "error")
+                }
+            } else {
+                showToast("CVV, es incorrecto", "error")
+            }
+        } else {
+            showToast("Ingrese todos los datos", "error")
+        }
+
+    })
+
+}
+

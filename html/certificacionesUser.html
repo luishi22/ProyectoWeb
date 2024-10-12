@@ -22,7 +22,25 @@
         <div id="courses" class="mt-4"></div>
         <!--Modal de pago por curso-->
     </div>
-    <!-- Modal -->
+    <!--Modal test-->
+    <div class="modal fade" id="modalTest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Realiza tu test</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Te hemos enviado un correo electrónico para la realización de tu examen</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Ir a mi test</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Modal pago-->
     <div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPago" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content glowing-border">
@@ -34,21 +52,13 @@
                     <form id="form-pasarela-pago">
                         <div class="row">
                             <div class="col-md-6" id="datosPersonales">
-                                <div class="form-group">
-                                    <label for="nombre-pago">Nombre completo: </label>
-                                    <input type="text" id="nombre-pago" class="form-control"
-                                        placeholder="Juan Francisco Pérez López" required>
-                                </div>
+                                
                                 <div class="form-group mt-3">
                                     <label for="email-pago">Email:</label>
                                     <input type="email" id="email-pago" class="form-control"
                                         placeholder="example@example.com" required>
                                 </div>
-                                <div class="form-group mt-3">
-                                    <label for="direccion-pago">Dirección: </label>
-                                    <input type="text" id="direccion-pago" class="form-control"
-                                        placeholder="Colonia - Casa # - Poligono/pasaje - departamento, distrito" required>
-                                </div>
+                               
                             </div>
                             <div class="col-md-6 mt-3" id="paymentDatos">
                                 <div class="form-group">
@@ -92,7 +102,7 @@
                             </div>
                             <div class="form-group col-6">
                                 <label for="cvv-pago">CVV: </label>
-                                <input type="text" id="cvv-pago" class="form-control" placeholder="1234" required>
+                                <input type="text" id="cvv-pago" class="form-control" placeholder="123" required>
                             </div>
                         </div>
                     </form>
