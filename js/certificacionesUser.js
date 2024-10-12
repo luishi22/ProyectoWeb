@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 import { showToast } from "../js/showToast.js "
 
 const firebaseConfig = {
@@ -18,20 +18,26 @@ const app = initializeApp(firebaseConfig);
 
 // traer la base de datos
 const db = getFirestore(app);
-const saveCompra = async (title, precio, curso, description) => {
-    const certificationRef = doc(collection(db, "certifications"))
-    await setDoc(certificationRef, {
-        title,
-        precio,
-        curso,
-        description,
+const saveCompra = async (certificationId, userId) => {
+    const compraRef = doc(collection(db, "buyCertification"))
+    await setDoc(compraRef, {
+        certificationId, 
+        userId
     })
-    showToast("Curso creado exitosamente")
 }
 document.addEventListener("DOMContentLoaded", async () => {
     const div = document.getElementById("courses")
     const collectionCertification = collection(db, "certifications")
-
+    const collectionCompras= collection(db, "buyCertification")
+    //recuperarID en la coleccion compras
+    const comprasSnapshot = await getDocs(collectionCompras);
+    const currentUserId=localStorage.getItem('userId')
+    console.log(comprasSnapshot.docs)
+    const comprasIds = comprasSnapshot.docs
+        .filter(doc => doc.data().userId === currentUserId) // Filtrar por userID
+        .map(doc => doc.data().certificationId); // Obtener los certificationId
+    console.log(comprasIds);
+    console.log(comprasIds)
     onSnapshot(collectionCertification, (sn) => {
         div.innerHTML = ``
         const row = document.createElement("div");
@@ -41,6 +47,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             const cert = doc.id;
             const col = document.createElement("div")
             col.className = "col-12 col-md-6 col-lg-4"
+            //verifivar si el array creado de comprasIDS incluye alguno de estos
+            
+            const buttonLabel = comprasIds.includes(cert) ? "Realizar Test" : "Obtener curso";
+            const targetModal = comprasIds.includes(cert) ? "#modalTest" : "#modalPago";
             col.innerHTML = `
             <div class="card">
   <img src="/assets/img/certi.png"  class="card-img-top" alt="...">
@@ -49,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     <p class="card-text">Para el curso: ${certification.curso}</p>
     <p class="card-text">${certification.description}</p>
     <p class="card-text bold"> $${certification.precio} </p>
-    <button class="btn btn-outline-success btn-comprar" data-bs-toggle="modal" data-bs-target="#modalPago" data-id="${cert}" id="${cert}">Obtener curso</button>
+    <button class="btn btn-outline-success btn-comprar" data-bs-toggle="modal" data-bs-target="${targetModal}" data-id="${cert}" id="${cert}">${buttonLabel}</button>
   </div>
 </div> `
             row.appendChild(col)
@@ -60,12 +70,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             btn.addEventListener("click", (e) => {
                 const id = e.currentTarget.getAttribute("data-id")
                 console.log(id)
+                console.log(localStorage.getItem('userId'))
                 SimularPago(id)
             })
         })
     })
 });
-function SimularPago(id) {
+ function SimularPago(id) {
     const btnComprar = document.getElementById("modalComprar")
     btnComprar.addEventListener("click", function (e) {
         e.preventDefault()
@@ -79,11 +90,15 @@ function SimularPago(id) {
         if (email !== "" && dueño !== "" && numTar !== "" && mes !== "" && anho !== "") {
             if (cvv.length == 3) {
                 if (numTar.length == 19) {
+                    const userID=localStorage.getItem('userId')
+                    saveCompra(id,userID)
                     showToast("Compra realizada con éxito")
                     const btnChange = document.getElementById(id)
                     console.log(btnChange.textContent)
                     btnChange.textContent = "Realizar Test"
                     btnChange.setAttribute('data-bs-target', '#modalTest');
+                    localStorage.clear();
+                    console.log(localStorage.getItem('userId'))
                 } else {
                     showToast("Número de tarjeta, es incorrecto", "error")
                 }

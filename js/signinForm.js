@@ -29,7 +29,12 @@ signingForm.addEventListener('submit', async e => {
         const docSnap = await getDoc(docRef);
         
         if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
+            const datos= docSnap.data()
+            datos.forEach(user=>{
+                 const rol=user.rol
+                 console.log(rol)
+            })
+           
         } else {
             // docSnap.data() will be undefined in this case
             console.log("No such document!");
