@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/1
 import { getFirestore, getDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 import { auth } from "./firebase.js"
 import { showToast } from "./showToast.js"
-
+let userId
 const signingForm = document.querySelector('#signin-form')
 
 signingForm.addEventListener('submit', async e => {
@@ -29,12 +29,22 @@ signingForm.addEventListener('submit', async e => {
         const docSnap = await getDoc(docRef);
         
         if (docSnap.exists()) {
-            const datos= docSnap.data()
-            datos.forEach(user=>{
-                 const rol=user.rol
-                 console.log(rol)
-            })
-           
+            if (window.location.pathname === "/html/certificacionesUser.html") {
+                location.reload(); 
+            }
+            console.log("Document data:", docSnap.data());
+            userId= docSnap.data().uid
+            localStorage.setItem('userId', userId);
+           const rol=docSnap.data().role
+            console.log(userId)
+            const certificacionesLink= document.getElementById("certificacionesLink")
+            if (rol === "Admin") {
+               certificacionesLink.href = "/html/certificacionesAdmin.html";  // Redirige a la página de administrador
+            } else if (rol === "Usuario") {
+                certificacionesLink.href = "/html/certificacionesUser.html";  // Redirige a la página de usuario
+            } else {
+                //window.location.href = "default.html";  // Redirige a una página por defecto si el rol no coincide
+            }
         } else {
             // docSnap.data() will be undefined in this case
             console.log("No such document!");
