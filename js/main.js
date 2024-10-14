@@ -26,7 +26,7 @@ onAuthStateChanged(auth, async (user) => {
 
 const totalCourses = 20; 
 const coursesPerPage = 6; 
-let currentCourses = coursesPerPage; 
+let currentCourses = coursesPerPage;
 
 const courses = [
     { title: "Curso de React Native", description: "Crea aplicaciones móviles con React Native.", icon: "📱" },

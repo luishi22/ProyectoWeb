@@ -446,3 +446,11 @@ h3.TituloTexto {
     margin: 0 10px;
     color: #A9A9A9;
 }
+
+.fondo-custom{
+    border-color: white;
+    border-width: 0.1rem;
+    background: radial-gradient(#0e1c96 5%, #02094e 80%, #02094e 50%);
+    color: white;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}

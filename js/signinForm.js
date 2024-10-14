@@ -35,10 +35,10 @@ signingForm.addEventListener('submit', async e => {
             console.log("Document data:", docSnap.data());
             userId= docSnap.data().uid
             localStorage.setItem('userId', userId);
-           const rol=docSnap.data().role
+            const rol=docSnap.data().role
             console.log(userId)
             const certificacionesLink= document.getElementById("certificacionesLink")
-            if (rol === "Admin") {
+            if (rol === "Administrador") {
                certificacionesLink.href = "/html/certificacionesAdmin.html";  // Redirige a la página de administrador
             } else if (rol === "Usuario") {
                 certificacionesLink.href = "/html/certificacionesUser.html";  // Redirige a la página de usuario
