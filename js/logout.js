@@ -9,7 +9,11 @@ logout.addEventListener('click', async () => {
     //showToast("Se cerro la sesion de "+userCredentials.user.email)
     if (window.location.pathname === "/html/certificacionesUser.html") {
         location.reload(); 
+    } else if(window.location.pathname === "/html/certificacionesAdmin.html"){
+        certificacionesLink.href = "/html/certificacionesUser.html";
+        window.location.href = certificacionesLink.href; 
     }
+
     localStorage.clear();
     console.log("cerraste sesion")
 })

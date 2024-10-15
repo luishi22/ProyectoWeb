@@ -43,21 +43,22 @@ btnGoogle.addEventListener('click', async () => {
         const docSnap1 = await getDoc(docRef1);
 
         if (docSnap1.exists()) {
-            if (window.location.pathname === "/html/certificacionesUser.html") {
-                location.reload(); 
-            }
+            
             console.log("Document data:", docSnap1.data());
             userId= docSnap1.data().uid
             localStorage.setItem('userId', userId);
-           const rol=docSnap1.data().role
+            const rol=docSnap1.data().role
             console.log(userId)
             const certificacionesLink= document.getElementById("certificacionesLink")
-            if (rol === "Admin") {
+            if (rol === "Administrador") {
                certificacionesLink.href = "/html/certificacionesAdmin.html";  // Redirige a la página de administrador
+               window.location.href = certificacionesLink.href;  
             } else if (rol === "Usuario") {
                 certificacionesLink.href = "/html/certificacionesUser.html";  // Redirige a la página de usuario
+                window.location.href = certificacionesLink.href;  
             } else {
-                //window.location.href = "default.html";  // Redirige a una página por defecto si el rol no coincide
+                certificacionesLink.href = "/html/certificacionesUser.html";   // Redirige a una página por defecto si el rol no coincide
+                
             }
         } else {
             // docSnap.data() will be undefined in this case

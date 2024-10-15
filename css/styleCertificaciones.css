@@ -36,3 +36,29 @@ option {
 .glowing-border:hover {
     box-shadow: 0 0 25px rgba(40, 167, 69, 1); 
 }
+
+.efecto {
+    background-color: #003366;
+    border-radius: 0.5rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 30rem; 
+    padding: 1rem;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: flex-end; /* Alinea los botones al final horizontalmente */
+}
+
+.btn-container button {
+    margin-left: 5px; /* Añade espacio entre los botones */
+}
+

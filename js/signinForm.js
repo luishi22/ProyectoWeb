@@ -4,7 +4,6 @@ import { auth } from "./firebase.js"
 import { showToast } from "./showToast.js"
 let userId
 const signingForm = document.querySelector('#signin-form')
-
 signingForm.addEventListener('submit', async e => {
     e.preventDefault()
 
@@ -31,6 +30,8 @@ signingForm.addEventListener('submit', async e => {
         if (docSnap.exists()) {
             if (window.location.pathname === "/html/certificacionesUser.html") {
                 location.reload(); 
+            }else if (window.location.pathname === "/html/certificacionesAdmin.html") {
+                location.reload(); 
             }
             console.log("Document data:", docSnap.data());
             userId= docSnap.data().uid
@@ -43,7 +44,8 @@ signingForm.addEventListener('submit', async e => {
             } else if (rol === "Usuario") {
                 certificacionesLink.href = "/html/certificacionesUser.html";  // Redirige a la página de usuario
             } else {
-                //window.location.href = "default.html";  // Redirige a una página por defecto si el rol no coincide
+                //certificacionesLink.href = "/html/certificacionesUser.html";   // Redirige a una página por defecto si el rol no coincide
+                console.log("no hay user")
             }
         } else {
             // docSnap.data() will be undefined in this case

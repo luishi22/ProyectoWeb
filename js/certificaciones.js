@@ -50,15 +50,19 @@ document.addEventListener("DOMContentLoaded", async () => {
             const col = document.createElement("div")
             col.className = "col-12 col-md-6 col-lg-4"
             col.innerHTML = `
-            <div class="card">
-  <img src="/assets/img/certi.png"  class="card-img-top" alt="...">
-  <div class="card-body ">
+            <div class="card efecto">
+  
+  <div class="card-body">
+  <img src="/assets/img/certi.png" width="20px" height="175px" class="card-img" alt="...">
     <h5 class="card-title">${certification.title}</h5>
     <p class="card-text">Para el curso: ${certification.curso}</p>
     <p class="card-text">${certification.description}</p>
     <p class="card-text bold"> $${certification.precio} </p>
-    <button class="btn btn-primary btn-delete" data-id="${cert}"><i class="fa-solid fa-trash"></i></button>
-    <button class="btn btn-primary btn-edit" data-id="${cert}"><i class="fa-regular fa-pen-to-square"></i></button>
+    <div class="btn-container mt-auto d-flex justify-content-end">
+     <button class="btn btn-danger btn-delete" data-id="${cert}"><i class="fa-solid fa-trash"></i></button>
+    <button class="btn btn-warning btn-edit" data-id="${cert}"><i class="fa-regular fa-pen-to-square"></i></button>
+    </div>
+    
   </div>
 </div> `
             console.log(cert)
