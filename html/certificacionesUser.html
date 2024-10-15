@@ -14,6 +14,7 @@
     <!-- Toastify -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="/css/styleCertificaciones.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <script src="/js/main.js" type="module"></script>
     <script type="module" src="/js/certificacionesUser.js"></script>
 </head>
@@ -58,25 +59,26 @@
 
 
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav mx-auto"> <!-- Añadido mx-auto para centrar -->
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Explorar</a>
+                            <a class="nav-link" href="index.html">Explorar</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Cursos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" id="certificacionesLink">Certificaciones</a>
+                            <a class="nav-link" href="./html/certificacionesAdmin.html" id="certificacionesLink">Certificaciones</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Empresas</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link logged-in" href="#" id="logout">Cerrar Sesión</a>
-                        </li>
+                        </li> -->
                     </ul>
-                    <button class="btn btn-outline-success btn-sm me-2" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#signinModal">Login</button>
-                    <button class="btn btn-outline-secondary btn-sm" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#signupModal">Signin</button>
+                    <button class="btn btn-outline-success btn-sm me-2 logged-out" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#signinModal">Iniciar Sesión</button>
+                    <button class="btn btn-outline-secondary btn-sm logged-out" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#signupModal">Crear Cuenta</button>
+                    <button class="btn btn-outline-danger btn-sm logged-in" style="color: white;" href="#" id="logout">Cerrar Sesión</button>
                 </div>
             </div>
         </nav>
@@ -143,31 +145,42 @@
         </div>
     </div>
     <!-- FIN DE MODAL -->
+     <!--Modal afuera-->
+    <div class="modal fade" id="modalinv" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Únete</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p> Inicia sesión y únete a nuestras certificaciones </p>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--Modal test-->
     <div class="modal fade" id="modalTest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Realiza tu test</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>Te hemos enviado un correo electrónico para la realización de tu examen</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Ir a mi test</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    <!-- Modal pago-->
-    <div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPago" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content glowing-border">
+            <div class="modal-content bg-dark">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Pasarela de pago</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Test enviado</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p> Te hemos enviado un correo electronico con todos los datos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal pago-->
+    <div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title fs-5" id="exampleModalLabel">Pasarela de pago</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="form-pasarela-pago">
@@ -227,15 +240,15 @@
                             </div>
                         </div>
                     </form>
-
-
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-outline-success" id="modalComprar">Terminar compra</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" id="modalComprar">Terminar compra</button>
                     </div>
+
                 </div>
             </div>
         </div>
+    </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>

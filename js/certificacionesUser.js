@@ -48,20 +48,34 @@ document.addEventListener("DOMContentLoaded", async () => {
             const col = document.createElement("div")
             col.className = "col-12 col-md-6 col-lg-4"
             //verifivar si el array creado de comprasIDS incluye alguno de estos
+            const userId = localStorage.getItem('userId');
+            console.log(userId)
+            let buttonLabel
+            let targetModal
+            if(userId !== null){
+                buttonLabel = comprasIds.includes(cert) ? "Realizar Test" : "Obtener curso";
+                 targetModal = comprasIds.includes(cert) ? "#modalTest" : "#modalPago";
+            } else {
+                buttonLabel = comprasIds.includes(cert) ? "Realizar Test" : "Obtener curso";
+                targetModal= "#modalinv"
+            }
             
-            const buttonLabel = comprasIds.includes(cert) ? "Realizar Test" : "Obtener curso";
-            const targetModal = comprasIds.includes(cert) ? "#modalTest" : "#modalPago";
+            
             col.innerHTML = `
             <div class="card">
-  <img src="/assets/img/certi.png"  class="card-img-top" alt="...">
-  <div class="card-body ">
-    <h5 class="card-title">${certification.title}</h5>
-    <p class="card-text">Para el curso: ${certification.curso}</p>
-    <p class="card-text">${certification.description}</p>
-    <p class="card-text bold"> $${certification.precio} </p>
-    <button class="btn btn-outline-success btn-comprar" data-bs-toggle="modal" data-bs-target="${targetModal}" data-id="${cert}" id="${cert}">${buttonLabel}</button>
-  </div>
-</div> `
+             
+                <div class="card-body">
+                <img src="/assets/img/certi.png" alt="Icono del curso" class="card-img">
+                    <div class="p-1">
+                        <h5 class="card-title">${certification.title}</h5>
+                        <p class="card-text">Para el curso: ${certification.curso}</p>
+                        <p class="card-text"> $${certification.precio}</p>
+                    </div>
+                    <button class="btn btn-success btn-comprar" data-bs-toggle="modal" data-bs-target="${targetModal}" data-id="${cert}" id="${cert}">
+                        ${buttonLabel}
+                    </button>
+                </div>
+            </div> `
             row.appendChild(col)
         })
         div.appendChild(row)
@@ -77,7 +91,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
 });
  function SimularPago(id) {
-    const btnComprar = document.getElementById("modalComprar")
+    
+        const btnComprar = document.getElementById("modalComprar")
     btnComprar.addEventListener("click", function (e) {
         e.preventDefault()
         const formPasarelaPago = document.getElementById("form-pasarela-pago")
@@ -97,7 +112,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                     console.log(btnChange.textContent)
                     btnChange.textContent = "Realizar Test"
                     btnChange.setAttribute('data-bs-target', '#modalTest');
-                    localStorage.clear();
                     console.log(localStorage.getItem('userId'))
                 } else {
                     showToast("Número de tarjeta, es incorrecto", "error")
@@ -108,8 +122,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         } else {
             showToast("Ingrese todos los datos", "error")
         }
-
+        
     })
+    
+    
 
 }
 

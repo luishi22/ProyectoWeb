@@ -454,3 +454,36 @@ h3.TituloTexto {
     color: white;
     font-family: 'Helvetica', 'Arial', sans-serif;
 }
+
+.card {
+    background-color: #003366;
+    border-radius: 0.5rem;
+    color: white;
+    display: flex; 
+    align-items: center;
+    height: 9rem; 
+    padding: 1rem;
+}
+.card img {
+    width: 3rem; 
+    margin-right: 1rem; 
+    flex-shrink: 0; /* Evita que la imagen se reduzca */
+}
+.card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.card-title {
+    font-size: 1rem;
+    margin: 0;
+}
+.card-text {
+    font-size: 0.9rem;
+    margin: 0;
+}
+.btn-comprar {
+    white-space: nowrap;
+    font-size: 0.85rem;
+}
