@@ -113,6 +113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     btnChange.textContent = "Realizar Test"
                     btnChange.setAttribute('data-bs-target', '#modalTest');
                     console.log(localStorage.getItem('userId'))
+                    formPasarelaPago.reset()
                 } else {
                     showToast("Número de tarjeta, es incorrecto", "error")
                 }
