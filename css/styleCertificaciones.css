@@ -47,6 +47,10 @@ option {
     padding: 1rem;
 }
 
+.efecto-modal{
+    background: #002D62
+}
+
 .card-body {
     display: flex;
     flex-direction: column;

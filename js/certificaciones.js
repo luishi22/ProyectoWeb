@@ -30,6 +30,11 @@ const saveCertification = async (title, precio, curso, description) => {
         curso,
         description,
     })
+
+    const signinModal = document.querySelector('#addCertificationModal')
+    const modal = bootstrap.Modal.getInstance(signinModal)
+    modal.hide()
+
     showToast("Curso creado exitosamente")
 }
 // para editar ocupo el id
@@ -59,8 +64,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     <p class="card-text">${certification.description}</p>
     <p class="card-text bold"> $${certification.precio} </p>
     <div class="btn-container mt-auto d-flex justify-content-end">
-     <button class="btn btn-danger btn-delete" data-id="${cert}"><i class="fa-solid fa-trash"></i></button>
-    <button class="btn btn-warning btn-edit" data-id="${cert}"><i class="fa-regular fa-pen-to-square"></i></button>
+     <button class="btn btn-outline-secondary btn-delete" style="color: white;" data-id="${cert}"><i class="fa-solid fa-trash"></i></button>
+    <button class="btn btn-outline-secondary btn-edit" style="color: white;" data-id="${cert}"><i class="fa-regular fa-pen-to-square"></i></button>
     </div>
     
   </div>
@@ -94,7 +99,20 @@ document.addEventListener("DOMContentLoaded", async () => {
                     certificacionForm["curso-certificacion"].value = task.curso
                     certificacionForm["des-certificacion"].value = task.description
                     document.getElementById("bnt-add-certificacion").textContent = "Editar"
+                    document.getElementById("tituloModal").textContent = "Editar certificación"
                     idMarcador = id;
+
+                    const signinModal = document.querySelector('#addCertificationModal')
+                    const modal = new bootstrap.Modal(signinModal)
+                    modal.show()
+
+                    //reiniciar el id si se cancela el editar
+                    signinModal.addEventListener('hidden.bs.modal', () => {
+                        certificacionForm.reset()
+                        document.getElementById("bnt-add-certificacion").textContent = "Agregar"
+                        document.getElementById("tituloModal").textContent = "Registrar nueva certificación"
+                        idMarcador = null 
+                    })
                 } else {
                     console.log("No such document!");
                 }
@@ -106,7 +124,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function editarCertificacion(data) {
     try {
         // Referencia al documento con el ID dado
-
+        
         // Actualiza los campos que desees en el documento
         await updateDoc(doc(db, "certifications", idMarcador), {
             title: data.title,
@@ -114,6 +132,10 @@ async function editarCertificacion(data) {
             curso: data.curso,
             description: data.description
         });
+
+        const signinModal = document.querySelector('#addCertificationModal')
+        const modal = bootstrap.Modal.getInstance(signinModal)
+        modal.hide()
 
         showToast("Curso editado correctamente")
         document.getElementById("bnt-add-certificacion").textContent = "Agregar"
