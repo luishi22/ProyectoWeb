@@ -36,9 +36,7 @@ document.getElementById('form-profile').addEventListener('submit', async (event)
     const fotoInput = document.getElementById('foto-usuario');
 
     try {
-        await updateProfile(user, {
-            displayName: displayName
-        });
+        await updateProfile(user, { displayName: displayName });
 
         let profilePhotoURL = null;
 
@@ -51,13 +49,9 @@ document.getElementById('form-profile').addEventListener('submit', async (event)
         }
 
         const userRef = doc(db, "users", user.uid);
-        const updateData = {
-            displayName: displayName
-        };
+        const updateData = { displayName: displayName };
 
-        if (profilePhotoURL) {
-            updateData['profile-photo'] = profilePhotoURL;
-        }
+        if (profilePhotoURL) { updateData['profile-photo'] = profilePhotoURL; }
 
         await updateDoc(userRef, updateData);
 
