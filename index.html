@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/img/logo1.png">
-    <title>Platzi Clone</title>
+    <title>VLearn</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <!-- Toastify -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -37,9 +37,9 @@
                     </svg>
                 </figure>
 
-                
+
                 <div className="flex items-center space-x-2">
-                    
+
                     <button
                         style="background:white;border:none;color:black;padding:.5rem .75rem;border-radius:.5rem;font-size:.875rem"
                         class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
@@ -63,7 +63,8 @@
                             <a class="nav-link" href="#">Cursos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/html/certificacionesUser.html" id="certificacionesLink">Certificaciones</a>
+                            <a class="nav-link" href="/html/certificacionesUser.html"
+                                id="certificacionesLink">Certificaciones</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Empresas</a>
@@ -72,14 +73,53 @@
                             <a class="nav-link logged-in" href="#" id="logout">Cerrar Sesión</a>
                         </li> -->
                     </ul>
-                    <button class="btn btn-outline-success btn-sm me-2 logged-out" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#signinModal">Iniciar Sesión</button>
-                    <button class="btn btn-outline-secondary btn-sm logged-out" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#signupModal">Crear Cuenta</button>
-                    <button class="btn btn-outline-danger btn-sm logged-in" style="color: white;" href="#" id="logout">Cerrar Sesión</button>
+                    <button class="btn btn-outline-success btn-sm me-2 logged-out" style="color: white;" href="#"
+                        data-bs-toggle="modal" data-bs-target="#signinModal">Iniciar Sesión</button>
+                    <button class="btn btn-outline-secondary btn-sm logged-out" style="color: white;" href="#"
+                        data-bs-toggle="modal" data-bs-target="#signupModal">Crear Cuenta</button>
+                    <button class="btn btn-outline-primary btn-sm me-2 logged-in" style="color: white;"
+                        onclick="window.location.href='html/profile.html'" id="profile">Perfil</button>
+                    <button class="btn btn-outline-danger btn-sm logged-in" style="color: white;" href="#"
+                        id="logout">Cerrar Sesión</button>
                 </div>
             </div>
         </nav>
     </div>
     <!-- FIN DEL HEADER -->
+
+    <!-- PERFIL DEL USUARIO -->
+    <div class="container" style="max-width: 500px; display: none;">
+        <div class="card mb-4 mt-4 text-white form-profile">
+            <div class="card-body">
+                <form id="form-profile">
+                    <div class="form-group text-center">
+                        <img id="imagen-perfil" src="/assets/img/temp-profile.png" alt="Foto de perfil"
+                            class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="foto-usuario">Agregar foto de perfil</label>
+                        <input type="file" class="form-control" id="foto-usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre-usuario">Nombre de usuario</label>
+                        <input type="text" id="nombre-usuario" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="correo-usuario">Correo electónico</label>
+                        <input type="text" id="correo-usuario" class="form-control" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="rol-usuario">Rol</label>
+                        <input type="text" id="rol-usuario" class="form-control" disabled>
+                    </div>
+                    <div class="form-group mt-3 d-flex justify-content-end">
+                        <button class="btn btn-outline-secondary btn-sm text-white" id="bnt-add-certificacion">Guardar
+                            cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- MODAL -->
     <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -87,20 +127,25 @@
             <div class="modal-content fondo-custom">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Cuenta</h1>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="signup-form">
                         <label for="displayName">Usuario:</label>
-                        <input type="text" id="singup-displayName" class="form-control mb-3" placeholder="Usuario" required>
+                        <input type="text" id="singup-displayName" class="form-control mb-3" placeholder="Usuario"
+                            required>
 
                         <label for="email">Correo:</label>
-                        <input type="email" id="singup-email" class="form-control mb-3" placeholder="Correo eléctronico" required>
+                        <input type="email" id="singup-email" class="form-control mb-3" placeholder="Correo eléctronico"
+                            required>
 
                         <label for="password">Contraseña:</label>
-                        <input type="password" id="singup-password" class="form-control mb-3" placeholder="Contraseña" required>
+                        <input type="password" id="singup-password" class="form-control mb-3" placeholder="Contraseña"
+                            required>
 
-                        <button type="submit" class="btn btn btn-outline-secondary" style="color: white;">Registrarse</button>
+                        <button type="submit" class="btn btn btn-outline-secondary"
+                            style="color: white;">Registrarse</button>
                     </form>
                 </div>
             </div>
@@ -113,17 +158,21 @@
             <div class="modal-content fondo-custom">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Iniciar Sesión</h1>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="" id="signin-form">
                         <label for="email">Correo:</label>
-                        <input type="email" id="signin-email" class="form-control mb-3" placeholder="Correo eléctronico" required>
+                        <input type="email" id="signin-email" class="form-control mb-3" placeholder="Correo eléctronico"
+                            required>
 
                         <label for="password">Contraseña:</label>
-                        <input type="password" id="signin-password" class="form-control mb-3" placeholder="Contraseña" required>
+                        <input type="password" id="signin-password" class="form-control mb-3" placeholder="Contraseña"
+                            required>
 
-                        <button type="submit" class="btn btn-outline-secondary w-100" style="color: white;">Iniciar Sesión</button>
+                        <button type="submit" class="btn btn-outline-secondary w-100" style="color: white;">Iniciar
+                            Sesión</button>
                     </form>
 
                     <!-- Google, Facebook, Outlook, etc -->
@@ -163,8 +212,8 @@
 
                     <label for="autocomplete-0-input" id="courses-search-label">¿Qué quieres aprender?</label>
                     <input aria-autocomplete="both" aria-labelledby="autocomplete-0-label" id="autocomplete-0-input"
-                        autoComplete="off" autoCorrect="off" autoCapitalize="off" enterKeyHint="search" spellCheck="false"
-                        placeholder="I" maxLength="512" type="text" value="" />
+                        autoComplete="off" autoCorrect="off" autoCapitalize="off" enterKeyHint="search"
+                        spellCheck="false" placeholder="I" maxLength="512" type="text" value="" />
 
                     <button id="searchIconBtn" aria-label="Search Icon Btn"><svg width="1em" height="1em" fill="none"
                             viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
@@ -189,70 +238,86 @@
         </div>
         <!-- MARCAS -->
         <div class="container-fluid my-5">
-    
+
             <!-- Slider continuo -->
             <div class="marquee-wrapper">
                 <div class="marquee-content">
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/davivienda_a4d7872c1c.svg" alt="Davivienda">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/davivienda_a4d7872c1c.svg"
+                            alt="Davivienda">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Fundacion_grupo_social_0aa7561224.svg" alt="Fundación Grupo Social">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Fundacion_grupo_social_0aa7561224.svg"
+                            alt="Fundación Grupo Social">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=96,quality=75,format=auto/ms-landings-admin/media/grupoexito_024e3d77b4.svg" alt="Grupo Éxito">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=96,quality=75,format=auto/ms-landings-admin/media/grupoexito_024e3d77b4.svg"
+                            alt="Grupo Éxito">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/gruposura_e9e5efdf0b.svg" alt="Sura">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/gruposura_e9e5efdf0b.svg"
+                            alt="Sura">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/mapfre_3fabe6a7f0.svg" alt="Mapfre">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/mapfre_3fabe6a7f0.svg"
+                            alt="Mapfre">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/rappi_0cce7f9f43.svg" alt="Rappi">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/rappi_0cce7f9f43.svg"
+                            alt="Rappi">
                     </div>
                     <div class="company-logo">
                         <img src="https://static.platzi.com/media/uploads/avianca_86876f8bb8.svg" alt="Avianca">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Lenovo_65f74f30af.svg" alt="Lenovo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Lenovo_65f74f30af.svg"
+                            alt="Lenovo">
                     </div>
                     <div class="company-logo">
                         <img src="https://static.platzi.com/media/uploads/bancolombia_114ce59ab3.svg" alt="Bancolombia">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/colsubsidio_9e843d8531.svg" alt="Colsubsidio">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/colsubsidio_9e843d8531.svg"
+                            alt="Colsubsidio">
                     </div>
                     <!-- Duplicamos los logos para lograr un ciclo continuo -->
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/davivienda_a4d7872c1c.svg" alt="Davivienda">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/davivienda_a4d7872c1c.svg"
+                            alt="Davivienda">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Fundacion_grupo_social_0aa7561224.svg" alt="Fundación Grupo Social">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Fundacion_grupo_social_0aa7561224.svg"
+                            alt="Fundación Grupo Social">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=96,quality=75,format=auto/ms-landings-admin/media/grupoexito_024e3d77b4.svg" alt="Grupo Éxito">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=96,quality=75,format=auto/ms-landings-admin/media/grupoexito_024e3d77b4.svg"
+                            alt="Grupo Éxito">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/gruposura_e9e5efdf0b.svg" alt="Sura">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/gruposura_e9e5efdf0b.svg"
+                            alt="Sura">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/mapfre_3fabe6a7f0.svg" alt="Mapfre">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/mapfre_3fabe6a7f0.svg"
+                            alt="Mapfre">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/rappi_0cce7f9f43.svg" alt="Rappi">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/rappi_0cce7f9f43.svg"
+                            alt="Rappi">
                     </div>
                     <div class="company-logo">
                         <img src="https://static.platzi.com/media/uploads/avianca_86876f8bb8.svg" alt="Avianca">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Lenovo_65f74f30af.svg" alt="Lenovo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Lenovo_65f74f30af.svg"
+                            alt="Lenovo">
                     </div>
                     <div class="company-logo">
                         <img src="https://static.platzi.com/media/uploads/bancolombia_114ce59ab3.svg" alt="Bancolombia">
                     </div>
                     <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/colsubsidio_9e843d8531.svg" alt="Colsubsidio">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/colsubsidio_9e843d8531.svg"
+                            alt="Colsubsidio">
                     </div>
                 </div>
             </div>
@@ -265,66 +330,87 @@
             <button id="toggleButton" class="btn btn-outline-info my-1">Mostrar más cursos</button>
             <!-- FIN DE TARJETAS -->
 
-             <!-- CERTIFICACIONES -->
-          
-        </head>
-        <body>
-            <div class="container py-5">
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="certification-card p-4 d-flex flex-column">
-                            <img src="https://static.platzi.com/media/uploads/toefl_1c45bb83c2.png" alt="TOEFL" class="certification-logo mb-3">
-                            <h3 class="h5 mb-3">Alianza con ETS para la certificación TOEFL en Inglés</h3>
-                            <div class="mt-auto">
-                                <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
-                                    Ir a los cursos
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                                </a>
+            <!-- CERTIFICACIONES -->
+
+            </head>
+
+            <body>
+                <div class="container py-5">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="certification-card p-4 d-flex flex-column">
+                                <img src="https://static.platzi.com/media/uploads/toefl_1c45bb83c2.png" alt="TOEFL"
+                                    class="certification-logo mb-3">
+                                <h3 class="h5 mb-3">Alianza con ETS para la certificación TOEFL en Inglés</h3>
+                                <div class="mt-auto">
+                                    <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
+                                        Ir a los cursos
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="ms-2">
+                                            <path d="M5 12h14"></path>
+                                            <path d="m12 5 7 7-7 7"></path>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="certification-card p-4 d-flex flex-column">
-                            <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png" alt="Google" class="certification-logo mb-3">
-                            <h3 class="h5 mb-3">Convenio de certificación en tecnologías cloud</h3>
-                            <div class="mt-auto">
-                                <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
-                                    Ir a los cursos
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                                </a>
+                        <div class="col-md-4">
+                            <div class="certification-card p-4 d-flex flex-column">
+                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png"
+                                    alt="Google" class="certification-logo mb-3">
+                                <h3 class="h5 mb-3">Convenio de certificación en tecnologías cloud</h3>
+                                <div class="mt-auto">
+                                    <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
+                                        Ir a los cursos
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="ms-2">
+                                            <path d="M5 12h14"></path>
+                                            <path d="m12 5 7 7-7 7"></path>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="certification-card p-4 d-flex flex-column">
-                            <img src="https://www.lindenwood.edu/files/resources/xcomptia-aplus-logo.png.pagespeed.ic.51sgZQp_Qo.png" alt="CompTIA Security+" class="certification-logo mb-3">
-                            <h3 class="h5 mb-3">Domina la seguridad digital con CompTIA security+</h3>
-                            <div class="mt-auto">
-                                <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
-                                    Ir a los cursos
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                                </a>
+                        <div class="col-md-4">
+                            <div class="certification-card p-4 d-flex flex-column">
+                                <img src="https://www.lindenwood.edu/files/resources/xcomptia-aplus-logo.png.pagespeed.ic.51sgZQp_Qo.png"
+                                    alt="CompTIA Security+" class="certification-logo mb-3">
+                                <h3 class="h5 mb-3">Domina la seguridad digital con CompTIA security+</h3>
+                                <div class="mt-auto">
+                                    <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
+                                        Ir a los cursos
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="ms-2">
+                                            <path d="M5 12h14"></path>
+                                            <path d="m12 5 7 7-7 7"></path>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- FIN DE CERTIFICACIONES -->
+                <!-- FIN DE CERTIFICACIONES -->
         </div>
 
-            <!-- PERSONAS -->
-            <div class="container-fluid py-5" style="background-color: rgb(9, 76, 30);">
-                <div class="container">
+        <!-- PERSONAS -->
+        <div class="container-fluid py-5" style="background-color: rgb(9, 76, 30);">
+            <div class="container">
                 <h1 class="mb-4">Nuestros profesores son expertos de la industria</h1>
                 <div class="row g-4">
                     <div class="col-md-3">
                         <div class="professor-card">
-                            <img src="https://static.platzi.com/media/uploads/Luis_Martinez_6a15bc8e42.png" alt="Carli Florida" class="professor-image">
+                            <img src="https://static.platzi.com/media/uploads/Luis_Martinez_6a15bc8e42.png"
+                                alt="Carli Florida" class="professor-image">
                             <div class="professor-info">
                                 <h3>Carli Florida</h3>
                                 <p>Teacher In-house en Platzi</p>
                                 <a href="#" class="course-link">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png" alt="Python" class="course-icon">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png"
+                                        alt="Python" class="course-icon">
                                     Curso de Python
                                 </a>
                             </div>
@@ -332,12 +418,14 @@
                     </div>
                     <div class="col-md-3">
                         <div class="professor-card">
-                            <img src="https://static.platzi.com/media/uploads/Luis_Martinez_6a15bc8e42.png" alt="Anibal Rojas" class="professor-image">
+                            <img src="https://static.platzi.com/media/uploads/Luis_Martinez_6a15bc8e42.png"
+                                alt="Anibal Rojas" class="professor-image">
                             <div class="professor-info">
                                 <h3>Anibal Rojas</h3>
                                 <p>VP de Ingeniería en Platzi</p>
                                 <a href="#" class="course-link">
-                                    <img src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png" alt="ChatGPT" class="course-icon">
+                                    <img src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png"
+                                        alt="ChatGPT" class="course-icon">
                                     Curso de ChatGPT para Empresas
                                 </a>
                             </div>
@@ -345,12 +433,14 @@
                     </div>
                     <div class="col-md-3">
                         <div class="professor-card">
-                            <img src="https://static.platzi.com/media/uploads/Luis_Martinez_6a15bc8e42.png" alt="Carolina Castañeda" class="professor-image">
+                            <img src="https://static.platzi.com/media/uploads/Luis_Martinez_6a15bc8e42.png"
+                                alt="Carolina Castañeda" class="professor-image">
                             <div class="professor-info">
                                 <h3>Carolina Castañeda</h3>
                                 <p>Online Tech Teacher en Platzi</p>
                                 <a href="#" class="course-link">
-                                    <img src="https://cdn-icons-png.freepik.com/512/8754/8754965.png" alt="SQL" class="course-icon">
+                                    <img src="https://cdn-icons-png.freepik.com/512/8754/8754965.png" alt="SQL"
+                                        class="course-icon">
                                     Curso de Bases de Datos con SQL
                                 </a>
                             </div>
@@ -358,12 +448,14 @@
                     </div>
                     <div class="col-md-3">
                         <div class="professor-card">
-                            <img src="https://static.platzi.com/media/uploads/Luis_Martinez_6a15bc8e42.png" alt="Luis Martínez" class="professor-image">
+                            <img src="https://static.platzi.com/media/uploads/Luis_Martinez_6a15bc8e42.png"
+                                alt="Luis Martínez" class="professor-image">
                             <div class="professor-info">
                                 <h3>Luis Martínez</h3>
                                 <p>Platform Engineer en Deel</p>
                                 <a href="#" class="course-link">
-                                    <img src="https://img-c.udemycdn.com/course/750x422/5181936_1fc3.jpg" alt="Django" class="course-icon">
+                                    <img src="https://img-c.udemycdn.com/course/750x422/5181936_1fc3.jpg" alt="Django"
+                                        class="course-icon">
                                     Curso de Django
                                 </a>
                             </div>
@@ -371,16 +463,16 @@
                     </div>
                 </div>
             </div>
-            </div>
-            <!-- FIN PERSONAS -->
-        
+        </div>
+        <!-- FIN PERSONAS -->
+
 
     </main>
 
 
 
     <!-- DEPENDENCIAS Y LIBRERIAS JS-->
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 

@@ -8,10 +8,11 @@ import './signinForm.js'
 import './googleLogin.js'
 import './facebookLogin.js'
 import './logout.js'
+import './updateProfile.js'
 
 onAuthStateChanged(auth, async (user) => {
     loginCheck(user);
-    
+
     /* if(user){
         loginCheck(user);
     }else{
@@ -24,8 +25,8 @@ onAuthStateChanged(auth, async (user) => {
  * CODIGO PARA EL MAIN
  */
 
-const totalCourses = 20; 
-const coursesPerPage = 6; 
+const totalCourses = 20;
+const coursesPerPage = 6;
 let currentCourses = coursesPerPage;
 
 const courses = [
@@ -73,7 +74,7 @@ function generateCourses() {
         `;
         courseContainer.appendChild(courseCard);
     }
-    updateCourseVisibility(); 
+    updateCourseVisibility();
 }
 
 function updateCourseVisibility() {
@@ -85,16 +86,16 @@ function updateCourseVisibility() {
 
 document.getElementById('toggleButton').addEventListener('click', () => {
     if (currentCourses === coursesPerPage) {
-        currentCourses = totalCourses; 
+        currentCourses = totalCourses;
         document.getElementById('toggleButton').textContent = 'Mostrar menos cursos';
     } else {
-        currentCourses = coursesPerPage; 
+        currentCourses = coursesPerPage;
         document.getElementById('toggleButton').textContent = 'Mostrar más cursos';
     }
-    updateCourseVisibility(); 
+    updateCourseVisibility();
 });
 
-generateCourses(); 
+generateCourses();
 /** FIN DE CODIGO PARA EL MAIN */
 
 
