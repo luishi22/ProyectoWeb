@@ -35,6 +35,25 @@
       .btn-close:hover {
         background-color: #e0e0e0;
       }
+      .course-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* Número de líneas */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Añade puntos suspensivos */
+      }
+      .min-width-card {
+        min-width: 380px; /* Ancho mínimo */
+        width: 100%; /* Para que la tarjeta ocupe todo el espacio disponible */
+      }
+
+      @media (max-width: 810px) {
+        .crAdmin {
+          margin-right: 20px; /* Espaciado entre filas en pantallas más grandes */
+          width: 100%;
+          min-width: 380px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -107,10 +126,13 @@
                 <a class="nav-link" href="../index.html">Explorar</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="" id="cursosLink">Cursos</a>
+                <a class="nav-link" href="#" id="cursosLink">Cursos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" id="certificacionesLink"
+                <a
+                  class="nav-link"
+                  href="/html/certificacionesUser.html"
+                  id="certificacionesLink"
                   >Certificaciones</a
                 >
               </li>
@@ -279,133 +301,188 @@
 
     <main class="p-1">
       <div class="container mt-5">
-        <div class="d-flex mb-2">
-          <button
-            class="btn btn-outline-info my-2 ms-auto"
-            data-bs-toggle="modal"
-            data-bs-target="#cursoModal"
-          >
-            Registrar Curso
-          </button>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="flex-grow-1 me-2">
+            <input
+              type="text"
+              id="searchInput"
+              class="form-control"
+              placeholder="Buscar cursos..."
+            />
+          </div>
+          <div>
+            <button
+              class="btn btn-outline-info"
+              data-bs-toggle="modal"
+              data-bs-target="#cursoModal"
+              id="resCurso"
+            >
+              Registrar Curso
+            </button>
+          </div>
         </div>
 
         <!-- TARJETAS -->
         <div class="row" id="coursesAdmin"></div>
+
         <button id="toggleButton" class="btn btn-outline-info my-1">
           Mostrar más cursos
         </button>
-
-        <div
-          class="modal fade"
-          id="cursoModal"
-          tabindex="-1"
-          aria-labelledby="modalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">Registrar Curso</h5>
-                <button
-                  id="closeModalCurso"
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <form id="form-saveCurso">
-                  <div class="row g-3 align-items-center">
-                    <!-- Nombre del curso (6 columnas) -->
-                    <div class="col-md-6">
-                      <label for="addNombreCurso" class="form-label"
-                        >Nombre del Curso</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="addNombreCurso"
-                        placeholder="Ingrese el nombre del curso"
-                        required
-                      />
-                    </div>
-
-                    <!-- Imagen del curso (6 columnas) -->
-                    <div class="col-md-6 text-center">
-                      <div>
-                        <p class="form-label">Icono del curso</p>
-                      </div>
-                      <img
-                        id="imgCourse"
-                        src="../assets/icons/iconosCursos/iconBaseCurso.png"
-                        alt="Imagen del curso"
-                        width="100px"
-                        class="img-fluid"
-                      />
-                    </div>
-                  </div>
-
-                  <!-- Input para seleccionar la imagen -->
-                  <div class="mb-3 mt-3">
-                    <label for="inputImg" class="form-label"
-                      >Selecciona la imagen del curso</label
+      </div>
+      <!-- Modal de registro de curso -->
+      <div
+        class="modal fade"
+        id="cursoModal"
+        tabindex="-1"
+        aria-labelledby="modalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalLabel">Registrar Curso</h5>
+              <button
+                id="closeModalCurso"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="form-saveCurso">
+                <div class="row g-3 align-items-center">
+                  <!-- Nombre del curso (6 columnas) -->
+                  <div class="col-md-6">
+                    <label for="addNombreCurso" class="form-label"
+                      >Nombre del Curso</label
                     >
                     <input
-                      class="form-control form-control-sm"
-                      id="inputImg"
-                      type="file"
-                      accept="image/*"
+                      type="text"
+                      class="form-control"
+                      id="addNombreCurso"
+                      placeholder="Ingrese el nombre del curso"
+                      required
                     />
                   </div>
 
-                  <!-- Descripción -->
-                  <div class="mb-3">
-                    <label for="desCurso" class="form-label">Descripción</label>
-                    <textarea
+                  <!-- Imagen del curso (6 columnas) -->
+                  <div class="col-md-6 text-center">
+                    <div>
+                      <p class="form-label">Icono del curso</p>
+                    </div>
+                    <img
+                      id="imgCourse"
+                      src="../assets/icons/iconosCursos/iconBaseCurso.png"
+                      alt="Imagen del curso"
+                      width="100px"
+                      class="img-fluid"
+                    />
+                  </div>
+                </div>
+
+                <!-- Input para seleccionar la imagen -->
+                <div class="mb-3 mt-3">
+                  <label for="inputImg" class="form-label"
+                    >Selecciona la imagen del curso</label
+                  >
+                  <input
+                    class="form-control form-control-sm"
+                    id="inputImg"
+                    type="file"
+                    accept="image/*"
+                  />
+                </div>
+
+                <!-- Descripción -->
+                <div class="mb-3">
+                  <label for="desCurso" class="form-label">Descripción</label>
+                  <textarea
+                    class="form-control"
+                    id="desCurso"
+                    rows="3"
+                    placeholder="Descripción del curso"
+                    required
+                  ></textarea>
+                </div>
+
+                <!-- Duración y Requerimientos -->
+                <div class="row g-3">
+                  <div class="col-md-6 mb-3">
+                    <label for="duracionCurso" class="form-label"
+                      >Duración (en horas)</label
+                    >
+                    <input
+                      type="number"
+                      step="0.1"
                       class="form-control"
-                      id="desCurso"
-                      rows="3"
-                      placeholder="Descripción del curso"
+                      id="duracionCurso"
+                      placeholder="Ej: 5.5"
                       required
-                    ></textarea>
+                    />
                   </div>
-
-                  <!-- Duración y Requerimientos -->
-                  <div class="row g-3">
-                    <div class="col-md-6 mb-3">
-                      <label for="duracionCurso" class="form-label"
-                        >Duración (en horas)</label
-                      >
-                      <input
-                        type="number"
-                        step="0.1"
-                        class="form-control"
-                        id="duracionCurso"
-                        placeholder="Ej: 5.5"
-                        required
-                      />
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="reqCursos" class="form-label"
-                        >Requerimientos</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="reqCursos"
-                        placeholder="Ej: Conocimientos básicos de HTML"
-                        required
-                      />
-                    </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="reqCursos" class="form-label"
+                      >Requerimientos</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="reqCursos"
+                      placeholder="Ej: Conocimientos básicos de HTML"
+                      required
+                    />
                   </div>
+                </div>
 
-                  <!-- Botón Guardar -->
-                  <button type="submit" class="btn btn-outline-success w-100">
-                    Guardar Curso
-                  </button>
-                </form>
-              </div>
+                <!-- Botón Guardar -->
+                <button type="submit" class="btn btn-outline-success w-100">
+                  Guardar Curso
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal de Confirmación de Eliminación -->
+      <div
+        class="modal fade"
+        id="confirmDeleteModal"
+        tabindex="-1"
+        aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirmDeleteModalLabel">
+                Confirmar Eliminación
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              ¿Estás seguro de que deseas eliminar este curso?
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                id="confirmDeleteButton"
+              >
+                Eliminar
+              </button>
             </div>
           </div>
         </div>
