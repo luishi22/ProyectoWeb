@@ -28,12 +28,34 @@ signingForm.addEventListener("submit", async (e) => {
     const signinModal = document.querySelector("#signinModal");
     const modal = bootstrap.Modal.getInstance(signinModal);
 
-    modal.hide();
-
-    showToast("Haz iniciado sesion con " + userCredentials.user.email);
-
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
+    const rol = docSnap.data().role;
+
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      userId = docSnap.data().uid;
+      localStorage.setItem("userId", userId);
+      const rol = docSnap.data().role;
+      console.log(userId);
+      const certificacionesLink = document.getElementById(
+        "certificacionesLink"
+      );
+      if (rol === "Administrador") {
+        certificacionesLink.href = "/html/certificacionesAdmin.html"; // Redirige a la página de administrador
+        window.location.href = certificacionesLink.href;
+      } else if (rol === "Usuario") {
+        certificacionesLink.href = "/html/certificacionesUser.html"; // Redirige a la página de usuario
+        window.location.href = certificacionesLink.href;
+      } else {
+        certificacionesLink.href = "/html/certificacionesUser.html"; // Redirige a una página por defecto si el rol no coincide
+      }
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+
+    showToast("Haz iniciado sesion con " + userCredentials.user.email);
 
     if (docSnap.exists()) {
       if (window.location.pathname === "/html/certificacionesUser.html") {
