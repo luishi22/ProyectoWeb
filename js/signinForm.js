@@ -22,72 +22,29 @@ signingForm.addEventListener("submit", async (e) => {
       email,
       password
     );
-    console.log(userCredentials);
+
     const user = userCredentials.user;
 
     const signinModal = document.querySelector("#signinModal");
     const modal = bootstrap.Modal.getInstance(signinModal);
+    modal.hide();
 
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
-    const rol = docSnap.data().role;
-
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      userId = docSnap.data().uid;
-      localStorage.setItem("userId", userId);
-      const rol = docSnap.data().role;
-      console.log(userId);
-      const certificacionesLink = document.getElementById(
-        "certificacionesLink"
-      );
-      if (rol === "Administrador") {
-        certificacionesLink.href = "/html/certificacionesAdmin.html"; // Redirige a la página de administrador
-        window.location.href = certificacionesLink.href;
-      } else if (rol === "Usuario") {
-        certificacionesLink.href = "/html/certificacionesUser.html"; // Redirige a la página de usuario
-        window.location.href = certificacionesLink.href;
-      } else {
-        certificacionesLink.href = "/html/certificacionesUser.html"; // Redirige a una página por defecto si el rol no coincide
-      }
-    } else {
-      // docSnap.data() will be undefined in this case
-      console.log("No such document!");
-    }
 
     showToast("Haz iniciado sesion con " + userCredentials.user.email);
 
     if (docSnap.exists()) {
-      if (window.location.pathname === "/html/certificacionesUser.html") {
-        location.reload();
-      } else if (
-        window.location.pathname === "/html/certificacionesAdmin.html"
-      ) {
-        location.reload();
-      }
-      console.log("Document data:", docSnap.data());
       userId = docSnap.data().uid;
       localStorage.setItem("userId", userId);
       const rol = docSnap.data().role;
-
       /* luishi - guardo el rol */
       localStorage.setItem(`rol`, rol);
-
-      if (window.location.pathname === "/html/cursos.html") {
-        LinkCursos();
-      }
-
-      console.log(userId);
-      const certificacionesLink = document.getElementById(
-        "certificacionesLink"
-      );
-      if (rol === "Administrador") {
-        certificacionesLink.href = "/html/certificacionesAdmin.html"; // Redirige a la página de administrador
-      } else if (rol === "Usuario") {
-        certificacionesLink.href = "/html/certificacionesUser.html"; // Redirige a la página de usuario
-      } else {
-        //certificacionesLink.href = "/html/certificacionesUser.html";   // Redirige a una página por defecto si el rol no coincide
-        console.log("no hay user");
+      const actualPathname = window.location.pathname;
+      if (actualPathname === "/html/cursos.html") {
+        LinkCursos(actualPathname);
+      } else if (actualPathname === "/html/certificacionesUser.html") {
+        LinkCursos(actualPathname);
       }
     } else {
       // docSnap.data() will be undefined in this case
@@ -106,15 +63,31 @@ signingForm.addEventListener("submit", async (e) => {
 
 /* Luishi */
 const link = document.getElementById(`cursosLink`);
-link.addEventListener("click", () => LinkCursos());
+link.addEventListener("click", () => {
+  const actualPathname = "/html/cursos.html";
+  LinkCursos(actualPathname);
+});
 
-function LinkCursos() {
+const linkCertificaciones = document.getElementById(`certificacionesLink`);
+linkCertificaciones.addEventListener("click", () => {
+  const actualPathname = "/html/certificacionesUser.html";
+  LinkCursos(actualPathname);
+});
+
+function LinkCursos(actualPathname) {
   const rol = localStorage.getItem(`rol`) || "";
+
   if (rol === "Administrador") {
     link.href = "/html/cursosAdmin.html"; // Redirige a la página de administrador
+    linkCertificaciones.href = "/html/certificacionesAdmin.html";
   } else {
     link.href = "/html/cursos.html"; // Redirige a la página de usuario
+    linkCertificaciones.href = "/html/certificacionesUser.html";
   }
 
-  window.location.href = link.href;
+  if (actualPathname === "/html/cursos.html") {
+    window.location.href = link.href;
+  } else {
+    window.location.href = linkCertificaciones;
+  }
 }
