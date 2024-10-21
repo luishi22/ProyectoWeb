@@ -52,10 +52,10 @@ btnGoogle.addEventListener('click', async () => {
             const certificacionesLink= document.getElementById("certificacionesLink")
             if (rol === "Administrador") {
                certificacionesLink.href = "/html/certificacionesAdmin.html";  // Redirige a la página de administrador
-               window.location.href = certificacionesLink.href;  
+               //window.location.href = certificacionesLink.href;  
             } else if (rol === "Usuario") {
                 certificacionesLink.href = "/html/certificacionesUser.html";  // Redirige a la página de usuario
-                window.location.href = certificacionesLink.href;  
+                //window.location.href = certificacionesLink.href;  
             } else {
                 certificacionesLink.href = "/html/certificacionesUser.html";   // Redirige a una página por defecto si el rol no coincide
                 
