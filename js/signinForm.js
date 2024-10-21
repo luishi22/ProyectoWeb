@@ -28,11 +28,7 @@ signingForm.addEventListener('submit', async e => {
         const docSnap = await getDoc(docRef);
         
         if (docSnap.exists()) {
-            if (window.location.pathname === "/html/certificacionesUser.html") {
-                location.reload(); 
-            }else if (window.location.pathname === "/html/certificacionesAdmin.html") {
-                location.reload(); 
-            }
+            
             console.log("Document data:", docSnap.data());
             userId= docSnap.data().uid
             localStorage.setItem('userId', userId);
@@ -41,11 +37,13 @@ signingForm.addEventListener('submit', async e => {
             const certificacionesLink= document.getElementById("certificacionesLink")
             if (rol === "Administrador") {
                certificacionesLink.href = "/html/certificacionesAdmin.html";  // Redirige a la página de administrador
+               window.location.href = certificacionesLink.href;  
             } else if (rol === "Usuario") {
                 certificacionesLink.href = "/html/certificacionesUser.html";  // Redirige a la página de usuario
+                window.location.href = certificacionesLink.href;  
             } else {
-                //certificacionesLink.href = "/html/certificacionesUser.html";   // Redirige a una página por defecto si el rol no coincide
-                console.log("no hay user")
+                certificacionesLink.href = "/html/certificacionesUser.html";   // Redirige a una página por defecto si el rol no coincide
+                
             }
         } else {
             // docSnap.data() will be undefined in this case
