@@ -40,30 +40,60 @@ btnFacebook.addEventListener('click', async () => {
         const docSnap1 = await getDoc(docRef1);
 
         if (docSnap1.exists()) {
-            
-            console.log("Document data:", docSnap1.data());
-            userId= docSnap1.data().uid
-            localStorage.setItem('userId', userId);
-            const rol=docSnap1.data().role
-            console.log(userId)
-            const certificacionesLink= document.getElementById("certificacionesLink")
-            if (rol === "Administrador") {
-               certificacionesLink.href = "/html/certificacionesAdmin.html";  // Redirige a la página de administrador
-               window.location.href = certificacionesLink.href;  
-            } else if (rol === "Usuario") {
-                certificacionesLink.href = "/html/certificacionesUser.html";  // Redirige a la página de usuario
-                window.location.href = certificacionesLink.href;  
-            } else {
-                certificacionesLink.href = "/html/certificacionesUser.html";   // Redirige a una página por defecto si el rol no coincide
-                
+            userId = docSnap1.data().uid;
+            localStorage.setItem("userId", userId);
+            const rol = docSnap1.data().role;
+            /* luishi - guardo el rol */
+            localStorage.setItem(`rol`, rol);
+            const actualPathname = window.location.pathname;
+            if (actualPathname === "/html/cursos.html") {
+              LinkCursos(actualPathname);
+            } else if (actualPathname === "/html/certificacionesUser.html") {
+              LinkCursos(actualPathname);
             }
-        } else {
+          } else {
             // docSnap.data() will be undefined in this case
             console.log("No such document!");
+          }
+        } catch (error) {
+          if (error.code === "auth/wrong-password") {
+            showToast("Contraseña incorrecta", "error");
+          } else if (error.code === "auth/user-not-found") {
+            showToast("Usuario no encontrado", "error");
+          } else {
+            showToast(error.message, "error");
+          }
         }
-
-        //showToast("Bienvenido "+userCredentials.user.displayName)
-    } catch (error) {
-        console.log(error.code);
-    }
-})
+      });
+      
+      /* Luishi */
+      const link = document.getElementById(`cursosLink`);
+      link.addEventListener("click", () => {
+        const actualPathname = "/html/cursos.html";
+        LinkCursos(actualPathname);
+      });
+      
+      const linkCertificaciones = document.getElementById(`certificacionesLink`);
+      linkCertificaciones.addEventListener("click", () => {
+        const actualPathname = "/html/certificacionesUser.html";
+        LinkCursos(actualPathname);
+      });
+      
+      function LinkCursos(actualPathname) {
+        const rol = localStorage.getItem(`rol`) || "";
+      
+        if (rol === "Administrador") {
+          link.href = "/html/cursosAdmin.html"; // Redirige a la página de administrador
+          linkCertificaciones.href = "/html/certificacionesAdmin.html";
+        } else {
+          link.href = "/html/cursos.html"; // Redirige a la página de usuario
+          linkCertificaciones.href = "/html/certificacionesUser.html";
+        }
+      
+        if (actualPathname === "/html/cursos.html") {
+          window.location.href = link.href;
+        } else {
+          window.location.href = linkCertificaciones;
+        }
+      }
+      
