@@ -23,8 +23,26 @@
         height: 100vh; /* Mínimo ocupa todo el viewport disponible */
       }
     </style>
+    <script>
+      // Función para obtener el ID de la URL
+      function getIdFromUrl() {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get('id');
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+          const courseId = getIdFromUrl();
+          // Mostrar el ID en el h1
+          const courseTitleElement = document.getElementById("courseTitle");
+          courseTitleElement.textContent = `ID del Curso: ${courseId}`;
+          // Aquí puedes usar courseId para cargar los detalles del curso desde Firestore
+          console.log("ID del curso:", courseId);
+          // Lógica para cargar detalles del curso usando courseId
+      });
+  </script>
   </head>
   <body>
+    <h1 id="courseTitle">Aqui se muestra el ID</h1>
     <nav>
       <!-- HEADER -->
       <div class="container">
