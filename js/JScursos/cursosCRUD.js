@@ -21,6 +21,7 @@ const imagen = document.getElementById(`inputImg`);
 const descripcion = document.getElementById(`desCurso`);
 const horas = document.getElementById(`duracionCurso`);
 const requerimiento = document.getElementById(`reqCursos`);
+
 let statusCurso = true;
 let courseId; // Variable para almacenar el ID del curso a eliminar o editar
 /* evento para cambiar el titulo del modal cursoModal */
@@ -242,3 +243,75 @@ document
     );
     confirmDeleteModal.hide();
   });
+
+// Variables para el nuevo contenido
+const contentSection = document.getElementById("contentSection");
+const backButton = document.getElementById("backButton");
+const courseTitle = document.getElementById("courseTitle");
+const courseImage = document.getElementById("courseImage");
+const courseDescription = document.getElementById("courseDescription");
+const videosContainer = document.getElementById("videosContainer");
+
+// Manejar el clic en el botón de contenido del curso
+courseContainer.addEventListener("click", ({ target }) => {
+  if (target.classList.contains("btn-secondary")) {
+    const courseId = target.dataset.id;
+    const course = allCourses.find((course) => course.id === courseId);
+    mostrarContenidoCurso(course);
+  }
+});
+
+// Mostrar contenido del curso
+function mostrarContenidoCurso(course) {
+  // Llenar la sección de contenido
+  courseTitle.textContent = course.title;
+  courseImage.src = course.image;
+  courseDescription.textContent = course.description;
+
+  // Ocultar la sección de cursos y mostrar la sección de contenido
+  coursesSection.classList.add("d-none");
+  contentSection.classList.remove("d-none");
+
+  // Limpiar videos previos
+  videosContainer.innerHTML = "";
+  // Aquí puedes agregar lógica para cargar videos existentes si los tienes
+}
+
+// Regresar a la sección de cursos
+backButton.addEventListener("click", () => {
+  contentSection.classList.add("d-none");
+  coursesSection.classList.remove("d-none");
+});
+
+// Manejar la adición de videos
+const formAddVideo = document.getElementById("form-addVideo");
+formAddVideo.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const videoTitleValue = document.getElementById("videoTitle").value;
+  const videoDescriptionValue =
+    document.getElementById("videoDescription").value;
+  const videoURLValue = document.getElementById("videoURL").value;
+
+  // Crear una tarjeta para el video
+  const videoCard = document.createElement("div");
+  videoCard.className = "col-12 col-md-6 col-xl-4 mb-3";
+  videoCard.innerHTML = `
+    <div class="card" style="background: #205aaf;">
+      <div class="card-body text-white">
+        <h5 class="card-title">${videoTitleValue}</h5>
+        <iframe width="100%" height="200" src="${videoURLValue}" frameborder="0" allowfullscreen></iframe>
+        <p class="card-text">${videoDescriptionValue}</p>
+      </div>
+    </div>
+  `;
+
+  // Agregar la tarjeta del video al contenedor
+  videosContainer.appendChild(videoCard);
+
+  // Cerrar el modal y limpiar el formulario
+  const videoModal = bootstrap.Modal.getInstance(
+    document.getElementById("videoModal")
+  );
+  videoModal.hide();
+  formAddVideo.reset();
+});

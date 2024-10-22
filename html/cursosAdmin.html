@@ -46,12 +46,17 @@
         min-width: 380px; /* Ancho mínimo */
         width: 100%; /* Para que la tarjeta ocupe todo el espacio disponible */
       }
+      #courseDescription {
+        max-width: 600px; /* Controlar el ancho de la descripción */
+        margin: 0 auto; /* Centrar el texto de la descripción */
+        line-height: 1.5; /* Aumentar la altura de línea para mejor legibilidad */
+      }
 
       @media (max-width: 810px) {
         .crAdmin {
           margin-right: 20px; /* Espaciado entre filas en pantallas más grandes */
           width: 100%;
-          min-width: 380px;
+          max-width: 100%;
         }
       }
     </style>
@@ -59,7 +64,7 @@
   <body>
     <head>
       <!-- HEADER -->
-      <div class="container">
+      <div>
         <nav class="navbar navbar-expand-lg">
           <div class="container-fluid">
             <figure class="PublicHeader_publicHeader_logo__KDHIm">
@@ -163,7 +168,7 @@
               <button
                 class="btn btn-outline-primary btn-sm me-2 logged-in"
                 style="color: white"
-                onclick="window.location.href='html/profile.html'"
+                onclick="window.location.href='./profile.html'"
                 id="profile"
               >
                 Perfil
@@ -375,36 +380,86 @@
     </head>
 
     <main class="p-1">
-      <div class="container mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <div class="flex-grow-1 me-2">
-            <input
-              type="text"
-              id="searchInput"
-              class="form-control"
-              placeholder="Buscar cursos..."
-            />
+      <div class="container">
+        <div id="coursesSection">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="flex-grow-1 me-2">
+              <input
+                type="text"
+                id="searchInput"
+                class="form-control"
+                placeholder="Buscar cursos..."
+              />
+            </div>
+            <div>
+              <button
+                class="btn btn-outline-info"
+                data-bs-toggle="modal"
+                data-bs-target="#cursoModal"
+                id="resCurso"
+              >
+                Registrar Curso
+              </button>
+            </div>
           </div>
-          <div>
-            <button
-              class="btn btn-outline-info"
-              data-bs-toggle="modal"
-              data-bs-target="#cursoModal"
-              id="resCurso"
-            >
-              Registrar Curso
-            </button>
-          </div>
+
+          <!-- TARJETAS -->
+          <div class="row" id="coursesAdmin"></div>
+
+          <button id="toggleButton" class="btn btn-outline-info my-1">
+            Mostrar más cursos
+          </button>
         </div>
 
-        <!-- TARJETAS -->
-        <div class="row" id="coursesAdmin"></div>
+        <!-- Sección de contenido del curso -->
+        <div id="contentSection" class="d-none">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <button id="backButton" class="btn btn-outline-secondary">
+              ← Regresar
+            </button>
+            <button
+              class="btn btn-outline-info"
+              id="addVideoButton"
+              data-bs-toggle="modal"
+              data-bs-target="#videoModal"
+            >
+              Agregar Video
+            </button>
+          </div>
 
-        <button id="toggleButton" class="btn btn-outline-info my-1">
-          Mostrar más cursos
-        </button>
+          <div class="row container">
+            <!-- Columna para el logo del curso -->
+            <div class="col-md-4 d-flex justify-content-center">
+              <div>
+                <img
+                  id="courseImage"
+                  class="img-fluid"
+                  src=""
+                  alt="Curso"
+                  style="width: 100px; height: auto"
+                />
+              </div>
+            </div>
+
+            <!-- Columna para el título y la descripción -->
+            <div class="col-md-8">
+              <h3 id="courseTitle" class="text-center mb-0"></h3>
+              <p
+                id="courseDescription"
+                class="text-start"
+                style="max-width: 600px"
+              >
+                <!-- Aquí se llenará la descripción -->
+              </p>
+            </div>
+          </div>
+
+          <div class="row mt-3" id="videosContainer"></div>
+        </div>
       </div>
+
       <!-- Modal de registro de curso -->
+
       <div
         class="modal fade"
         id="cursoModal"
@@ -519,6 +574,7 @@
           </div>
         </div>
       </div>
+
       <!-- Modal de Confirmación de Eliminación -->
       <div
         class="modal fade"
@@ -562,11 +618,72 @@
           </div>
         </div>
       </div>
+
+      <!-- Modal para agregar videos -->
+      <div
+        class="modal fade"
+        id="videoModal"
+        tabindex="-1"
+        aria-labelledby="videoModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="videoModalLabel">Agregar Video</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="form-addVideo">
+                <div class="mb-3">
+                  <label for="videoTitle" class="form-label"
+                    >Título del Video</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="videoTitle"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="videoDescription" class="form-label"
+                    >Descripción del Video</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="videoDescription"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="videoURL" class="form-label">URL del Video</label>
+                  <input
+                    type="url"
+                    class="form-control"
+                    id="videoURL"
+                    placeholder="https://..."
+                    required
+                  />
+                </div>
+                <button type="submit" class="btn btn-outline-success w-100">
+                  Agregar Video
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
+
     <!-- DEPENDENCIAS Y LIBRERIAS JS-->
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <script type="module" src="../js/JScursos/cursosVista.js"></script>
     <script type="module" src="../js/JScursos/cursosCRUD.js"></script>
     <!-- import "./JScursos/cursosVista.js"; -->
