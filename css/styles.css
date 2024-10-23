@@ -277,7 +277,7 @@ h3.TituloTexto {
 .CoursesSearch_CoursesSearch__vXhJ8 input:focus-visible,
 .CoursesSearch_CoursesSearch__vXhJ8 input:focus-within {
     outline: none;
-    border-color: #0011ff
+    border-color: #b9b8b8
 }
 
 .CoursesSearch_CoursesSearch__vXhJ8>button {
@@ -307,7 +307,7 @@ h3.TituloTexto {
 
 .CoursesSearch_CoursesSearch__vXhJ8:has(input:focus, input:active, input:focus-visible, input:focus-within)>button>svg,
 .CoursesSearch_CoursesSearch__vXhJ8:has(input:focus, input:active, input:focus-visible, input:focus-within)>button>svg>path {
-    stroke: #000dff
+    stroke: #ffffff
 }
 
 .CoursesSearch_CoursesSearch__vXhJ8 ul {
@@ -346,83 +346,109 @@ h3.TituloTexto {
 
 /*CERTIFICACIONES*/
 .certification-card {
-    background-color: #1e1e1e;
+    background: #232323;
     color: white;
     transition: transform 0.3s ease-in-out;
     height: 100%;
     border-radius: 5%;
 }
+
 .certification-card:hover {
     transform: translateY(-5px);
 }
+
 .certification-logo {
-    max-height: 60px;
     object-fit: contain;
 }
+
 .btn-outline-light {
     border-color: rgba(255, 255, 255, 0.5);
 }
+
 .btn-outline-light:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
- /* slider continuo */
- .marquee-wrapper {
+/* Slider continuo */
+.marquee-wrapper {
     overflow: hidden;
     width: 100%;
+    position: relative;
 }
+
 .marquee-content {
     display: flex;
-    animation: marquee 10s linear infinite;
-    white-space: nowrap; /* Para evitar el salto de línea */
+    white-space: nowrap;
+    /* Evitar el salto de línea */
+    animation: marquee 40s linear infinite;
+    /* Duración rápida para el desplazamiento */
 }
+
 .company-logo {
     padding: 0 20px;
 }
+
 .company-logo img {
-    width: 150px; /* Ajuste del tamaño uniforme para todas las imágenes */
+    width: 150px;
+    /* Tamaño uniforme para todas las imágenes */
     height: auto;
-    filter: grayscale(100%); /* Escala de grises */
+    filter: grayscale(100%);
+    /* Escala de grises */
     transition: filter 0.3s;
 }
+
 .company-logo img:hover {
-    filter: grayscale(0%); /* Mostrar color al pasar el ratón */
+    filter: grayscale(0%);
+    /* Mostrar color al pasar el ratón */
 }
 
+/* Animaciones */
 @keyframes marquee {
     0% {
         transform: translateX(0);
     }
+
+    80% {
+        transform: translateX(-100%);
+    }
+
     100% {
-        transform: translateX(-50%); /* Mover el contenido a la mitad de su longitud total */
+        transform: translateX(0);
+        /* Regreso al inicio */
     }
 }
 
-/*Profesores*/
 
+
+
+/*Profesores*/
 .professor-card {
-    background-color: #007d52;
-    border-radius: 10px;
+    background-color: #7d7d7d;
+    border-radius: 20px;
     overflow: hidden;
     height: 100%;
 }
+
 .professor-image {
     width: 100%;
     height: 250px;
     object-fit: cover;
 }
+
 .professor-info {
     padding: 1rem;
 }
+
 .course-link {
-    background-color: #005c3e;
-    color: white;
+    background-color: white;
+    color: black;
     text-decoration: none;
     padding: 0.5rem;
     border-radius: 5px;
     display: inline-block;
     margin-top: 0.5rem;
 }
+
 .course-icon {
     width: 24px;
     height: 24px;
@@ -444,14 +470,47 @@ h3.TituloTexto {
 
 .separator-text {
     margin: 0 10px;
-    color: #A9A9A9;
+    color: #000000;
 }
 
-.fondo-custom{
+.fondo-custom {
     border-color: white;
     border-width: 0.1rem;
     background: radial-gradient(#0e1c96 5%, #02094e 80%, #02094e 50%);
-    color: white;
+    color: rgb(0, 0, 0);
     font-family: 'Helvetica', 'Arial', sans-serif;
 }
 
+/**/
+.why-choose-section {
+    padding: 7rem 0;
+    background-color: white;
+    color: #000000;
+
+}
+
+.why-choose-section .img-wrap {
+    position: relative;
+}
+
+.why-choose-section .img-wrap:before {
+    background-color: transparent;
+    position: absolute;
+    content: "";
+    width: 255px;
+    height: 217px;
+    background-image: url("../images/dots-yellow.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    -webkit-transform: translate(-40%, -40%);
+    -ms-transform: translate(-40%, -40%);
+    transform: translate(-40%, -40%);
+    z-index: 1; /* Cambiado de -1 a 1 */
+}
+
+
+.why-choose-section .img-wrap img {
+    border-radius: 20px;
+    position: relative;
+    z-index: 1;
+}

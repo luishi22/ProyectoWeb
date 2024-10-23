@@ -11,7 +11,25 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="./css/styles.css">
     <script src="./js/main.js" type="module"></script>
+    <script type="module" src="./firebase.js"></script>
 </head>
+<style>
+    .navbar-logo {
+        margin: 0;
+        /* Sin margen para que se alinee bien */
+    }
+
+    .logo {
+        width: auto;
+        /* Auto para mantener la proporción de la imagen */
+        height: 30px;
+        /* Altura del icono */
+        max-width: 100%;
+        /* Asegura que la imagen no se desborde */
+        display: block;
+        /* Para que se muestre como un bloque */
+    }
+</style>
 
 <body>
 
@@ -19,22 +37,8 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg ">
             <div class="container-fluid">
-                <figure class="PublicHeader_publicHeader_logo__KDHIm"><svg width="1em" height="1em" fill="none"
-                        viewBox="0 0 92 32" xmlns="http://www.w3.org/2000/svg">
-                        <g fill="#0AE98A" clip-path="url(#platzi-logo-new_svg__a)">
-                            <path
-                                d="M25.334 25.135V6.106h8.77c1.897 0 3.355.555 4.386 1.663s1.546 2.606 1.546 4.473-.515 3.364-1.546 4.473c-1.03 1.108-2.499 1.662-4.385 1.662H28.63v6.748h-3.306zm3.306-9.675h5.26c.837 0 1.488-.214 1.965-.651q.7-.657.7-1.867v-1.39c0-.807-.234-1.44-.7-1.867-.467-.438-1.119-.652-1.965-.652h-5.26v6.437zm32.797 9.675c-.836 0-1.478-.243-1.935-.72-.447-.476-.72-1.088-.816-1.827h-.146c-.292.953-.827 1.682-1.604 2.168q-1.165.73-2.84.73-2.362-.001-3.646-1.226c-.856-.817-1.274-1.925-1.274-3.306 0-1.517.554-2.664 1.653-3.423q1.648-1.137 4.842-1.137h2.752V15.11q0-1.398-.758-2.168c-.506-.506-1.294-.759-2.373-.759q-1.34 0-2.197.584a5.2 5.2 0 0 0-1.43 1.488l-1.906-1.721c.506-.856 1.216-1.566 2.14-2.12.914-.554 2.12-.836 3.597-.836 1.974 0 3.481.457 4.531 1.37 1.05.915 1.576 2.237 1.576 3.948v7.633h1.604v2.606h-1.789zM55 23.055c.992 0 1.819-.224 2.46-.662.642-.437.963-1.03.963-1.77v-2.197H55.73c-2.207 0-3.306.68-3.306 2.052v.525c0 .68.233 1.196.69 1.536s1.09.515 1.887.515m18.689 2.08v-2.577l8.158-10.034h-7.895V9.879l11.668.039v2.46l-8.275 10.151h8.479v2.606zm-29.841.01a1.89 1.89 0 0 1-1.896-1.896V6.126h3.189v16.413h2.11v2.606zM89.11 8.022a1.896 1.896 0 1 0 0-3.792 1.896 1.896 0 0 0 0 3.792M63.499 9.889h-.282v2.645h2.44v9.305c0 1.05.282 1.867.846 2.44.564.574 1.4.866 2.519.866h2.78v-2.606h-2.955V12.534h3.189V9.889h-3.19V6.106h-2.868v1.887c0 1.04-.846 1.886-1.886 1.886h-.593zm24.017.039h3.19v15.207h-3.19z">
-                            </path>
-                            <path fill-rule="evenodd"
-                                d="m9.65 4.803-8.07 8.07a3.81 3.81 0 0 0 0 5.388l8.08 8.08a3.81 3.81 0 0 0 5.387 0l2.693-2.694-2.693-2.693-2.694 2.693-8.08-8.08 8.07-8.07 5.387 5.387-5.387 5.386 2.694 2.694 5.387-5.387a3.81 3.81 0 0 0 0-5.387l-5.387-5.387a3.81 3.81 0 0 0-5.387 0"
-                                clip-rule="evenodd"></path>
-                        </g>
-                        <defs>
-                            <clipPath id="platzi-logo-new_svg__a">
-                                <path fill="#fff" d="M.461 0h91.077v32H.461z"></path>
-                            </clipPath>
-                        </defs>
-                    </svg>
+                <figure class="navbar-logo">
+                    <img src="./assets/img/logo2.png" alt="Logo" class="logo">
                 </figure>
 
 
@@ -189,21 +193,21 @@
         </div>
     </div>
     <!-- FIN DE MODAL -->
-
+     
     <main class="container-fluid text-center">
 
         <!-- TEXTO PLANO -->
         <div class="container">
-            <div class="hero-content mt-5">
+            <div class="hero-content mt-4">
                 <h1 class="TituloTexto">La escuela de tecnología <br><span>de Latinoamérica</span></h1>
             </div>
 
-            <div class="hero-content mt-5">
+            <div hidden class="hero-content mt-5">
                 <h5>Más de 5 millones de estudiantes y más</h5>
                 <h5> de 3.000 empresas aprenden en Platzi </h5>
             </div>
 
-            <div class="hero-content mt-5">
+            <div class="hero-content mt-3">
 
                 <article id="courses-search" class="CoursesSearch_CoursesSearch__vXhJ8" role="presentation"
                     aria-expanded="false" aria-haspopup="listbox" aria-labelledby="autocomplete-0-label">
@@ -212,7 +216,9 @@
                     <label for="autocomplete-0-input" id="courses-search-label">¿Qué quieres aprender?</label>
                     <input aria-autocomplete="both" aria-labelledby="autocomplete-0-label" id="autocomplete-0-input"
                         autoComplete="off" autoCorrect="off" autoCapitalize="off" enterKeyHint="search"
-                        spellCheck="false" placeholder="I" maxLength="512" type="text" value="" />
+                        spellCheck="false" placeholder="Buscar cursos" maxLength="512" type="text" value="" />
+
+
 
                     <button id="searchIconBtn" aria-label="Search Icon Btn"><svg width="1em" height="1em" fill="none"
                             viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
@@ -226,102 +232,17 @@
 
             </div>
 
-            <div class="hero-content mt-5">
+            <div hidden class="hero-content">
                 <h6>Empieza cualquier curso sin costo. <br /> O consigue
                     <a href="" style="color: white;" target="_blank">Platzi para tu empresa</a>
                 </h6>
             </div>
 
-            <div class="hero-content mt-5"></div>
+            <div class="hero-content"></div>
             <!-- FIN DE TEXTO PLANO -->
         </div>
-        <!-- MARCAS -->
-        <div class="container-fluid my-5">
 
-            <!-- Slider continuo -->
-            <div class="marquee-wrapper">
-                <div class="marquee-content">
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/davivienda_a4d7872c1c.svg"
-                            alt="Davivienda">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Fundacion_grupo_social_0aa7561224.svg"
-                            alt="Fundación Grupo Social">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=96,quality=75,format=auto/ms-landings-admin/media/grupoexito_024e3d77b4.svg"
-                            alt="Grupo Éxito">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/gruposura_e9e5efdf0b.svg"
-                            alt="Sura">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/mapfre_3fabe6a7f0.svg"
-                            alt="Mapfre">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/rappi_0cce7f9f43.svg"
-                            alt="Rappi">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/media/uploads/avianca_86876f8bb8.svg" alt="Avianca">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Lenovo_65f74f30af.svg"
-                            alt="Lenovo">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/media/uploads/bancolombia_114ce59ab3.svg" alt="Bancolombia">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/colsubsidio_9e843d8531.svg"
-                            alt="Colsubsidio">
-                    </div>
-                    <!-- Duplicamos los logos para lograr un ciclo continuo -->
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/davivienda_a4d7872c1c.svg"
-                            alt="Davivienda">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Fundacion_grupo_social_0aa7561224.svg"
-                            alt="Fundación Grupo Social">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=96,quality=75,format=auto/ms-landings-admin/media/grupoexito_024e3d77b4.svg"
-                            alt="Grupo Éxito">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/gruposura_e9e5efdf0b.svg"
-                            alt="Sura">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/mapfre_3fabe6a7f0.svg"
-                            alt="Mapfre">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/rappi_0cce7f9f43.svg"
-                            alt="Rappi">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/media/uploads/avianca_86876f8bb8.svg" alt="Avianca">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Lenovo_65f74f30af.svg"
-                            alt="Lenovo">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/media/uploads/bancolombia_114ce59ab3.svg" alt="Bancolombia">
-                    </div>
-                    <div class="company-logo">
-                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/colsubsidio_9e843d8531.svg"
-                            alt="Colsubsidio">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- FIN DE MARCAS -->
+
 
         <div class="container">
             <!-- TARJETAS -->
@@ -331,140 +252,302 @@
 
             <!-- CERTIFICACIONES -->
 
-            </head>
+        </div>
 
-            <body>
-                <div class="container py-5">
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <div class="certification-card p-4 d-flex flex-column">
-                                <img src="https://static.platzi.com/media/uploads/toefl_1c45bb83c2.png" alt="TOEFL"
-                                    class="certification-logo mb-3">
-                                <h3 class="h5 mb-3">Alianza con ETS para la certificación TOEFL en Inglés</h3>
-                                <div class="mt-auto">
-                                    <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
-                                        Ir a los cursos
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="ms-2">
-                                            <path d="M5 12h14"></path>
-                                            <path d="m12 5 7 7-7 7"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="certification-card p-4 d-flex flex-column">
-                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png"
-                                    alt="Google" class="certification-logo mb-3">
-                                <h3 class="h5 mb-3">Convenio de certificación en tecnologías cloud</h3>
-                                <div class="mt-auto">
-                                    <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
-                                        Ir a los cursos
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="ms-2">
-                                            <path d="M5 12h14"></path>
-                                            <path d="m12 5 7 7-7 7"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="certification-card p-4 d-flex flex-column">
-                                <img src="https://www.lindenwood.edu/files/resources/xcomptia-aplus-logo.png.pagespeed.ic.51sgZQp_Qo.png"
-                                    alt="CompTIA Security+" class="certification-logo mb-3">
-                                <h3 class="h5 mb-3">Domina la seguridad digital con CompTIA security+</h3>
-                                <div class="mt-auto">
-                                    <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
-                                        Ir a los cursos
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="ms-2">
-                                            <path d="M5 12h14"></path>
-                                            <path d="m12 5 7 7-7 7"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
+        <!-- FIN DE MARCAS -->
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="certification-card p-4 d-flex flex-column">
+                        <img src="./assets/img/practicioner.png" alt="TOEFL"
+                            class="certification-logo mb-3" style="max-height: 100px;">
+                        <h5 class="h5 mb-3">Alianza con AWS para la certificación</h5>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
+                                Ir a los cursos
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="ms-2">
+                                    <path d="M5 12h14"></path>
+                                    <path d="m12 5 7 7-7 7"></path>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <!-- FIN DE CERTIFICACIONES -->
-        </div>
-
-        <!-- PERSONAS -->
-        <div class="container-fluid py-5" style="background-color: rgb(9, 76, 30);">
-            <div class="container">
-                <h1 class="mb-4">Nuestros profesores son expertos de la industria</h1>
-                <div class="row g-4">
-                    <div class="col-md-3">
-                        <div class="professor-card">
-                            <img src="https://static.platzi.com/media/uploads/Luis_Martinez_6a15bc8e42.png"
-                                alt="Carli Florida" class="professor-image">
-                            <div class="professor-info">
-                                <h3>Carli Florida</h3>
-                                <p>Teacher In-house en Platzi</p>
-                                <a href="#" class="course-link">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png"
-                                        alt="Python" class="course-icon">
-                                    Curso de Python
-                                </a>
-                            </div>
+                <div class="col-md-4">
+                    <div class="certification-card p-4 d-flex flex-column">
+                        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png"
+                            alt="Google" class="certification-logo mb-3" style="max-height: 70px;">
+                        <h3 class="h5 mb-3">Convenio de certificación en tecnologías cloud</h3> 
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
+                                Ir a los cursos
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="ms-2">
+                                    <path d="M5 12h14"></path>
+                                    <path d="m12 5 7 7-7 7"></path>
+                                </svg>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="professor-card">
-                            <img src="https://static.platzi.com/media/uploads/Luis_Martinez_6a15bc8e42.png"
-                                alt="Anibal Rojas" class="professor-image">
-                            <div class="professor-info">
-                                <h3>Anibal Rojas</h3>
-                                <p>VP de Ingeniería en Platzi</p>
-                                <a href="#" class="course-link">
-                                    <img src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png"
-                                        alt="ChatGPT" class="course-icon">
-                                    Curso de ChatGPT para Empresas
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="professor-card">
-                            <img src="https://static.platzi.com/media/uploads/Luis_Martinez_6a15bc8e42.png"
-                                alt="Carolina Castañeda" class="professor-image">
-                            <div class="professor-info">
-                                <h3>Carolina Castañeda</h3>
-                                <p>Online Tech Teacher en Platzi</p>
-                                <a href="#" class="course-link">
-                                    <img src="https://cdn-icons-png.freepik.com/512/8754/8754965.png" alt="SQL"
-                                        class="course-icon">
-                                    Curso de Bases de Datos con SQL
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="professor-card">
-                            <img src="https://static.platzi.com/media/uploads/Luis_Martinez_6a15bc8e42.png"
-                                alt="Luis Martínez" class="professor-image">
-                            <div class="professor-info">
-                                <h3>Luis Martínez</h3>
-                                <p>Platform Engineer en Deel</p>
-                                <a href="#" class="course-link">
-                                    <img src="https://img-c.udemycdn.com/course/750x422/5181936_1fc3.jpg" alt="Django"
-                                        class="course-icon">
-                                    Curso de Django
-                                </a>
-                            </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="certification-card p-4 d-flex flex-column">
+                        <img src="https://www.lindenwood.edu/files/resources/xcomptia-aplus-logo.png.pagespeed.ic.51sgZQp_Qo.png"
+                            alt="CompTIA Security+" class="certification-logo mb-3" style="max-height: 100px;">
+                        <h3 class="h5 mb-3">Domina la seguridad digital con CompTIA security+</h3>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
+                                Ir a los cursos
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="ms-2">
+                                    <path d="M5 12h14"></path>
+                                    <path d="m12 5 7 7-7 7"></path>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- FIN PERSONAS -->
+        <!-- FIN DE CERTIFICACIONES -->
+        </div>
+    </div>
 
+
+
+
+        <!-- MARCAS -->
+        <div class="container-fluid my-5">
+
+            <!-- Slider continuo -->
+            <div class="marquee-wrapper">
+                <div class="marquee-content" id="marquee">
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/davivienda_a4d7872c1c.svg"
+                            alt="Davivienda">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Fundacion_grupo_social_0aa7561224.svg"
+                            alt="Fundación Grupo Social">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=96,quality=75,format=auto/ms-landings-admin/media/grupoexito_024e3d77b4.svg"
+                            alt="Grupo Éxito">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/gruposura_e9e5efdf0b.svg"
+                            alt="Sura">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/mapfre_3fabe6a7f0.svg"
+                            alt="Mapfre">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/rappi_0cce7f9f43.svg"
+                            alt="Rappi">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/media/uploads/avianca_86876f8bb8.svg" alt="Avianca">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Lenovo_65f74f30af.svg"
+                            alt="Lenovo">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/media/uploads/bancolombia_114ce59ab3.svg" alt="Bancolombia">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/colsubsidio_9e843d8531.svg"
+                            alt="Colsubsidio">
+                    </div>
+
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/davivienda_a4d7872c1c.svg"
+                            alt="Davivienda">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Fundacion_grupo_social_0aa7561224.svg"
+                            alt="Fundación Grupo Social">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=96,quality=75,format=auto/ms-landings-admin/media/grupoexito_024e3d77b4.svg"
+                            alt="Grupo Éxito">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/gruposura_e9e5efdf0b.svg"
+                            alt="Sura">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/mapfre_3fabe6a7f0.svg"
+                            alt="Mapfre">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=128,quality=75,format=auto/ms-landings-admin/media/rappi_0cce7f9f43.svg"
+                            alt="Rappi">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/media/uploads/avianca_86876f8bb8.svg" alt="Avianca">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=256,quality=75,format=auto/ms-landings-admin/media/Lenovo_65f74f30af.svg"
+                            alt="Lenovo">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/media/uploads/bancolombia_114ce59ab3.svg" alt="Bancolombia">
+                    </div>
+                    <div class="company-logo">
+                        <img src="https://static.platzi.com/cdn-cgi/image/width=384,quality=75,format=auto/ms-landings-admin/media/colsubsidio_9e843d8531.svg"
+                            alt="Colsubsidio">
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+        
+
+            <!-- PERSONAS -->
+            <div class="container-fluid py-5" style="background: rgb(4, 99, 100);
+">
+                <div class="container">
+                    <h1 class="mb-4" style="color: rgb(255, 255, 255);">Nuestros profesores son expertos de la industria
+                    </h1>
+                    <div class="row g-4">
+                        <div class="col-md-3">
+                            <div class="professor-card">
+                                <img src="./images/person_4.jpg"
+                                    alt="Carli Florida" class="professor-image">
+                                <div class="professor-info">
+                                    <h3>Carli Florida</h3>
+                                    <p>Teacher In-house en Platzi</p>
+                                    <a href="#" class="course-link">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png"
+                                            alt="Python" class="course-icon">
+                                        Curso de Python
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="professor-card">
+                                <img src="./images/person_3.jpg"
+                                    alt="Anibal Rojas" class="professor-image">
+                                <div class="professor-info">
+                                    <h3>Anibal Rojas</h3>
+                                    <p>VP de Ingeniería en Platzi</p>
+                                    <a href="#" class="course-link">
+                                        <img src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png"
+                                            alt="ChatGPT" class="course-icon">
+                                        Curso de ChatGPT para Empresas
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="professor-card">
+                                <img src="./images/person_1.jpg"
+                                    alt="Carolina Castañeda" class="professor-image">
+                                <div class="professor-info">
+                                    <h3>David Hernandez</h3>
+                                    <p>Online Tech Teacher en Platzi</p>
+                                    <a href="#" class="course-link">
+                                        <img src="https://cdn-icons-png.freepik.com/512/8754/8754965.png" alt="SQL"
+                                            class="course-icon">
+                                        Curso de Bases de Datos con SQL
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="professor-card">
+                                <img src="./images/person_2.jpg"
+                                    alt="Luis Martínez" class="professor-image">
+                                <div class="professor-info">
+                                    <h3>Luis Martínez</h3>
+                                    <p>Platform Engineer en Deel</p>
+                                    <a href="#" class="course-link">
+                                        <img src="https://img-c.udemycdn.com/course/750x422/5181936_1fc3.jpg"
+                                            alt="Django" class="course-icon">
+                                        Curso de Django
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN PERSONAS -->
+
+ 
+		
+
+		<!-- Inicio Sección ¿Por qué elegirnos? -->
+<div class="why-choose-section">
+    <div class="container">
+      <div class="row justify-content-between align-items-center">
+        <div class="col-lg-6">
+          <h2 class="section-title">¿Por qué elegir nuestros cursos?</h2>
+          <p>Nuestros cursos están diseñados para ofrecer una experiencia de aprendizaje única, combinando teoría y práctica de manera efectiva. Nos aseguramos de que cada estudiante reciba una educación de calidad, con materiales actualizados y el apoyo necesario para su crecimiento profesional.</p>
+  
+          <div class="row my-5">
+            <div class="col-6 col-md-6">
+              <div class="feature">
+                <div class="icon">
+                  <img src="./assets/img/entrega-rapida.png" width="50" height="50" alt="Envío rápido" class="img-fluid">
+                </div>
+                <h3>Acceso inmediato</h3>
+                <p>Accede a todos los materiales del curso de forma instantánea al momento de la inscripción, sin tiempos de espera.</p>
+              </div>
+            </div>
+  
+            <div class="col-6 col-md-6">
+              <div class="feature">
+                <div class="icon">
+                  <img src="./assets/img/bombilla.png" width="50" height="50" alt="Fácil de usar" class="img-fluid">
+                </div>
+                <h3>Facilidad de aprendizaje</h3>
+                <p>Plataforma amigable que permite una navegación sencilla y un aprendizaje eficiente.</p>
+              </div>
+            </div>
+  
+            <div class="col-6 col-md-6">
+              <div class="feature">
+                <div class="icon">
+                  <img src="./assets/img/apoyo-tecnico.png" width="50" height="50"  alt="Soporte 24/7" class="img-fluid">
+                </div>
+                <h3>Soporte 24/7</h3>
+                <p>Contamos con un equipo de soporte disponible en todo momento para ayudarte con cualquier consulta técnica o académica.</p>
+              </div>
+            </div>
+  
+            <div class="col-6 col-md-6">
+              <div class="feature">
+                <div class="icon">
+                  <img src="images/return.svg" alt="Devoluciones fáciles" class="img-fluid">
+                </div>
+                <h3>Garantía de satisfacción</h3>
+                <p>Si no estás satisfecho con el curso, ofrecemos una política de reembolso sin complicaciones.</p>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+  
+        <div class="col-lg-5">
+          <div class="img-wrap">
+            <img src="./assets/img/why us.png" alt="Imagen del curso" class="img-fluid">
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  <!-- Fin Sección ¿Por qué elegirnos? -->
+  
 
     </main>
 
