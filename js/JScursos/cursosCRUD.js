@@ -7,23 +7,17 @@ import {
   onGetCourses,
 } from "./cursosController.js";
 
-/* aun no uso estas importaciones */
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-storage.js";
-
 /* constantes - inputs de los modales */
+/* modal para agregar cursos */
 const nombre = document.getElementById(`addNombreCurso`);
 const imagen = document.getElementById(`inputImg`);
 const descripcion = document.getElementById(`desCurso`);
 const horas = document.getElementById(`duracionCurso`);
 const requerimiento = document.getElementById(`reqCursos`);
 
+/* variable para saber si quiere guardar o editar un curso */
 let statusCurso = true;
-let courseId; // Variable para almacenar el ID del curso a eliminar o editar
+
 /* evento para cambiar el titulo del modal cursoModal */
 let tituloModal = document.getElementById("modalLabel");
 document.getElementById(`resCurso`).addEventListener(`click`, () => {
@@ -35,7 +29,6 @@ document.getElementById(`resCurso`).addEventListener(`click`, () => {
 /*modal y formulario del curso */
 
 const formAddCurso = document.getElementById(`form-saveCurso`);
-
 formAddCurso.addEventListener(`submit`, async (e) => {
   e.preventDefault();
 
@@ -74,15 +67,17 @@ formAddCurso.addEventListener(`submit`, async (e) => {
 });
 
 /* READ cursos */
-/* Variables */
-var cantCourses = 0;
-let maxVistaCourses = 6;
-let allCourses =
-  []; /* en este array almaceno los cursos para facilitar la busqueda */
-
 const courseContainer = document.getElementById("coursesAdmin");
 const searchInput = document.getElementById("searchInput");
-const toggleButton = document.getElementById("toggleButton");
+const btnMostrarCourses = document.getElementById("buttonMostrar");
+/* Variables */
+let cantCourses = 0;
+let maxVistaCourses = 6;
+// Variable para almacenar el ID del curso a eliminar o editar
+let courseId;
+
+/* en este array almaceno los cursos para facilitar la busqueda */
+let allCourses = [];
 
 cargarCourses();
 
@@ -90,7 +85,6 @@ cargarCourses();
 async function cargarCourses() {
   onGetCourses((querySnapshot) => {
     allCourses = []; // Reinicia/limpia el array de cursos
-    courseContainer.innerHTML = "";
     cantCourses = 0;
 
     querySnapshot.forEach((doc) => {
@@ -101,7 +95,6 @@ async function cargarCourses() {
     });
 
     mostrarCursos(allCourses); // Muestra todos los cursos inicialmente
-    maxVisCurso();
   });
 }
 
@@ -121,12 +114,12 @@ function mostrarCursos(courses) {
           <img alt="" loading="lazy" width="100" height="100" decoding="async" data-nimg="1"  src="${course.image}" />
         </figure>
         <div class="flex-grow-1">
-          <h5 class="card-title mb-1">${course.title}</h5> 
+          <h5 class="card-title course-description mb-1">${course.title}</h5> 
           <p class="course-description mb-1">
             ${course.description}
           </p>
           <div class="d-flex gap-2 my-2"> <!-- Usar gap para espaciado entre botones -->
-            <button class="btn btn-secondary btn-sm " data-id="${course.id}">Contenido</button>
+            <button class="btn btn-secondary btn-sm btnContent" data-id="${course.id}">Contenido</button>
             <button class="btn  btn-primary btn-sm btnEditar" data-id="${course.id}">Editar</button>
             <button class="btn btn-danger btn-sm btnEliminar" data-id="${course.id}">Eliminar</button>
           </div>
@@ -137,9 +130,10 @@ function mostrarCursos(courses) {
 
     courseContainer.appendChild(courseCard);
   });
+  maxVisCurso();
   eliminarCourse();
   editarCourse();
-  maxVisCurso();
+  contentCourse();
 }
 
 /* Controla cuantos cursos se muestran segun maxVistaCourses */
@@ -151,15 +145,16 @@ function maxVisCurso() {
 }
 
 /* Evento para mostrar más o menos cursos */
-toggleButton.addEventListener("click", () => {
-  toggleButton.textContent = "Mostrar más cursos";
-
-  if (toggleButton.textContent === "Mostrar más cursos" && cantCourses > 6) {
+btnMostrarCourses.addEventListener("click", () => {
+  if (
+    btnMostrarCourses.textContent.trim() === "Mostrar más cursos" &&
+    cantCourses > 6
+  ) {
     maxVistaCourses = cantCourses;
-    toggleButton.textContent = "Mostrar menos cursos";
+    btnMostrarCourses.textContent = "Mostrar menos cursos";
   } else {
     maxVistaCourses = 6;
-    toggleButton.textContent = "Mostrar más cursos";
+    btnMostrarCourses.textContent = "Mostrar más cursos";
   }
 
   maxVisCurso();
@@ -178,7 +173,6 @@ searchInput.addEventListener("input", (e) => {
 
 /*editar cursos */
 /* estos botones se crea a para cada card de los cursos para editar, agregar content y eliminar*/
-
 function editarCourse() {
   const btnEditar = courseContainer.querySelectorAll(".btnEditar");
   btnEditar.forEach((btn) =>
@@ -206,7 +200,6 @@ function editarCourse() {
   );
 }
 
-/* Eliminar cursos */
 /* Eliminar curso */
 function eliminarCourse() {
   const btnEliminar = courseContainer.querySelectorAll(".btnEliminar");
@@ -226,92 +219,31 @@ function eliminarCourse() {
 }
 
 // Manejar el clic en el botón de eliminar en el modal
-document
-  .getElementById("confirmDeleteButton")
-  .addEventListener("click", async () => {
-    try {
-      await deleteCourse(courseId); // Llamar a la función de eliminación
-      // Aquí puedes agregar código para actualizar la interfaz después de la eliminación, si es necesario
-      alert("Curso eliminado");
-    } catch (error) {
-      console.error("Error al eliminar el curso:", error);
-    }
-
-    // Cerrar el modal después de eliminar
-    const confirmDeleteModal = bootstrap.Modal.getInstance(
-      document.getElementById("confirmDeleteModal")
-    );
-    confirmDeleteModal.hide();
-  });
-
-// Variables para el nuevo contenido
-const contentSection = document.getElementById("contentSection");
-const backButton = document.getElementById("backButton");
-const courseTitle = document.getElementById("courseTitle");
-const courseImage = document.getElementById("courseImage");
-const courseDescription = document.getElementById("courseDescription");
-const videosContainer = document.getElementById("videosContainer");
-
-// Manejar el clic en el botón de contenido del curso
-courseContainer.addEventListener("click", ({ target }) => {
-  if (target.classList.contains("btn-secondary")) {
-    const courseId = target.dataset.id;
-    const course = allCourses.find((course) => course.id === courseId);
-    mostrarContenidoCurso(course);
+document.getElementById("eliminarCurso").addEventListener("click", async () => {
+  try {
+    await deleteCourse(courseId); // Llamar a la función de eliminación
+    // Aquí puedes agregar código para actualizar la interfaz después de la eliminación, si es necesario
+    alert("Curso eliminado");
+  } catch (error) {
+    console.error("Error al eliminar el curso:", error);
   }
-});
 
-// Mostrar contenido del curso
-function mostrarContenidoCurso(course) {
-  // Llenar la sección de contenido
-  courseTitle.textContent = course.title;
-  courseImage.src = course.image;
-  courseDescription.textContent = course.description;
+  // Cerrar el modal después de eliminar
+  /* const tituloEliminar = document.getElementById("confirmDeleteModalLabel"); */
 
-  // Ocultar la sección de cursos y mostrar la sección de contenido
-  coursesSection.classList.add("d-none");
-  contentSection.classList.remove("d-none");
-
-  // Limpiar videos previos
-  videosContainer.innerHTML = "";
-  // Aquí puedes agregar lógica para cargar videos existentes si los tienes
-}
-
-// Regresar a la sección de cursos
-backButton.addEventListener("click", () => {
-  contentSection.classList.add("d-none");
-  coursesSection.classList.remove("d-none");
-});
-
-// Manejar la adición de videos
-const formAddVideo = document.getElementById("form-addVideo");
-formAddVideo.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const videoTitleValue = document.getElementById("videoTitle").value;
-  const videoDescriptionValue =
-    document.getElementById("videoDescription").value;
-  const videoURLValue = document.getElementById("videoURL").value;
-
-  // Crear una tarjeta para el video
-  const videoCard = document.createElement("div");
-  videoCard.className = "col-12 col-md-6 col-xl-4 mb-3";
-  videoCard.innerHTML = `
-    <div class="card" style="background: #205aaf;">
-      <div class="card-body text-white">
-        <h5 class="card-title">${videoTitleValue}</h5>
-        <iframe width="100%" height="200" src="${videoURLValue}" frameborder="0" allowfullscreen></iframe>
-        <p class="card-text">${videoDescriptionValue}</p>
-      </div>
-    </div>
-  `;
-
-  // Agregar la tarjeta del video al contenedor
-  videosContainer.appendChild(videoCard);
-
-  // Cerrar el modal y limpiar el formulario
-  const videoModal = bootstrap.Modal.getInstance(
-    document.getElementById("videoModal")
+  const confirmDeleteModal = bootstrap.Modal.getInstance(
+    document.getElementById("confirmDeleteModal")
   );
-  videoModal.hide();
-  formAddVideo.reset();
+  confirmDeleteModal.hide();
 });
+
+//Manejo del clic en boton contenido del curso
+import { mostrarContenidoCurso } from "./contentCourse.js";
+function contentCourse() {
+  const btnContent = courseContainer.querySelectorAll(".btnContent");
+  btnContent.forEach((btn) =>
+    btn.addEventListener("click", ({ target: { dataset } }) => {
+      mostrarContenidoCurso(dataset.id);
+    })
+  );
+}
