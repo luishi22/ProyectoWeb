@@ -70,7 +70,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     
   </div>
 </div> `
-            console.log(cert)
             row.appendChild(col)
         })
         div.appendChild(row)
@@ -86,7 +85,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         })
         const btnsEdit = div.querySelectorAll(".btn-edit");
         btnsEdit.forEach(btn => {
-            console.log("edit btns")
             btn.addEventListener("click", async (e) => {
                 const id = (e.currentTarget.getAttribute("data-id"))
                 console.log(id)
@@ -154,7 +152,6 @@ async function cargarCursos() {
             selectCourses.appendChild(optionCourses1)
         sn.forEach((doc) => {
             const courses = doc.data()
-            console.log(courses.title)
             const optionCourses = document.createElement("option")
             optionCourses.value = courses.title;
             optionCourses.textContent = courses.title;

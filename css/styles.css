@@ -477,7 +477,7 @@ h3.TituloTexto {
     border-color: white;
     border-width: 0.1rem;
     background: radial-gradient(#0e1c96 5%, #02094e 80%, #02094e 50%);
-    color: rgb(0, 0, 0);
+    color:#ffffff;
     font-family: 'Helvetica', 'Arial', sans-serif;
 }
 
@@ -513,4 +513,20 @@ h3.TituloTexto {
     border-radius: 20px;
     position: relative;
     z-index: 1;
+}
+
+.navbar-logo {
+    margin: 0;
+    /* Sin margen para que se alinee bien */
+}
+
+.logo {
+    width: auto;
+    /* Auto para mantener la proporción de la imagen */
+    height: 30px;
+    /* Altura del icono */
+    max-width: 100%;
+    /* Asegura que la imagen no se desborde */
+    display: block;
+    /* Para que se muestre como un bloque */
 }
