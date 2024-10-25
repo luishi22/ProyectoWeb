@@ -118,10 +118,10 @@ function mostrarCursos(courses) {
           <p class="course-description mb-1">
             ${course.description}
           </p>
-          <div class="d-flex gap-2 my-2"> <!-- Usar gap para espaciado entre botones -->
-            <button class="btn btn-secondary btn-sm btnContent" data-id="${course.id}">Contenido</button>
-            <button class="btn  btn-primary btn-sm btnEditar" data-id="${course.id}">Editar</button>
-            <button class="btn btn-danger btn-sm btnEliminar" data-id="${course.id}">Eliminar</button>
+          <div class="d-grid gap-1 d-sm-block my-2"> <!-- Usar gap para espaciado entre botones -->
+            <button class="btn btn-secondary btn-sm my-1 btnContent" data-id="${course.id}">Contenido</button>
+            <button class="btn  btn-primary btn-sm my-1 btnEditar" data-id="${course.id}">Editar</button>
+            <button class="btn btn-danger btn-sm  my-1 btnEliminar" data-id="${course.id}">Eliminar</button>
           </div>
         </div>
       </div>

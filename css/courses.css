@@ -15,6 +15,7 @@
 .btn-close:hover {
   background-color: #e0e0e0;
 }
+
 .course-description {
   display: -webkit-box;
   -webkit-line-clamp: 1; /* Número de líneas */
@@ -22,20 +23,21 @@
   overflow: hidden;
   text-overflow: ellipsis; /* Añade puntos suspensivos */
 }
-.min-width-card {
-  min-width: 380px; /* Ancho mínimo */
-  width: 100%; /* Para que la tarjeta ocupe todo el espacio disponible */
-}
+
 #courseDescription {
   max-width: 600px; /* Controlar el ancho de la descripción */
   margin: 0 auto; /* Centrar el texto de la descripción */
   line-height: 1.5; /* Aumentar la altura de línea para mejor legibilidad */
 }
 
+/* .min-width-card {
+  min-width: 380px;
+  width: 100%;
+}
 @media (max-width: 810px) {
   .crAdmin {
-    margin-right: 20px; /* Espaciado entre filas en pantallas más grandes */
+    margin-right: 20px; 
     width: 100%;
     max-width: 100%;
   }
-}
+} */
