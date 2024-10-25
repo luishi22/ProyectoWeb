@@ -1,671 +1,362 @@
 <!DOCTYPE html>
 <html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="assets/img/logo1.png" />
+  <title>Platzi Clone</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Toastify -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <script src="../js/main.js" type="module"></script>
+  <style>
+    .modal-content {
+      background: #5673ca;
+    }
+
+    .btn-outline-success {
+      border-color: #0b2b5c;
+      color: white;
+    }
+
+    .btn-close {
+      background-color: white;
+      border-radius: 50%;
+      width: 1rem;
+      height: 1rem;
+      opacity: 1;
+    }
+
+    .btn-close:hover {
+      background-color: #e0e0e0;
+    }
+
+    .course-description {
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      /* Número de líneas */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* Añade puntos suspensivos */
+    }
+
+    .min-width-card {
+      min-width: 380px;
+      /* Ancho mínimo */
+      width: 100%;
+      /* Para que la tarjeta ocupe todo el espacio disponible */
+    }
+
+    @media (max-width: 810px) {
+      .crAdmin {
+        margin-right: 20px;
+        /* Espaciado entre filas en pantallas más grandes */
+        width: 100%;
+        min-width: 380px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="assets/img/logo1.png" />
-    <title>Platzi Clone</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    />
-    <!-- Toastify -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-    />
-    <link rel="stylesheet" href="../css/styles.css" />
-    <link rel="stylesheet" href="../css/courses.css" />
-    <script src="../js/main.js" type="module"></script>
-  </head>
-  <body>
-    <head>
-      <!-- HEADER -->
-      <div class="container">
-        <nav class="navbar navbar-expand-lg">
-          <div class="container-fluid">
-            <figure class="navbar-logo">
-              <img src="/assets/img/logo2.png" alt="Logo" class="logo" />
-            </figure>
+    <!-- HEADER -->
+    <div class="container">
+      <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid">
+          <figure class="navbar-logo">
+            <img src="/assets/img/logo2.png" alt="Logo" class="logo">
+          </figure>
 
-            <div className="flex items-center space-x-2">
-              <button
-                style="
-                  background: white;
-                  border: none;
-                  color: black;
-                  padding: 0.5rem 0.75rem;
-                  border-radius: 0.5rem;
-                  font-size: 0.875rem;
-                "
-                class="navbar-toggler ms-auto"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-list"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
-                  />
-                </svg>
-              </button>
-            </div>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="/index.html">Explorar</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#" id="cursosLink">Cursos</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#" id="certificacionesLink"
-                    >Certificaciones</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Empresas</a>
-                </li>
-                <!-- <li class="nav-item">
+          <div className="flex items-center space-x-2">
+
+            <button
+              style="background:white;border:none;color:black;padding:.5rem .75rem;border-radius:.5rem;font-size:.875rem"
+              class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+              </svg>
+            </button>
+          </div>
+
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/index.html">Explorar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="cursosLink">Cursos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="certificacionesLink">Certificaciones</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Empresas</a>
+              </li>
+              <!-- <li class="nav-item">
                           <a class="nav-link logged-in" href="#" id="logout">Cerrar Sesión</a>
                       </li> -->
-              </ul>
-              <button
-                class="btn btn-outline-success btn-sm me-2 logged-out"
-                style="color: white"
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#signinModal"
-              >
-                Iniciar Sesión
-              </button>
-              <button
-                class="btn btn-outline-secondary btn-sm logged-out"
-                style="color: white"
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#signupModal"
-              >
-                Crear Cuenta
-              </button>
-              <button
-                class="btn btn-outline-primary btn-sm me-2 logged-in"
-                style="color: white"
-                onclick="window.location.href='html/profile.html'"
-                id="profile"
-              >
-                Perfil
-              </button>
-              <button
-                class="btn btn-outline-danger btn-sm logged-in"
-                style="color: white"
-                href="#"
-                id="logout"
-              >
-                Cerrar Sesión
+            </ul>
+            <button class="btn btn-outline-success btn-sm me-2 logged-out" style="color: white;" href="#"
+              data-bs-toggle="modal" data-bs-target="#signinModal"><i class="fa-solid fa-key"></i> Iniciar
+              Sesión</button>
+            <button class="btn btn-outline-secondary btn-sm logged-out" style="color: white;" href="#"
+              data-bs-toggle="modal" data-bs-target="#signupModal"><i class="fa-solid fa-address-card"></i> Crear
+              Cuenta</button>
+            <button class="btn btn-outline-primary btn-sm me-2 logged-in" style="color: white;"
+              onclick="window.location.href='profile.html'" id="profile"><i class="fa-solid fa-user"></i>
+              Perfil</button>
+            <button class="btn btn-outline-danger btn-sm logged-in" style="color: white;" href="#" id="logout"><i
+                class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</button>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!-- FIN DEL HEADER -->
+
+    <!-- PERFIL DEL USUARIO -->
+    <div class="container" style="max-width: 500px; display: none">
+      <div class="card mb-4 mt-4 text-white form-profile">
+        <div class="card-body">
+          <form id="form-profile">
+            <div class="form-group text-center">
+              <img id="imagen-perfil" src="/assets/img/temp-profile.png" alt="Foto de perfil"
+                class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px" />
+            </div>
+            <div class="form-group">
+              <label for="foto-usuario">Agregar foto de perfil</label>
+              <input type="file" class="form-control" id="foto-usuario" />
+            </div>
+            <div class="form-group">
+              <label for="nombre-usuario">Nombre de usuario</label>
+              <input type="text" id="nombre-usuario" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="correo-usuario">Correo electónico</label>
+              <input type="text" id="correo-usuario" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+              <label for="rol-usuario">Rol</label>
+              <input type="text" id="rol-usuario" class="form-control" disabled />
+            </div>
+            <div class="form-group mt-3 d-flex justify-content-end">
+              <button class="btn btn-outline-secondary btn-sm text-white" id="bnt-add-certificacion">
+                Guardar cambios
               </button>
             </div>
-          </div>
-        </nav>
+          </form>
+        </div>
       </div>
-      <!-- FIN DEL HEADER -->
+    </div>
 
-      <!-- PERFIL DEL USUARIO -->
-      <div class="container" style="max-width: 500px; display: none">
-        <div class="card mb-4 mt-4 text-white form-profile">
-          <div class="card-body">
-            <form id="form-profile">
-              <div class="form-group text-center">
-                <img
-                  id="imagen-perfil"
-                  src="/assets/img/temp-profile.png"
-                  alt="Foto de perfil"
-                  class="img-fluid rounded-circle mb-3"
-                  style="width: 150px; height: 150px"
-                />
-              </div>
-              <div class="form-group">
-                <label for="foto-usuario">Agregar foto de perfil</label>
-                <input type="file" class="form-control" id="foto-usuario" />
-              </div>
-              <div class="form-group">
-                <label for="nombre-usuario">Nombre de usuario</label>
-                <input
-                  type="text"
-                  id="nombre-usuario"
-                  class="form-control"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="correo-usuario">Correo electónico</label>
-                <input
-                  type="text"
-                  id="correo-usuario"
-                  class="form-control"
-                  disabled
-                />
-              </div>
-              <div class="form-group">
-                <label for="rol-usuario">Rol</label>
-                <input
-                  type="text"
-                  id="rol-usuario"
-                  class="form-control"
-                  disabled
-                />
-              </div>
-              <div class="form-group mt-3 d-flex justify-content-end">
-                <button
-                  class="btn btn-outline-secondary btn-sm text-white"
-                  id="bnt-add-certificacion"
-                >
-                  Guardar cambios
-                </button>
-              </div>
+    <!-- MODAL -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content fondo-custom">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Crear Cuenta
+            </h1>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="signup-form">
+              <label for="displayName">Usuario:</label>
+              <input type="text" id="singup-displayName" class="form-control mb-3" placeholder="Usuario" required />
+
+              <label for="email">Correo:</label>
+              <input type="email" id="singup-email" class="form-control mb-3" placeholder="Correo eléctronico"
+                required />
+
+              <label for="password">Contraseña:</label>
+              <input type="password" id="singup-password" class="form-control mb-3" placeholder="Contraseña" required />
+
+              <button type="submit" class="btn btn btn-outline-secondary" style="color: white">
+                Registrarse
+              </button>
             </form>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- MODAL -->
-      <div
-        class="modal fade"
-        id="signupModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content fondo-custom">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
-                Crear Cuenta
-              </h1>
-              <button
-                type="button"
-                class="btn-close btn-close-white"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form id="signup-form">
-                <label for="displayName">Usuario:</label>
-                <input
-                  type="text"
-                  id="singup-displayName"
-                  class="form-control mb-3"
-                  placeholder="Usuario"
-                  required
-                />
-
-                <label for="email">Correo:</label>
-                <input
-                  type="email"
-                  id="singup-email"
-                  class="form-control mb-3"
-                  placeholder="Correo eléctronico"
-                  required
-                />
-
-                <label for="password">Contraseña:</label>
-                <input
-                  type="password"
-                  id="singup-password"
-                  class="form-control mb-3"
-                  placeholder="Contraseña"
-                  required
-                />
-
-                <button
-                  type="submit"
-                  class="btn btn btn-outline-secondary"
-                  style="color: white"
-                >
-                  Registrarse
-                </button>
-              </form>
-            </div>
+    <!-- Signin Modal -->
+    <div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content fondo-custom">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Iniciar Sesión
+            </h1>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-        </div>
-      </div>
+          <div class="modal-body">
+            <form action="" id="signin-form">
+              <label for="email">Correo:</label>
+              <input type="email" id="signin-email" class="form-control mb-3" placeholder="Correo eléctronico"
+                required />
 
-      <!-- Signin Modal -->
-      <div
-        class="modal fade"
-        id="signinModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content fondo-custom">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
+              <label for="password">Contraseña:</label>
+              <input type="password" id="signin-password" class="form-control mb-3" placeholder="Contraseña" required />
+
+              <button type="submit" class="btn btn-outline-secondary w-100" style="color: white">
                 Iniciar Sesión
-              </h1>
-              <button
-                type="button"
-                class="btn-close btn-close-white"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form action="" id="signin-form">
-                <label for="email">Correo:</label>
-                <input
-                  type="email"
-                  id="signin-email"
-                  class="form-control mb-3"
-                  placeholder="Correo eléctronico"
-                  required
-                />
-
-                <label for="password">Contraseña:</label>
-                <input
-                  type="password"
-                  id="signin-password"
-                  class="form-control mb-3"
-                  placeholder="Contraseña"
-                  required
-                />
-
-                <button
-                  type="submit"
-                  class="btn btn-outline-secondary w-100"
-                  style="color: white"
-                >
-                  Iniciar Sesión
-                </button>
-              </form>
-
-              <!-- Google, Facebook, Outlook, etc -->
-              <div class="separator">
-                <div class="separator-line"></div>
-                <div class="separator-text">o</div>
-                <div class="separator-line"></div>
-              </div>
-
-              <button class="btn btn-light w-100 mb-3" id="btnGoogle">
-                Google
               </button>
-              <button class="btn btn-primary w-100 mb-3" id="btnFacebook">
-                Facebook
-              </button>
-              <!-- <button class="btn btn-secondary w-100" id="btnGithub">Github</button> -->
+            </form>
+
+            <!-- Google, Facebook, Outlook, etc -->
+            <div class="separator">
+              <div class="separator-line"></div>
+              <div class="separator-text">o</div>
+              <div class="separator-line"></div>
             </div>
+
+            <button class="btn btn-light w-100 mb-3" id="btnGoogle">
+              Google
+            </button>
+            <button class="btn btn-primary w-100 mb-3" id="btnFacebook">
+              Facebook
+            </button>
+            <!-- <button class="btn btn-secondary w-100" id="btnGithub">Github</button> -->
           </div>
         </div>
       </div>
-      <!-- FIN DE MODAL -->
-    </head>
+    </div>
+    <!-- FIN DE MODAL -->
+  </head>
 
-    <main class="p-1">
-      <div class="container">
-        <div id="coursesSection">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="flex-grow-1 me-2">
-              <input
-                type="text"
-                id="searchInput"
-                class="form-control"
-                placeholder="Buscar cursos..."
-              />
-            </div>
-            <div>
-              <button
-                class="btn btn-outline-info"
-                data-bs-toggle="modal"
-                data-bs-target="#cursoModal"
-                id="resCurso"
-              >
-                Registrar Curso
-              </button>
-            </div>
-          </div>
-
-          <!-- TARJETAS -->
-          <div class="row" id="coursesAdmin"></div>
-
-          <button id="buttonMostrar" class="btn btn-outline-info my-1">
-            Mostrar más cursos
+  <main class="p-1">
+    <div class="container mt-5">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="flex-grow-1 me-2">
+          <input type="text" id="searchInput" class="form-control" placeholder="Buscar cursos..." />
+        </div>
+        <div>
+          <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#cursoModal" id="resCurso">
+            Registrar Curso
           </button>
         </div>
+      </div>
 
-        <!-- Sección de contenido del curso -->
-        <div id="contentSection" class="d-none">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <button id="backButton" class="btn btn-outline-secondary">
-              ← Regresar
+      <!-- TARJETAS -->
+      <div class="row" id="coursesAdmin"></div>
+
+      <button id="toggleButton" class="btn btn-outline-info my-1">
+        Mostrar más cursos
+      </button>
+    </div>
+    <!-- Modal de registro de curso -->
+    <div class="modal fade" id="cursoModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">Registrar Curso</h5>
+            <button id="closeModalCurso" type="button" class="btn-close" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="form-saveCurso">
+              <div class="row g-3 align-items-center">
+                <!-- Nombre del curso (6 columnas) -->
+                <div class="col-md-6">
+                  <label for="addNombreCurso" class="form-label">Nombre del Curso</label>
+                  <input type="text" class="form-control" id="addNombreCurso" placeholder="Ingrese el nombre del curso"
+                    required />
+                </div>
+
+                <!-- Imagen del curso (6 columnas) -->
+                <div class="col-md-6 text-center">
+                  <div>
+                    <p class="form-label">Icono del curso</p>
+                  </div>
+                  <img id="imgCourse" src="../assets/icons/iconosCursos/iconBaseCurso.png" alt="Imagen del curso"
+                    width="100px" class="img-fluid" />
+                </div>
+              </div>
+
+              <!-- Input para seleccionar la imagen -->
+              <div class="mb-3 mt-3">
+                <label for="inputImg" class="form-label">Selecciona la imagen del curso</label>
+                <input class="form-control form-control-sm" id="inputImg" type="file" accept="image/*" />
+              </div>
+
+              <!-- Descripción -->
+              <div class="mb-3">
+                <label for="desCurso" class="form-label">Descripción</label>
+                <textarea class="form-control" id="desCurso" rows="3" placeholder="Descripción del curso"
+                  required></textarea>
+              </div>
+
+              <!-- Duración y Requerimientos -->
+              <div class="row g-3">
+                <div class="col-md-6 mb-3">
+                  <label for="duracionCurso" class="form-label">Duración (en horas)</label>
+                  <input type="number" step="0.1" class="form-control" id="duracionCurso" placeholder="Ej: 5.5"
+                    required />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="reqCursos" class="form-label">Requerimientos</label>
+                  <input type="text" class="form-control" id="reqCursos" placeholder="Ej: Conocimientos básicos de HTML"
+                    required />
+                </div>
+              </div>
+
+              <!-- Botón Guardar -->
+              <button type="submit" class="btn btn-outline-success w-100">
+                Guardar Curso
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de Confirmación de Eliminación -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteModalLabel">
+              Confirmar Eliminación
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ¿Estás seguro de que deseas eliminar este curso?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancelar
             </button>
-            <button
-              class="btn btn-outline-info"
-              id="addVideoButton"
-              data-bs-toggle="modal"
-              data-bs-target="#videoModal"
-            >
-              Agregar Video
+            <button type="button" class="btn btn-danger" id="confirmDeleteButton">
+              Eliminar
             </button>
           </div>
-
-          <div class="row container">
-            <!-- Columna para el logo del curso -->
-            <div class="col-md-2"></div>
-            <div
-              class="col-md-2 d-flex justify-content-center align-items-center text-al m-0 p-0 mb-2"
-            >
-              <img
-                id="courseImage"
-                class="img-fluid"
-                src=""
-                alt="Curso"
-                style="width: 100px; height: 100px"
-              />
-            </div>
-
-            <!-- Columna para el título y la descripción -->
-            <div class="col-md-8">
-              <h3 id="courseTitle" class="text-start ms-0 mb-3"></h3>
-              <p
-                id="courseDescription"
-                class="text-start text-break ms-0"
-                style="max-width: 600px"
-              >
-                <!-- Aquí se llenará la descripción -->
-              </p>
-            </div>
-          </div>
-
-          <div class="row mt-3" id="videosContainer"></div>
         </div>
       </div>
+    </div>
+  </main>
+  <!-- DEPENDENCIAS Y LIBRERIAS JS-->
 
-      <!-- Modal de registro de curso -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-      <div
-        class="modal fade"
-        id="cursoModal"
-        tabindex="-1"
-        aria-labelledby="modalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="modalLabel">Registrar Curso</h5>
-              <button
-                id="closeModalCurso"
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form id="form-saveCurso">
-                <div class="row g-3 align-items-center">
-                  <!-- Nombre del curso (6 columnas) -->
-                  <div class="col-md-6">
-                    <label for="addNombreCurso" class="form-label"
-                      >Nombre del Curso</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="addNombreCurso"
-                      placeholder="Ingrese el nombre del curso"
-                      required
-                    />
-                  </div>
+  <script type="module" src="../js/JScursos/cursosVista.js"></script>
+  <script type="module" src="../js/JScursos/cursosCRUD.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <!-- import "./JScursos/cursosVista.js"; -->
+</body>
 
-                  <!-- Imagen del curso (6 columnas) -->
-                  <div class="col-md-6 text-center">
-                    <div>
-                      <p class="form-label">Icono del curso</p>
-                    </div>
-                    <img
-                      id="imgCourse"
-                      src="../assets/icons/iconosCursos/iconBaseCurso.png"
-                      alt="Imagen del curso"
-                      width="100px"
-                      class="img-fluid"
-                    />
-                  </div>
-                </div>
-
-                <!-- Input para seleccionar la imagen -->
-                <div class="mb-3 mt-3">
-                  <label for="inputImg" class="form-label"
-                    >Selecciona la imagen del curso</label
-                  >
-                  <input
-                    class="form-control form-control-sm"
-                    id="inputImg"
-                    type="file"
-                    accept="image/*"
-                  />
-                </div>
-
-                <!-- Descripción -->
-                <div class="mb-3">
-                  <label for="desCurso" class="form-label">Descripción</label>
-                  <textarea
-                    class="form-control"
-                    id="desCurso"
-                    rows="3"
-                    placeholder="Descripción del curso"
-                    required
-                  ></textarea>
-                </div>
-
-                <!-- Duración y Requerimientos -->
-                <div class="row g-3">
-                  <div class="col-md-6 mb-3">
-                    <label for="duracionCurso" class="form-label"
-                      >Duración (en horas)</label
-                    >
-                    <input
-                      type="number"
-                      step="0.1"
-                      class="form-control"
-                      id="duracionCurso"
-                      placeholder="Ej: 5.5"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="reqCursos" class="form-label"
-                      >Requerimientos</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="reqCursos"
-                      placeholder="Ej: Conocimientos básicos de HTML"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <!-- Botón Guardar -->
-                <button type="submit" class="btn btn-outline-success w-100">
-                  Guardar Curso
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal de Confirmación de Eliminación -->
-      <div
-        class="modal fade"
-        id="confirmDeleteModal"
-        tabindex="-1"
-        aria-labelledby="confirmDeleteModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="confirmDeleteModalLabel">
-                Confirmar Eliminación
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body" id="modal-bodys">
-              ¿Estás seguro de que deseas eliminar este curso?
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cancelar
-              </button>
-              <button type="button" class="btn btn-danger" id="eliminarCurso">
-                Eliminar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal para agregar videos -->
-      <div
-        class="modal fade"
-        id="videoModal"
-        tabindex="-1"
-        aria-labelledby="videoModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="videoModalLabel">Agregar Video</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form id="form-addVideo">
-                <div class="mb-3">
-                  <label for="videoTitle" class="form-label"
-                    >Título del Video</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="videoTitle"
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="videoDescription" class="form-label"
-                    >Descripción del Video</label
-                  >
-                  <textarea
-                    class="form-control"
-                    id="videoDescription"
-                    rows="3"
-                    required
-                  ></textarea>
-                </div>
-                <div class="mb-3">
-                  <label for="videoURL" class="form-label">URL del Video</label>
-                  <input
-                    type="url"
-                    class="form-control"
-                    id="videoURL"
-                    placeholder="https://..."
-                    required
-                  />
-                </div>
-                <button type="submit" class="btn btn-outline-success w-100">
-                  Agregar Video
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal de Confirmación de Eliminación de video-->
-      <div
-        class="modal fade"
-        id="confirmarVideoDelete"
-        tabindex="-1"
-        aria-labelledby="confirmarVideoDeleteLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="confirmarVideoDeleteLabel">
-                Confirmar Eliminación
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              ¿Estás seguro de que deseas eliminar este contenido?
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cancelar
-              </button>
-              <button type="button" class="btn btn-danger" id="eliminarVideo">
-                Eliminar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- DEPENDENCIAS Y LIBRERIAS JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/toastify-js"
-    ></script>
-    <script type="module" src="../js/JScursos/cursosVista.js"></script>
-    <script type="module" src="../js/JScursos/cursosCRUD.js"></script>
-
-    <script type="module" src="../js/JScursos/contentCourse.js"></script>
-
-    <!-- import "./JScursos/cursosVista.js"; -->
-  </body>
 </html>

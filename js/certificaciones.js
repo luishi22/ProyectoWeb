@@ -64,8 +64,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     <p class="card-text">${certification.description}</p>
     <p class="card-text bold"> $${certification.precio} </p>
     <div class="btn-container mt-auto d-flex justify-content-end">
-     <button class="btn btn-outline-secondary btn-delete" style="color: white;" data-id="${cert}"><i class="fa-solid fa-trash"></i></button>
-    <button class="btn btn-outline-secondary btn-edit" style="color: white;" data-id="${cert}"><i class="fa-regular fa-pen-to-square"></i></button>
+    <button title="Eliminar" class="btn btn-danger btn-delete" style="color: white;" data-id="${cert}"><i class="fa-solid fa-trash"></i></button>
+    <button title="Editar" class="btn btn-primary btn-edit" style="color: white;" data-id="${cert}"><i class="fa-regular fa-pen-to-square"></i></button>
     </div>
     
   </div>
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             btn.addEventListener("click", (e) => {
                 const id = e.currentTarget.getAttribute("data-id")
                 deleteDoc(doc(db, "certifications", id));
-                showToast(`Curso eliminado`,"error")
+                showToast(`Curso eliminado`, "error")
 
             })
         })
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         certificacionForm.reset()
                         document.getElementById("bnt-add-certificacion").textContent = "Agregar"
                         document.getElementById("tituloModal").textContent = "Registrar nueva certificación"
-                        idMarcador = null 
+                        idMarcador = null
                     })
                 } else {
                     console.log("No such document!");
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function editarCertificacion(data) {
     try {
         // Referencia al documento con el ID dado
-        
+
         // Actualiza los campos que desees en el documento
         await updateDoc(doc(db, "certifications", idMarcador), {
             title: data.title,
@@ -144,12 +144,12 @@ async function editarCertificacion(data) {
 async function cargarCursos() {
     const collectionCourses = collection(db, "courses")
     const selectCourses = document.getElementById("curso-certificacion")
-    selectCourses.innerHTML=""
+    selectCourses.innerHTML = ""
     onSnapshot(collectionCourses, (sn) => {
         const optionCourses1 = document.createElement("option")
-            optionCourses1.value = "";
-            optionCourses1.textContent = "-- Elige un curso --";
-            selectCourses.appendChild(optionCourses1)
+        optionCourses1.value = "";
+        optionCourses1.textContent = "-- Elige un curso --";
+        selectCourses.appendChild(optionCourses1)
         sn.forEach((doc) => {
             const courses = doc.data()
             const optionCourses = document.createElement("option")
@@ -175,12 +175,12 @@ certificacionForm.addEventListener("submit", async (e) => {
             description: description.value
         }
         editarCertificacion(data)
-        
+
 
     } else {
 
         await saveCertification(title.value, precio.value, curso.value, description.value)
-        
+
     }
     title.value = ""
     precio.value = ""
