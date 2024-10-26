@@ -7,22 +7,17 @@ import {
   onGetCourses,
 } from "./cursosController.js";
 
-/* aun no uso estas importaciones */
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-storage.js";
-
 /* constantes - inputs de los modales */
+/* modal para agregar cursos */
 const nombre = document.getElementById(`addNombreCurso`);
 const imagen = document.getElementById(`inputImg`);
 const descripcion = document.getElementById(`desCurso`);
 const horas = document.getElementById(`duracionCurso`);
 const requerimiento = document.getElementById(`reqCursos`);
+
+/* variable para saber si quiere guardar o editar un curso */
 let statusCurso = true;
-let courseId; // Variable para almacenar el ID del curso a eliminar o editar
+
 /* evento para cambiar el titulo del modal cursoModal */
 let tituloModal = document.getElementById("modalLabel");
 document.getElementById(`resCurso`).addEventListener(`click`, () => {
@@ -34,16 +29,15 @@ document.getElementById(`resCurso`).addEventListener(`click`, () => {
 /*modal y formulario del curso */
 
 const formAddCurso = document.getElementById(`form-saveCurso`);
-
 formAddCurso.addEventListener(`submit`, async (e) => {
   e.preventDefault();
 
   if (
     (nombre.value,
-      imagen.files[0],
-      descripcion.value,
-      horas.value,
-      requerimiento.value)
+    imagen.files[0],
+    descripcion.value,
+    horas.value,
+    requerimiento.value)
   ) {
     const curso = new Curso(
       nombre.value,
@@ -73,15 +67,17 @@ formAddCurso.addEventListener(`submit`, async (e) => {
 });
 
 /* READ cursos */
-/* Variables */
-var cantCourses = 0;
-let maxVistaCourses = 6;
-let allCourses =
-  []; /* en este array almaceno los cursos para facilitar la busqueda */
-
 const courseContainer = document.getElementById("coursesAdmin");
 const searchInput = document.getElementById("searchInput");
-const toggleButton = document.getElementById("toggleButton");
+const btnMostrarCourses = document.getElementById("buttonMostrar");
+/* Variables */
+let cantCourses = 0;
+let maxVistaCourses = 6;
+// Variable para almacenar el ID del curso a eliminar o editar
+let courseId;
+
+/* en este array almaceno los cursos para facilitar la busqueda */
+let allCourses = [];
 
 cargarCourses();
 
@@ -89,7 +85,6 @@ cargarCourses();
 async function cargarCourses() {
   onGetCourses((querySnapshot) => {
     allCourses = []; // Reinicia/limpia el array de cursos
-    courseContainer.innerHTML = "";
     cantCourses = 0;
 
     querySnapshot.forEach((doc) => {
@@ -100,7 +95,6 @@ async function cargarCourses() {
     });
 
     mostrarCursos(allCourses); // Muestra todos los cursos inicialmente
-    maxVisCurso();
   });
 }
 
@@ -124,10 +118,10 @@ function mostrarCursos(courses) {
           <p class="course-description mb-1">
             ${course.description}
           </p>
-          <div class="d-flex gap-2 my-2"> <!-- Usar gap para espaciado entre botones -->
-            <button title="Contenido" class="btn btn-secondary" data-id="${course.id}"><i class="fa-solid fa-folder-open"></i></button>
-            <button title="Editar" class="btn  btn-primary btnEditar" data-id="${course.id}"><i class="fa-solid fa-pen-to-square"></i></button>
-            <button title="Eliminar" class="btn btn-danger btnEliminar" data-id="${course.id}"><i class="fa-solid fa-trash"></i></button>
+          <div>
+            <button title="Contenido" class="btn btn-secondary my-1 btnContent" data-id="${course.id}"><i class="fa-solid fa-folder-open"></i></button>
+            <button title="Editar" class="btn  btn-primary my-1 btnEditar" data-id="${course.id}"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button title="Eliminar" class="btn btn-danger my-1 btnEliminar" data-id="${course.id}"><i class="fa-solid fa-trash"></i></button>
           </div>
         </div>
       </div>
@@ -136,9 +130,10 @@ function mostrarCursos(courses) {
 
     courseContainer.appendChild(courseCard);
   });
+  maxVisCurso();
   eliminarCourse();
   editarCourse();
-  maxVisCurso();
+  contentCourse();
 }
 
 /* Controla cuantos cursos se muestran segun maxVistaCourses */
@@ -150,15 +145,16 @@ function maxVisCurso() {
 }
 
 /* Evento para mostrar más o menos cursos */
-toggleButton.addEventListener("click", () => {
-  toggleButton.textContent = "Mostrar más cursos";
-
-  if (toggleButton.textContent === "Mostrar más cursos" && cantCourses > 6) {
+btnMostrarCourses.addEventListener("click", () => {
+  if (
+    btnMostrarCourses.textContent.trim() === "Mostrar más cursos" &&
+    cantCourses > 6
+  ) {
     maxVistaCourses = cantCourses;
-    toggleButton.textContent = "Mostrar menos cursos";
+    btnMostrarCourses.textContent = "Mostrar menos cursos";
   } else {
     maxVistaCourses = 6;
-    toggleButton.textContent = "Mostrar más cursos";
+    btnMostrarCourses.textContent = "Mostrar más cursos";
   }
 
   maxVisCurso();
@@ -177,12 +173,11 @@ searchInput.addEventListener("input", (e) => {
 
 /*editar cursos */
 /* estos botones se crea a para cada card de los cursos para editar, agregar content y eliminar*/
-
 function editarCourse() {
   const btnEditar = courseContainer.querySelectorAll(".btnEditar");
   btnEditar.forEach((btn) =>
-    btn.addEventListener("click", ({ target: { dataset } }) => {
-      courseId = dataset.id;
+    btn.addEventListener("click", (e) => {
+      courseId = e.currentTarget.dataset.id;
       statusCurso = false;
 
       // se busca el curso por el id de la variable declarada arriab (courseId) xd
@@ -205,15 +200,14 @@ function editarCourse() {
   );
 }
 
-/* Eliminar cursos */
 /* Eliminar curso */
 function eliminarCourse() {
   const btnEliminar = courseContainer.querySelectorAll(".btnEliminar");
 
   btnEliminar.forEach((btn) =>
-    btn.addEventListener("click", ({ target: { dataset } }) => {
+    btn.addEventListener("click", (e) => {
       // Almacenar el ID del curso en la variable
-      courseId = dataset.id;
+      courseId = e.currentTarget.dataset.id;
 
       // Mostrar el modal de confirmación
       const confirmDeleteModal = new bootstrap.Modal(
@@ -225,20 +219,31 @@ function eliminarCourse() {
 }
 
 // Manejar el clic en el botón de eliminar en el modal
-document
-  .getElementById("confirmDeleteButton")
-  .addEventListener("click", async () => {
-    try {
-      await deleteCourse(courseId); // Llamar a la función de eliminación
-      // Aquí puedes agregar código para actualizar la interfaz después de la eliminación, si es necesario
-      alert("Curso eliminado");
-    } catch (error) {
-      console.error("Error al eliminar el curso:", error);
-    }
+document.getElementById("eliminarCurso").addEventListener("click", async () => {
+  try {
+    await deleteCourse(courseId); // Llamar a la función de eliminación
+    // Aquí puedes agregar código para actualizar la interfaz después de la eliminación, si es necesario
+    alert("Curso eliminado");
+  } catch (error) {
+    console.error("Error al eliminar el curso:", error);
+  }
 
-    // Cerrar el modal después de eliminar
-    const confirmDeleteModal = bootstrap.Modal.getInstance(
-      document.getElementById("confirmDeleteModal")
-    );
-    confirmDeleteModal.hide();
-  });
+  // Cerrar el modal después de eliminar
+  /* const tituloEliminar = document.getElementById("confirmDeleteModalLabel"); */
+
+  const confirmDeleteModal = bootstrap.Modal.getInstance(
+    document.getElementById("confirmDeleteModal")
+  );
+  confirmDeleteModal.hide();
+});
+
+//Manejo del clic en boton contenido del curso
+import { mostrarContenidoCurso } from "./contentCourse.js";
+function contentCourse() {
+  const btnContent = courseContainer.querySelectorAll(".btnContent");
+  btnContent.forEach((btn) =>
+    btn.addEventListener("click", (e) => {
+      mostrarContenidoCurso(e.currentTarget.dataset.id);
+    })
+  );
+}
