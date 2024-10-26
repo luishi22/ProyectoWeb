@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <!-- Toastify -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./css/styles.css">
     <script src="./js/main.js" type="module"></script>
     <script type="module" src="./firebase.js"></script>
@@ -61,13 +65,16 @@
                         </li> -->
                     </ul>
                     <button class="btn btn-outline-success btn-sm me-2 logged-out" style="color: white;" href="#"
-                        data-bs-toggle="modal" data-bs-target="#signinModal">Iniciar Sesión</button>
+                        data-bs-toggle="modal" data-bs-target="#signinModal"><i class="fa-solid fa-key"></i> Iniciar
+                        Sesión</button>
                     <button class="btn btn-outline-secondary btn-sm logged-out" style="color: white;" href="#"
-                        data-bs-toggle="modal" data-bs-target="#signupModal">Crear Cuenta</button>
+                        data-bs-toggle="modal" data-bs-target="#signupModal"><i class="fa-solid fa-address-card"></i>
+                        Crear Cuenta</button>
                     <button class="btn btn-outline-primary btn-sm me-2 logged-in" style="color: white;"
-                        onclick="window.location.href='html/profile.html'" id="profile">Perfil</button>
+                        onclick="window.location.href='html/profile.html'" id="profile"><i class="fa-solid fa-user"></i>
+                        Perfil</button>
                     <button class="btn btn-outline-danger btn-sm logged-in" style="color: white;" href="#"
-                        id="logout">Cerrar Sesión</button>
+                        id="logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</button>
                 </div>
             </div>
         </nav>
@@ -177,7 +184,7 @@
         </div>
     </div>
     <!-- FIN DE MODAL -->
-     
+
     <main class="container-fluid text-center">
 
         <!-- TEXTO PLANO -->
@@ -243,8 +250,8 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="certification-card p-4 d-flex flex-column">
-                        <img src="./assets/img/practicioner.png" alt="TOEFL"
-                            class="certification-logo mb-3" style="max-height: 100px;">
+                        <img src="./assets/img/practicioner.png" alt="TOEFL" class="certification-logo mb-3"
+                            style="max-height: 100px;">
                         <h5 class="h5 mb-3">Alianza con AWS para la certificación</h5>
                         <div class="mt-auto">
                             <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
@@ -263,7 +270,7 @@
                     <div class="certification-card p-4 d-flex flex-column">
                         <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png"
                             alt="Google" class="certification-logo mb-3" style="max-height: 70px;">
-                        <h3 class="h5 mb-3">Convenio de certificación en tecnologías cloud</h3> 
+                        <h3 class="h5 mb-3">Convenio de certificación en tecnologías cloud</h3>
                         <div class="mt-auto">
                             <a href="#" class="btn btn-outline-light d-inline-flex align-items-center">
                                 Ir a los cursos
@@ -299,7 +306,7 @@
         </div>
         <!-- FIN DE CERTIFICACIONES -->
         </div>
-    </div>
+        </div>
 
 
 
@@ -388,150 +395,156 @@
                             alt="Colsubsidio">
                     </div>
 
-                    
+
                 </div>
             </div>
         </div>
-        
 
-            <!-- PERSONAS -->
-            <div class="container-fluid py-5" style="background: rgb(4, 99, 100);
+
+        <!-- PERSONAS -->
+        <div class="container-fluid py-5" style="background: rgb(4, 99, 100);
 ">
-                <div class="container">
-                    <h1 class="mb-4" style="color: rgb(255, 255, 255);">Nuestros profesores son expertos de la industria
-                    </h1>
-                    <div class="row g-4">
-                        <div class="col-md-3">
-                            <div class="professor-card">
-                                <img src="./images/person_4.jpg"
-                                    alt="Carli Florida" class="professor-image">
-                                <div class="professor-info">
-                                    <h3>Carli Florida</h3>
-                                    <p>Teacher In-house en Platzi</p>
-                                    <a href="#" class="course-link">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png"
-                                            alt="Python" class="course-icon">
-                                        Curso de Python
-                                    </a>
-                                </div>
+            <div class="container">
+                <h1 class="mb-4" style="color: rgb(255, 255, 255);">Nuestros profesores son expertos de la industria
+                </h1>
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <div class="professor-card">
+                            <img src="./images/person_4.jpg" alt="Carli Florida" class="professor-image">
+                            <div class="professor-info">
+                                <h3>Carli Florida</h3>
+                                <p>Teacher In-house en Platzi</p>
+                                <a href="#" class="course-link">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png"
+                                        alt="Python" class="course-icon">
+                                    Curso de Python
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="professor-card">
-                                <img src="./images/person_3.jpg"
-                                    alt="Anibal Rojas" class="professor-image">
-                                <div class="professor-info">
-                                    <h3>Anibal Rojas</h3>
-                                    <p>VP de Ingeniería en Platzi</p>
-                                    <a href="#" class="course-link">
-                                        <img src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png"
-                                            alt="ChatGPT" class="course-icon">
-                                        Curso de ChatGPT para Empresas
-                                    </a>
-                                </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="professor-card">
+                            <img src="./images/person_3.jpg" alt="Anibal Rojas" class="professor-image">
+                            <div class="professor-info">
+                                <h3>Anibal Rojas</h3>
+                                <p>VP de Ingeniería en Platzi</p>
+                                <a href="#" class="course-link">
+                                    <img src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png"
+                                        alt="ChatGPT" class="course-icon">
+                                    Curso de ChatGPT para Empresas
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="professor-card">
-                                <img src="./images/person_1.jpg"
-                                    alt="Carolina Castañeda" class="professor-image">
-                                <div class="professor-info">
-                                    <h3>David Hernandez</h3>
-                                    <p>Online Tech Teacher en Platzi</p>
-                                    <a href="#" class="course-link">
-                                        <img src="https://cdn-icons-png.freepik.com/512/8754/8754965.png" alt="SQL"
-                                            class="course-icon">
-                                        Curso de Bases de Datos con SQL
-                                    </a>
-                                </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="professor-card">
+                            <img src="./images/person_1.jpg" alt="Carolina Castañeda" class="professor-image">
+                            <div class="professor-info">
+                                <h3>David Hernandez</h3>
+                                <p>Online Tech Teacher en Platzi</p>
+                                <a href="#" class="course-link">
+                                    <img src="https://cdn-icons-png.freepik.com/512/8754/8754965.png" alt="SQL"
+                                        class="course-icon">
+                                    Curso de Bases de Datos con SQL
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="professor-card">
-                                <img src="./images/person_2.jpg"
-                                    alt="Luis Martínez" class="professor-image">
-                                <div class="professor-info">
-                                    <h3>Luis Martínez</h3>
-                                    <p>Platform Engineer en Deel</p>
-                                    <a href="#" class="course-link">
-                                        <img src="https://img-c.udemycdn.com/course/750x422/5181936_1fc3.jpg"
-                                            alt="Django" class="course-icon">
-                                        Curso de Django
-                                    </a>
-                                </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="professor-card">
+                            <img src="./images/person_2.jpg" alt="Luis Martínez" class="professor-image">
+                            <div class="professor-info">
+                                <h3>Luis Martínez</h3>
+                                <p>Platform Engineer en Deel</p>
+                                <a href="#" class="course-link">
+                                    <img src="https://img-c.udemycdn.com/course/750x422/5181936_1fc3.jpg" alt="Django"
+                                        class="course-icon">
+                                    Curso de Django
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- FIN PERSONAS -->
-
- 
-		
-
-		<!-- Inicio Sección ¿Por qué elegirnos? -->
-<div class="why-choose-section">
-    <div class="container">
-      <div class="row justify-content-between align-items-center">
-        <div class="col-lg-6">
-          <h2 class="section-title">¿Por qué elegir nuestros cursos?</h2>
-          <p>Nuestros cursos están diseñados para ofrecer una experiencia de aprendizaje única, combinando teoría y práctica de manera efectiva. Nos aseguramos de que cada estudiante reciba una educación de calidad, con materiales actualizados y el apoyo necesario para su crecimiento profesional.</p>
-  
-          <div class="row my-5">
-            <div class="col-6 col-md-6">
-              <div class="feature">
-                <div class="icon">
-                  <img src="./assets/img/entrega-rapida.png" width="50" height="50" alt="Envío rápido" class="img-fluid">
-                </div>
-                <h3>Acceso inmediato</h3>
-                <p>Accede a todos los materiales del curso de forma instantánea al momento de la inscripción, sin tiempos de espera.</p>
-              </div>
-            </div>
-  
-            <div class="col-6 col-md-6">
-              <div class="feature">
-                <div class="icon">
-                  <img src="./assets/img/bombilla.png" width="50" height="50" alt="Fácil de usar" class="img-fluid">
-                </div>
-                <h3>Facilidad de aprendizaje</h3>
-                <p>Plataforma amigable que permite una navegación sencilla y un aprendizaje eficiente.</p>
-              </div>
-            </div>
-  
-            <div class="col-6 col-md-6">
-              <div class="feature">
-                <div class="icon">
-                  <img src="./assets/img/apoyo-tecnico.png" width="50" height="50"  alt="Soporte 24/7" class="img-fluid">
-                </div>
-                <h3>Soporte 24/7</h3>
-                <p>Contamos con un equipo de soporte disponible en todo momento para ayudarte con cualquier consulta técnica o académica.</p>
-              </div>
-            </div>
-  
-            <div class="col-6 col-md-6">
-              <div class="feature">
-                <div class="icon">
-                  <img src="images/return.svg" alt="Devoluciones fáciles" class="img-fluid">
-                </div>
-                <h3>Garantía de satisfacción</h3>
-                <p>Si no estás satisfecho con el curso, ofrecemos una política de reembolso sin complicaciones.</p>
-              </div>
-            </div>
-  
-          </div>
         </div>
-  
-        <div class="col-lg-5">
-          <div class="img-wrap">
-            <img src="./assets/img/why us.png" alt="Imagen del curso" class="img-fluid">
-          </div>
+        <!-- FIN PERSONAS -->
+
+
+
+
+        <!-- Inicio Sección ¿Por qué elegirnos? -->
+        <div class="why-choose-section">
+            <div class="container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-lg-6">
+                        <h2 class="section-title">¿Por qué elegir nuestros cursos?</h2>
+                        <p>Nuestros cursos están diseñados para ofrecer una experiencia de aprendizaje única, combinando
+                            teoría y práctica de manera efectiva. Nos aseguramos de que cada estudiante reciba una
+                            educación de calidad, con materiales actualizados y el apoyo necesario para su crecimiento
+                            profesional.</p>
+
+                        <div class="row my-5">
+                            <div class="col-6 col-md-6">
+                                <div class="feature">
+                                    <div class="icon">
+                                        <img src="./assets/img/entrega-rapida.png" width="50" height="50"
+                                            alt="Envío rápido" class="img-fluid">
+                                    </div>
+                                    <h3>Acceso inmediato</h3>
+                                    <p>Accede a todos los materiales del curso de forma instantánea al momento de la
+                                        inscripción, sin tiempos de espera.</p>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-6">
+                                <div class="feature">
+                                    <div class="icon">
+                                        <img src="./assets/img/bombilla.png" width="50" height="50" alt="Fácil de usar"
+                                            class="img-fluid">
+                                    </div>
+                                    <h3>Facilidad de aprendizaje</h3>
+                                    <p>Plataforma amigable que permite una navegación sencilla y un aprendizaje
+                                        eficiente.</p>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-6">
+                                <div class="feature">
+                                    <div class="icon">
+                                        <img src="./assets/img/apoyo-tecnico.png" width="50" height="50"
+                                            alt="Soporte 24/7" class="img-fluid">
+                                    </div>
+                                    <h3>Soporte 24/7</h3>
+                                    <p>Contamos con un equipo de soporte disponible en todo momento para ayudarte con
+                                        cualquier consulta técnica o académica.</p>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-6">
+                                <div class="feature">
+                                    <div class="icon">
+                                        <img src="images/return.svg" alt="Devoluciones fáciles" class="img-fluid">
+                                    </div>
+                                    <h3>Garantía de satisfacción</h3>
+                                    <p>Si no estás satisfecho con el curso, ofrecemos una política de reembolso sin
+                                        complicaciones.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="img-wrap">
+                            <img src="./assets/img/why us.png" alt="Imagen del curso" class="img-fluid">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-  
-      </div>
-    </div>
-  </div>
-  <!-- Fin Sección ¿Por qué elegirnos? -->
-  
+        <!-- Fin Sección ¿Por qué elegirnos? -->
+
 
     </main>
 

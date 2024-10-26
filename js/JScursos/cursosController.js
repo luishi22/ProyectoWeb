@@ -8,8 +8,6 @@ import {
   updateDoc,
   deleteDoc,
   onSnapshot,
-  query,
-  where,
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 import {
@@ -18,8 +16,6 @@ import {
   uploadBytes,
   getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-storage.js";
-
-import { showToast } from "../../js/showToast.js";
 
 export class Curso {
   constructor(title, image, description, duration, requirements) {
@@ -58,7 +54,7 @@ export const saveCourses = async (curso) => {
   }
 };
 
-export const getCourse = (id) => getDoc(doc(db, `courses`, id));
+export const getCourse = (id) => getDoc(doc(db, `task`, id));
 
 export const deleteCourse = (id) => deleteDoc(doc(db, `courses`, id));
 
@@ -83,40 +79,3 @@ export const updateCourse = async (id, curso) => {
 
 export const onGetCourses = (callback) =>
   onSnapshot(collection(db, `courses`), callback);
-
-/* contenido del curso */
-
-export const saveContent = async (courseContent) => {
-  try {
-    // Guardar el curso en Firestore lo paso a string porque no acepta objetos de clases
-    await setDoc(
-      doc(collection(db, `coursesContent`)),
-      JSON.parse(JSON.stringify(courseContent))
-    );
-    /* showToast("Video agregado exitosamente."); */
-  } catch (error) {
-    alert("hubo un error alguardar el video.");
-  }
-};
-
-export const updateContent = async (id, courseContent) => {
-  try {
-    await updateDoc(
-      doc(db, `coursesContent`, id),
-      JSON.parse(JSON.stringify(courseContent))
-    );
-  } catch (error) {
-    alert("Hubo un error al actualizado el contenido del curso.");
-  }
-};
-
-export const deleteContent = (id) => deleteDoc(doc(db, `coursesContent`, id));
-
-export const onGetContetCourseById = async (idCourse, callback) => {
-  const consulta = query(
-    collection(db, "coursesContent"),
-    where("idCourse", "==", idCourse)
-  );
-
-  onSnapshot(consulta, callback);
-};

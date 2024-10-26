@@ -21,17 +21,17 @@ const db = getFirestore(app);
 const saveCompra = async (certificationId, userId) => {
     const compraRef = doc(collection(db, "buyCertification"))
     await setDoc(compraRef, {
-        certificationId, 
+        certificationId,
         userId
     })
 }
 document.addEventListener("DOMContentLoaded", async () => {
     const div = document.getElementById("courses")
     const collectionCertification = collection(db, "certifications")
-    const collectionCompras= collection(db, "buyCertification")
+    const collectionCompras = collection(db, "buyCertification")
     //recuperarID en la coleccion compras
     const comprasSnapshot = await getDocs(collectionCompras);
-    const currentUserId=localStorage.getItem('userId')
+    const currentUserId = localStorage.getItem('userId')
     console.log(comprasSnapshot.docs)
     const comprasIds = comprasSnapshot.docs
         .filter(doc => doc.data().userId === currentUserId) // Filtrar por userID
@@ -52,18 +52,18 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.log(userId)
             let buttonLabel
             let targetModal
-            if(userId !== null){
-                buttonLabel = comprasIds.includes(cert) ? "Realizar Test" : "Obtener curso";
-                 targetModal = comprasIds.includes(cert) ? "#modalTest" : "#modalPago";
+            if (userId !== null) {
+                buttonLabel = comprasIds.includes(cert) ? "Realizar Test" : "Obtener Cert.";
+                targetModal = comprasIds.includes(cert) ? "#modalTest" : "#modalPago";
             } else {
-                buttonLabel = comprasIds.includes(cert) ? "Realizar Test" : "Obtener curso";
-                targetModal= "#modalinv"
+                buttonLabel = comprasIds.includes(cert) ? "Realizar Test" : "Obtener Cert.";
+                targetModal = "#modalinv"
             }
-            
-            
+
+
             col.innerHTML = `
             <div class="card">
-             
+            
                 <div class="card-body">
                 <img src="/assets/img/certi.png" alt="Icono del curso" class="card-img">
                     <div class="p-1">
@@ -71,8 +71,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <p class="card-text">Para el curso: ${certification.curso}</p>
                         <p class="card-text"> $${certification.precio}</p>
                     </div>
-                    <button class="btn btn-success btn-comprar" data-bs-toggle="modal" data-bs-target="${targetModal}" data-id="${cert}" id="${cert}">
-                        ${buttonLabel}
+                    <button title="Obtener Certificación" class="btn btn-success btn-comprar" data-bs-toggle="modal" data-bs-target="${targetModal}" data-id="${cert}" id="${cert}">
+                        <i class="fa-regular fa-credit-card"></i> ${buttonLabel}
                     </button>
                 </div>
             </div> `
@@ -90,9 +90,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         })
     })
 });
- function SimularPago(id) {
-    
-        const btnComprar = document.getElementById("modalComprar")
+function SimularPago(id) {
+
+    const btnComprar = document.getElementById("modalComprar")
     btnComprar.addEventListener("click", function (e) {
         e.preventDefault()
         const formPasarelaPago = document.getElementById("form-pasarela-pago")
@@ -105,8 +105,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (email !== "" && dueño !== "" && numTar !== "" && mes !== "" && anho !== "") {
             if (cvv.length == 3) {
                 if (numTar.length == 19) {
-                    const userID=localStorage.getItem('userId')
-                    saveCompra(id,userID)
+                    const userID = localStorage.getItem('userId')
+                    saveCompra(id, userID)
                     showToast("Compra realizada con éxito")
                     const btnChange = document.getElementById(id)
                     console.log(btnChange.textContent)
@@ -123,10 +123,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         } else {
             showToast("Ingrese todos los datos", "error")
         }
-        
+
     })
-    
-    
+
+
 
 }
 
