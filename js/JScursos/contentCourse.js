@@ -98,43 +98,44 @@ async function cargarConent() {
 
       querySnapshot.forEach((doc) => {
         const content = { id: doc.id, ...doc.data() };
-
         allContet.push(content);
       });
 
       viewContent(); // Muestra todos los cursos inicialmente
     });
   } catch (error) {
-    alert("error al cargar contenido del curso");
+    console.error("Error al cargar contenido del curso:", error);
+    alert("Error al cargar contenido del curso");
   }
 }
 
-async function viewContent() {
-  videosContainer.innerHTML = "";
-
-  allContet.forEach((video) => {
-    // Crear una tarjeta para el video
-    const videoCard = document.createElement("div");
-    videoCard.className = "col-12 col-md-6 col-xl-4 mb-3";
-    videoCard.innerHTML = `
+function crearTarjeta(video) {
+  return `
+    <div class="col-12 col-md-6 col-xl-4 mb-3">
       <div class="card" style="background: #205aaf;">
         <div class="card-body text-white">
           <h5 class="card-title">${video.videoTitle}</h5>
-          <iframe width="100%" height="200" src="${video.videoURL}" title="YouTube video" allowfullscreen  loading="lazy"></iframe>
+          <iframe width="100%" height="200" src="${video.videoURL}" title="YouTube video" allowfullscreen loading="lazy"></iframe>
           <p class="card-text">${video.videoDescription}</p>
           <button type="button" class="btn btn-primary btnEditarVideo" data-id="${video.id}">Editar</button>
           <button type="button" class="btn btn-danger btnEliminarVideo" data-id="${video.id}">Eliminar</button>
         </div>
       </div>
-    `;
+    </div>
+  `;
+}
 
-    // Agregar la tarjeta del video al contenedor
-    videosContainer.appendChild(videoCard);
-  });
+async function viewContent() {
+  videosContainer.innerHTML = ""; // Limpiar el contenedor
+
+  const videoCards = allContet.map((video) => crearTarjeta(video)).join("");
+
+  videosContainer.innerHTML = videoCards;
+
   editarVideo();
   eliminarVideo();
 }
-/* cargar videos */
+
 function editarVideo() {
   const btnEditar = videosContainer.querySelectorAll(".btnEditarVideo");
   btnEditar.forEach((btn) =>
@@ -181,9 +182,7 @@ function eliminarVideo() {
 // Manejar el clic en el botón de eliminar en el modal
 document.getElementById("eliminarVideo").addEventListener("click", async () => {
   try {
-    await deleteContent(idVideo); // Llamar a la función de eliminación
-    // Aquí puedes agregar código para actualizar la interfaz después de la eliminación, si es necesario
-    alert("video eliminado");
+    await deleteContent(idVideo);
   } catch (error) {
     console.error("Error al eliminar el video:", error);
   }

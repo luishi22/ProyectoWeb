@@ -1,4 +1,4 @@
-/* import { onGetCourses } from "./cursosController"; */
+import { showToast } from "../showToast.js";
 
 /* inputImg es una constante del input tipo file para seleccionar img */
 const inputImg = document.getElementById("inputImg");
@@ -18,7 +18,7 @@ inputImg.addEventListener("change", ({ target: { files } }) => {
 
     reader.readAsDataURL(file); // Lee la imagen como Data URL
   } else {
-    alert("Por favor, selecciona un archivo de imagen válido.");
+    showToast("Por favor, selecciona un archivo de imagen válido.", "error");
     inputImg.value = "";
   }
 });
@@ -28,4 +28,10 @@ document.getElementById("closeModalCurso").addEventListener(`click`, (e) => {
   const imgElement = document.getElementById("imgCourse");
   imgElement.src = `../assets/icons/iconosCursos/iconBaseCurso.png`;
   inputImg.value = "";
+
+  document.getElementById(`addNombreCurso`).value = "";
+  document.getElementById(`inputImg`).value = "";
+  document.getElementById(`desCurso`).value = "";
+  document.getElementById(`duracionCurso`).value = "";
+  document.getElementById(`reqCursos`).value = "";
 });

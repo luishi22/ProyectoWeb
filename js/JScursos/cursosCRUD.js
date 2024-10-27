@@ -6,7 +6,7 @@ import {
   updateCourse,
   onGetCourses,
 } from "./cursosController.js";
-
+import { showToast } from "../showToast.js";
 /* constantes - inputs de los modales */
 /* modal para agregar cursos */
 const nombre = document.getElementById(`addNombreCurso`);
@@ -62,7 +62,7 @@ formAddCurso.addEventListener(`submit`, async (e) => {
     myModal.hide(); // Cerrar el modal
     e.target.reset();
   } else {
-    alert("llena los campos");
+    showToast("llena los campos", "error");
   }
 });
 
@@ -218,19 +218,15 @@ function eliminarCourse() {
   );
 }
 
-// Manejar el clic en el botón de eliminar en el modal
 document.getElementById("eliminarCurso").addEventListener("click", async () => {
   try {
-    await deleteCourse(courseId); // Llamar a la función de eliminación
-    // Aquí puedes agregar código para actualizar la interfaz después de la eliminación, si es necesario
-    alert("Curso eliminado");
+    await deleteCourse(courseId);
+    showToast("Curso eliminado con éxito");
   } catch (error) {
     console.error("Error al eliminar el curso:", error);
   }
 
   // Cerrar el modal después de eliminar
-  /* const tituloEliminar = document.getElementById("confirmDeleteModalLabel"); */
-
   const confirmDeleteModal = bootstrap.Modal.getInstance(
     document.getElementById("confirmDeleteModal")
   );
