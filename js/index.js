@@ -15,48 +15,47 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let currentCourses = 6;
-let showingAll = false; // Variable para controlar si se muestran todos los cursos o solo 3
+let currentCourses = 3;
+let showingAll = false;
 
-// Cargar los cursos desde Firestore y mostrarlos en el contenedor
 function loadCoursesFromFirestore(searchTerm = "") {
   const coursesRef = collection(db, "courses");
   const courseContainer = document.getElementById("courseContainer");
 
-  // Obtener los cursos en tiempo real
   onSnapshot(coursesRef, (snapshot) => {
-    courseContainer.innerHTML = ""; // Limpiar el contenedor antes de mostrar los cursos
+    courseContainer.innerHTML = "";
     const row = document.createElement("div");
     row.className = "row g-1";
 
-    snapshot.forEach((doc, index) => {
-      const course = doc.data();
+    let courseCount = 0;
 
-      // Filtrar los cursos en función del término de búsqueda
+    snapshot.forEach((doc) => {
+      const course = doc.data();
       if (course.title.toLowerCase().includes(searchTerm.toLowerCase())) {
         const col = document.createElement("div");
         col.className = "cardContainer col-12 col-md-6 col-lg-4";
         col.innerHTML = `
           <li class="TemaCartas" style="--color:#59A15B;--color2:#39909D">
             <a href="./html/cursos.html?id=${doc.id}" style="text-decoration: none; color: white;">
-              <img src="${course.image}" 
-                   alt="" loading="lazy" width="56" height="56" decoding="async" style="color:transparent">
+              <img src="${course.image}" alt="" loading="lazy" width="56" height="56" decoding="async" style="color:transparent">
               <h5 class="card-title">${course.title}</h5>
             </a>
           </li>`;
         row.appendChild(col);
+        courseCount++;
       }
-      
     });
 
-    courseContainer.appendChild(row); // Añadir la fila con todos los cursos
-    updateCourseVisibility(); // Actualizar la visibilidad de los cursos para mostrar solo los primeros 3
+    courseContainer.appendChild(row);
+    updateCourseVisibility();
+
+    const toggleButton = document.getElementById("toggleButton");
+    toggleButton.style.display = courseCount > 3 ? "block" : "none";
   }, (error) => {
     console.error("Error al leer los cursos:", error);
   });
 }
 
-// Función para actualizar la visibilidad de los cursos
 function updateCourseVisibility() {
   const coursesElements = document.querySelectorAll(".cardContainer");
   coursesElements.forEach((course, index) => {
@@ -64,54 +63,30 @@ function updateCourseVisibility() {
   });
 }
 
-// Función para alternar entre mostrar todos los cursos o solo 3
 function toggleCourseVisibility() {
   const toggleButton = document.getElementById("toggleButton");
 
   if (showingAll) {
-    // Mostrar solo 3 cursos
-    currentCourses = 6;
+    currentCourses = 3;
     toggleButton.textContent = "Mostrar más cursos";
   } else {
-    // Mostrar todos los cursos
     currentCourses = document.querySelectorAll(".cardContainer").length;
     toggleButton.textContent = "Mostrar menos cursos";
   }
 
-  showingAll = !showingAll; // Cambiar el estado
+  showingAll = !showingAll;
   updateCourseVisibility();
 }
 
-// Llamar a la función para cargar los cursos desde Firestore
 document.addEventListener("DOMContentLoaded", () => {
-  loadCoursesFromFirestore(); // Cargar todos los cursos al inicio
+  loadCoursesFromFirestore();
 
-  // Evento para alternar entre mostrar más o menos cursos
   const toggleButton = document.getElementById("toggleButton");
   toggleButton.addEventListener("click", toggleCourseVisibility);
 
-  // Filtrar los cursos según el término ingresado en el campo de búsqueda
   const searchInput = document.getElementById("autocomplete-0-input");
   searchInput.addEventListener("input", function () {
     const searchTerm = this.value;
-    loadCoursesFromFirestore(searchTerm); // Cargar los cursos filtrados
+    loadCoursesFromFirestore(searchTerm);
   });
 });
-
-
-
-
-document.getElementById("toggleButton").addEventListener("click", () => {
-  if (currentCourses === coursesPerPage) {
-    currentCourses = totalCourses;
-    document.getElementById("toggleButton").textContent =
-      "Mostrar menos cursos";
-  } else {
-    currentCourses = coursesPerPage;
-    document.getElementById("toggleButton").textContent = "Mostrar más cursos";
-  }
-  updateCourseVisibility();
-});
-
-//generateCourses();
-/** FIN DE CODIGO PARA EL MAIN */
