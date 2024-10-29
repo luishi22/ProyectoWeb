@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDoc,getDocs,query, where } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 import { showToast } from "../js/showToast.js "
 
 const firebaseConfig = {
@@ -44,21 +44,38 @@ let idMarcador
 document.addEventListener("DOMContentLoaded", async () => {
     const div = document.getElementById("courses")
     const collectionCertification = collection(db, "certifications")
-
-    onSnapshot(collectionCertification, (sn) => {
+    
+    onSnapshot(collectionCertification, async (sn) => {
         div.innerHTML = ``
         const row = document.createElement("div");
         row.className = "row g-3";
-        sn.forEach((doc) => {
+        const cardPromises =sn.docs.map(async (doc) => {
             const certification = doc.data()
             const cert = doc.id;
             const col = document.createElement("div")
             col.className = "col-12 col-md-6 col-lg-4"
+            let courseImageUrl = "/assets/img/certi.png"; // URL por defecto si no se encuentra
+            const coursesRef = collection(db, "courses");
+            const q = query(coursesRef, where("title", "==", certification.curso));
+            const courseSnap =  await getDocs(q);
+            if (!courseSnap.empty) {
+                const courseDoc = courseSnap.docs[0].data(); // Obtiene el primer documento que coincide
+                courseImageUrl = courseDoc.image; // Asigna la URL de la imagen desde "courses"
+            }
             col.innerHTML = `
             <div class="card efecto">
   
   <div class="card-body">
-  <img src="/assets/img/certi.png" width="20px" height="175px" class="card-img" alt="...">
+  <figure class="mb-0 me-3 d-flex justify-content-center align-items-center">
+          <span class="me-1">
+                    <img alt="" loading="lazy" width="100" height="100" decoding="async" data-nimg="1" src="${courseImageUrl}" />
+                </span>
+                <span class="mx-1">X</span>
+                <span class="ms-1">
+                    <img alt="" loading="lazy" width="120" height="65" decoding="async" data-nimg="1" src="/assets/img/logo2.png" />
+                </span>
+    </figure>
+    <br>
     <h5 class="card-title">${certification.title}</h5>
     <p class="card-text">Para el curso: ${certification.curso}</p>
     <p class="card-text">${certification.description}</p>
@@ -71,23 +88,26 @@ document.addEventListener("DOMContentLoaded", async () => {
   </div>
 </div> `
             row.appendChild(col)
+            
         })
+        await Promise.all(cardPromises);
         div.appendChild(row)
         cargarCursos()
         const btnsDelete = div.querySelectorAll(".btn-delete");
         btnsDelete.forEach(btn => {
             btn.addEventListener("click", (e) => {
                 const id = e.currentTarget.getAttribute("data-id")
+                console.log(id)
                 deleteDoc(doc(db, "certifications", id));
-                showToast(`Curso eliminado`, "error")
+                showToast(`Curso eliminado`, "error")   
 
             })
         })
+        const btnAddCertificacion = document.getElementById("bnt-add-certificacion");
         const btnsEdit = div.querySelectorAll(".btn-edit");
         btnsEdit.forEach(btn => {
             btn.addEventListener("click", async (e) => {
                 const id = (e.currentTarget.getAttribute("data-id"))
-                console.log(id)
                 const docSnap = await getDoc(doc(db, "certifications", id));
                 if (docSnap.exists()) {
                     const task = docSnap.data()
@@ -96,7 +116,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     certificacionForm["precio-certificacion"].value = task.precio
                     certificacionForm["curso-certificacion"].value = task.curso
                     certificacionForm["des-certificacion"].value = task.description
-                    document.getElementById("bnt-add-certificacion").textContent = "Editar"
+                   
+                    btnAddCertificacion.textContent = "Editar certificación";
+                    console.log(btnAddCertificacion)
                     document.getElementById("tituloModal").textContent = "Editar certificación"
                     idMarcador = id;
 
@@ -107,7 +129,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     //reiniciar el id si se cancela el editar
                     signinModal.addEventListener('hidden.bs.modal', () => {
                         certificacionForm.reset()
-                        document.getElementById("bnt-add-certificacion").textContent = "Agregar"
+                        document.getElementById("bnt-add-certificacion").textContent = "Agregar certificación"
                         document.getElementById("tituloModal").textContent = "Registrar nueva certificación"
                         idMarcador = null
                     })
@@ -167,7 +189,7 @@ certificacionForm.addEventListener("submit", async (e) => {
     const precio = certificacionForm["precio-certificacion"]
     const curso = certificacionForm["curso-certificacion"]
     const description = certificacionForm["des-certificacion"]
-    if (document.getElementById("bnt-add-certificacion").textContent == "Editar") {
+    if (document.getElementById("bnt-add-certificacion").textContent == "Editar certificación") {
         const data = {
             title: title.value,
             precio: precio.value,
