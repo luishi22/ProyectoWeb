@@ -2,6 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/fireba
 import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDoc,getDocs,query, where } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 import { showToast } from "../js/showToast.js "
 
+const btnAddCertificacion = document.getElementById("bnt-certificacion");
 const firebaseConfig = {
     apiKey: "AIzaSyDzIK9G9v1NalhLyQZW83z2IG3Qi8vDuxs",
     authDomain: "appcursos-4f990.firebaseapp.com",
@@ -67,12 +68,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   <div class="card-body">
   <figure class="mb-0 me-3 d-flex justify-content-center align-items-center">
-          <span class="me-1">
+          <span class="me-3">
                     <img alt="" loading="lazy" width="100" height="100" decoding="async" data-nimg="1" src="${courseImageUrl}" />
                 </span>
                 <span class="mx-1">X</span>
-                <span class="ms-1">
-                    <img alt="" loading="lazy" width="120" height="65" decoding="async" data-nimg="1" src="/assets/img/logo2.png" />
+                <span class="ms-3">
+                    <img alt="" loading="lazy" width="100" height="100" decoding="async" data-nimg="1" src="/assets/img/logo1.png" />
                 </span>
     </figure>
     <br>
@@ -103,7 +104,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             })
         })
-        const btnAddCertificacion = document.getElementById("bnt-add-certificacion");
         const btnsEdit = div.querySelectorAll(".btn-edit");
         btnsEdit.forEach(btn => {
             btn.addEventListener("click", async (e) => {
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     //reiniciar el id si se cancela el editar
                     signinModal.addEventListener('hidden.bs.modal', () => {
                         certificacionForm.reset()
-                        document.getElementById("bnt-add-certificacion").textContent = "Agregar certificación"
+                        document.getElementById("bnt-certificacion").textContent = "Agregar certificación"
                         document.getElementById("tituloModal").textContent = "Registrar nueva certificación"
                         idMarcador = null
                     })
@@ -158,7 +158,7 @@ async function editarCertificacion(data) {
         modal.hide()
 
         showToast("Curso editado correctamente")
-        document.getElementById("bnt-add-certificacion").textContent = "Agregar"
+        document.getElementById("bnt-certificacion").textContent = "Agregar"
     } catch (error) {
         showToast("Error al editar el curso", "error")
     }
@@ -189,7 +189,7 @@ certificacionForm.addEventListener("submit", async (e) => {
     const precio = certificacionForm["precio-certificacion"]
     const curso = certificacionForm["curso-certificacion"]
     const description = certificacionForm["des-certificacion"]
-    if (document.getElementById("bnt-add-certificacion").textContent == "Editar certificación") {
+    if (document.getElementById("bnt-certificacion").textContent == "Editar certificación") {
         const data = {
             title: title.value,
             precio: precio.value,

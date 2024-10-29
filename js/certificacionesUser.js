@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDocs ,query, where} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 import { showToast } from "../js/showToast.js "
 
 const firebaseConfig = {
@@ -38,11 +38,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         .map(doc => doc.data().certificationId); // Obtener los certificationId
     console.log(comprasIds);
     console.log(comprasIds)
-    onSnapshot(collectionCertification, (sn) => {
+    onSnapshot(collectionCertification, async(sn) => {
         div.innerHTML = ``
         const row = document.createElement("div");
         row.className = "row g-3";
-        sn.forEach((doc) => {
+        const cardPromises =sn.docs.map(async (doc) => {
             const certification = doc.data()
             const cert = doc.id;
             const col = document.createElement("div")
@@ -59,13 +59,28 @@ document.addEventListener("DOMContentLoaded", async () => {
                 buttonLabel = comprasIds.includes(cert) ? "Realizar Test" : "Obtener Cert.";
                 targetModal = "#modalinv"
             }
-
+            let courseImageUrl = "/assets/img/certi.png"; // URL por defecto si no se encuentra
+            const coursesRef = collection(db, "courses");
+            const q = query(coursesRef, where("title", "==", certification.curso));
+            const courseSnap =  await getDocs(q);
+            if (!courseSnap.empty) {
+                const courseDoc = courseSnap.docs[0].data(); // Obtiene el primer documento que coincide
+                courseImageUrl = courseDoc.image; // Asigna la URL de la imagen desde "courses"
+            }
 
             col.innerHTML = `
             <div class="card">
-            
+             <figure class="mb-0 me-3 d-flex justify-content-center align-items-center">
+          <span class="me-1">
+                    <img alt="" loading="lazy" width="90" height="70" decoding="async" data-nimg="1" src="${courseImageUrl}" />
+                </span>
+                <span class="mx-1">X</span>
+                <span class="ms-3">
+                    <img alt="" loading="lazy" width="130" height="75" decoding="async" data-nimg="1" src="/assets/img/logo1.png" />
+                </span>
+    </figure>
                 <div class="card-body">
-                <img src="/assets/img/certi.png" alt="Icono del curso" class="card-img">
+                
                     <div class="p-1">
                         <h5 class="card-title">${certification.title}</h5>
                         <p class="card-text">Para el curso: ${certification.curso}</p>
@@ -78,6 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             </div> `
             row.appendChild(col)
         })
+        await Promise.all(cardPromises);
         div.appendChild(row)
         const btnsDelete = div.querySelectorAll(".btn-comprar");
         btnsDelete.forEach(btn => {

@@ -4,13 +4,13 @@
     color: white;
     display: flex; 
     align-items: center;
-    height: 9rem; 
+    height: 15rem; 
     padding: 1rem;
 }
 .card img {
     width: 3rem; 
     margin-right: 1rem; 
-    flex-shrink: 0; /* Evita que la imagen se reduzca */
+    flex-shrink: 0; 
 }
 .card-body {
     display: flex;
