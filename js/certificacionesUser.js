@@ -72,11 +72,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             <div class="card">
              <figure class="mb-0 me-3 d-flex justify-content-center align-items-center">
           <span class="me-1">
-                    <img alt="" loading="lazy" width="90" height="70" decoding="async" data-nimg="1" src="${courseImageUrl}" />
+                    <img alt="" loading="lazy" width="90" height="50" decoding="async" data-nimg="1" src="${courseImageUrl}" />
                 </span>
                 <span class="mx-1">X</span>
                 <span class="ms-3">
-                    <img alt="" loading="lazy" width="130" height="75" decoding="async" data-nimg="1" src="/assets/img/logo1.png" />
+                    <img alt="" loading="lazy" width="120" height="55" decoding="async" data-nimg="1" src="/assets/img/logo1.png" />
                 </span>
     </figure>
                 <div class="card-body">
