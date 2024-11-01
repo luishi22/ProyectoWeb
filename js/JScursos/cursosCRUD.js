@@ -5,6 +5,7 @@ import {
   deleteCourse,
   updateCourse,
   onGetCourses,
+  onGetCertificationById,
 } from "./cursosController.js";
 import { showToast } from "../showToast.js";
 /* constantes - inputs de los modales */
@@ -205,15 +206,21 @@ function eliminarCourse() {
   const btnEliminar = courseContainer.querySelectorAll(".btnEliminar");
 
   btnEliminar.forEach((btn) =>
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", async (e) => {
       // Almacenar el ID del curso en la variable
       courseId = e.currentTarget.dataset.id;
+      const curso = allCourses.find((course) => course.id === courseId);
+      const validacion = await onGetCertificationById(curso.title);
 
-      // Mostrar el modal de confirmación
-      const confirmDeleteModal = new bootstrap.Modal(
-        document.getElementById("confirmDeleteModal")
-      );
-      confirmDeleteModal.show();
+      if (validacion) {
+        showToast("Eliminar primero las certificaciones.", "error");
+      } else {
+        // Mostrar el modal de confirmación
+        const confirmDeleteModal = new bootstrap.Modal(
+          document.getElementById("confirmDeleteModal")
+        );
+        confirmDeleteModal.show();
+      }
     })
   );
 }
