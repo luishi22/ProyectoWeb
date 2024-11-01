@@ -5,6 +5,7 @@ import {
   doc,
   setDoc,
   getDoc,
+  getDocs,
   updateDoc,
   deleteDoc,
   onSnapshot,
@@ -127,4 +128,26 @@ export const onGetContetCourseById = async (idCourse, callback) => {
     where("idCourse", "==", idCourse)
   );
   onSnapshot(consulta, callback);
+};
+
+export const onGetCertificationById = async (idCourse) => {
+  const consulta = query(
+    collection(db, "certifications"),
+    where("curso", "==", idCourse.trim())
+  );
+
+  try {
+    const querySnapshot = await getDocs(consulta);
+
+    if (!querySnapshot.empty) {
+      // La certificación existe
+      return true;
+    } else {
+      // La certificación no existe
+      return false;
+    }
+  } catch (error) {
+    console.log("Error al obtener la certificación:", error);
+    return false;
+  }
 };
