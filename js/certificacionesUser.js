@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDocs ,query, where} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDocs ,query, where,documentId} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 import { showToast } from "../js/showToast.js "
 
 const firebaseConfig = {
@@ -60,14 +60,17 @@ document.addEventListener("DOMContentLoaded", async () => {
                 targetModal = "#modalinv"
             }
             let courseImageUrl = "/assets/img/certi.png"; // URL por defecto si no se encuentra
+            let cadena= certification.curso
+            let separador= cadena.split("-");
             const coursesRef = collection(db, "courses");
-            const q = query(coursesRef, where("title", "==", certification.curso));
+            let idActual=separador[1]+""
+            const q = query(coursesRef, where(documentId(), "==", `${idActual.trim()}`));
             const courseSnap =  await getDocs(q);
             if (!courseSnap.empty) {
                 const courseDoc = courseSnap.docs[0].data(); // Obtiene el primer documento que coincide
                 courseImageUrl = courseDoc.image; // Asigna la URL de la imagen desde "courses"
             }
-
+            
             col.innerHTML = `
             <div class="card">
              <figure class="mb-0 me-3 d-flex justify-content-center align-items-center">
@@ -83,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 
                     <div class="p-1">
                         <h5 class="card-title">${certification.title}</h5>
-                        <p class="card-text">Para el curso: ${certification.curso}</p>
+                        <p class="card-text">Para el curso: ${separador[0]}</p>
                         <p class="card-text"> $${certification.precio}</p>
                     </div>
                     <button title="Obtener Certificación" class="btn btn-success btn-comprar" data-bs-toggle="modal" data-bs-target="${targetModal}" data-id="${cert}" id="${cert}">

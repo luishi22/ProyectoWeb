@@ -210,8 +210,8 @@ function eliminarCourse() {
       // Almacenar el ID del curso en la variable
       courseId = e.currentTarget.dataset.id;
       const curso = allCourses.find((course) => course.id === courseId);
-      const validacion = await onGetCertificationById(curso.title);
-
+      const validacion = await onGetCertificationById(curso.title + " - " + curso.id);
+      console.log(curso.title + "-" + curso.id)
       if (validacion) {
         showToast("Eliminar primero las certificaciones.", "error");
       } else {

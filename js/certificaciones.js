@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDoc,getDocs,query, where } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, deleteDoc, getDoc,getDocs,query, where,documentId } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 import { showToast } from "../js/showToast.js "
 
 const btnAddCertificacion = document.getElementById("bnt-certificacion");
@@ -56,13 +56,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             const col = document.createElement("div")
             col.className = "col-12 col-md-6 col-lg-4"
             let courseImageUrl = "/assets/img/certi.png"; // URL por defecto si no se encuentra
+            let cadena= certification.curso
+            let separador= cadena.split("-");
             const coursesRef = collection(db, "courses");
-            const q = query(coursesRef, where("title", "==", certification.curso));
+            let idActual=separador[1]+""
+            const q = query(coursesRef, where(documentId(), "==", `${idActual.trim()}`));
             const courseSnap =  await getDocs(q);
             if (!courseSnap.empty) {
                 const courseDoc = courseSnap.docs[0].data(); // Obtiene el primer documento que coincide
                 courseImageUrl = courseDoc.image; // Asigna la URL de la imagen desde "courses"
             }
+            
             col.innerHTML = `
             <div class="card efecto">
   
@@ -78,7 +82,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     </figure>
     <br>
     <h5 class="card-title">${certification.title}</h5>
-    <p class="card-text">Para el curso: ${certification.curso}</p>
+    <p class="card-text">Para el curso: ${separador[0]}</p>
     <p class="card-text">${certification.description}</p>
     <p class="card-text bold"> $${certification.precio} </p>
     <div class="btn-container mt-auto d-flex justify-content-end">
@@ -175,7 +179,7 @@ async function cargarCursos() {
         sn.forEach((doc) => {
             const courses = doc.data()
             const optionCourses = document.createElement("option")
-            optionCourses.value = courses.title;
+            optionCourses.value = `${courses.title} - ${doc.id}`;
             optionCourses.textContent = courses.title;
             selectCourses.appendChild(optionCourses)
         })
@@ -188,6 +192,7 @@ certificacionForm.addEventListener("submit", async (e) => {
     const title = certificacionForm["titulo-certificacion"]
     const precio = certificacionForm["precio-certificacion"]
     const curso = certificacionForm["curso-certificacion"]
+
     const description = certificacionForm["des-certificacion"]
     if (document.getElementById("bnt-certificacion").textContent == "Editar certificación") {
         const data = {
