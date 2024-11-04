@@ -133,7 +133,7 @@ export const onGetContetCourseById = async (idCourse, callback) => {
 export const onGetCertificationById = async (idCourse) => {
   const consulta = query(
     collection(db, "certifications"),
-    where("curso", "==", idCourse.trim())
+    where("cursoId", "==", ` ${idCourse}`)
   );
 
   try {

@@ -23,13 +23,14 @@ const db = getFirestore(app);
 const certificacionForm = document.getElementById("form-registrar-curso")
 // funciones directas de firebase
 // llama a las funciones de firebase para guardar ladata en la bd no sql
-const saveCertification = async (title, precio, curso, description) => {
+const saveCertification = async (title, precio, curso, description,cursoId) => {
     const certificationRef = doc(collection(db, "certifications"))
     await setDoc(certificationRef, {
         title,
         precio,
         curso,
         description,
+        cursoId,
     })
 
     const signinModal = document.querySelector('#addCertificationModal')
@@ -192,6 +193,8 @@ certificacionForm.addEventListener("submit", async (e) => {
     const title = certificacionForm["titulo-certificacion"]
     const precio = certificacionForm["precio-certificacion"]
     const curso = certificacionForm["curso-certificacion"]
+    let cadena= curso.value
+    let separador= cadena.split("-");
 
     const description = certificacionForm["des-certificacion"]
     if (document.getElementById("bnt-certificacion").textContent == "Editar certificación") {
@@ -199,14 +202,15 @@ certificacionForm.addEventListener("submit", async (e) => {
             title: title.value,
             precio: precio.value,
             curso: curso.value,
-            description: description.value
+            description: description.value,
+            cursoId: separador[1]
         }
         editarCertificacion(data)
 
 
     } else {
 
-        await saveCertification(title.value, precio.value, curso.value, description.value)
+        await saveCertification(title.value, precio.value, curso.value, description.value,separador[1]+"")
 
     }
     title.value = ""
